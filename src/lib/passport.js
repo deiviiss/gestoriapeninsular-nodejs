@@ -32,6 +32,8 @@ passport.use('local.login', new localStrategy({
     return done(null, false, req.flash('fail', 'Usuario no existe'));
   }
 
+  //Modificar el mensaje de success y crear la ruta para el mensaje fail
+
 }));
 
 
