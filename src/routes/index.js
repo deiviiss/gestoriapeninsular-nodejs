@@ -4,9 +4,9 @@
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 
-//routes
+//route index
 router.get('/', (req, res) => {
-  res.send('Hello World')
+  res.send('works!')
 })
 
 module.exports = router;

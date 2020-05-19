@@ -1,0 +1,70 @@
+<div class="container p-1">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h1>Registro Cliente</h1>
+        </div>
+        <div class="card-body">
+          <form action="/links/edit/{{link.idtramites}}" method="post">
+
+            <div class="form group">
+              <label for="cliente">Nombre completo</label>
+              <p>{{link.cliente}}</p>
+            </div>
+
+            <div class="form group">
+              <label for="curp">Curp</label>
+              <input type="text" value="{{link.curp}}" class="form-control" name="curp">
+            </div>
+
+            <div class="form group">
+              <label for="nss">NSS</label>
+              <input type="text" value="{{link.nss}}" class="form-control" name="nss">
+            </div>
+
+            {{!-- <div class="form group">
+              <label for="monto">Monto a recibir</label>
+              <input type="text" class="form-control" name="monto">
+            </div> --}}
+
+            {{!-- <div class="form group">
+              <label for="afore">Afore</label>
+              <input type="text" class="form-control" name="afore">
+            </div> --}}
+
+            <div class="form group">
+              <label for="sdescontadas">Semanas descontadas</label>
+              <input type="text" value="{{link.sdescontadas}}" class="form-control" name="sdescontadas">
+            </div>
+
+            <div class="form group">
+              <label for="scotizadas">Semanas cotizadas</label>
+              <input type="text" value="{{link.scotizadas}}" class="form-control" name="scotizadas">
+            </div>
+
+            <div class="form group">
+              <label for="direccion">Dirección</label>
+              <input type="text" value="{{link.direccion}}" class="form-control" name="direccion">
+            </div>
+
+            <div class="form group">
+              <label for="telefono">Número telefónico</label>
+              <input type="text" value="{{link.telefono}}" class="form-control" name="telefono">
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block">Guardar</button>
+            </div>
+
+            {{!-- <div class="form group">
+              <label for="outsourcing">Outsourcig</label>
+              <input type="text" class="form-control" name="outsourcing">
+            </div> --}}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
