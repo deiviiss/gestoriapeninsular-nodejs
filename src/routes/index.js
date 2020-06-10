@@ -6,7 +6,7 @@ const router = express.Router(); //metodo de express que devuelve un objeto para
 
 //route index
 router.get('/', (req, res) => {
-  res.send('works!')
+  res.render('index.hbs')
 })
 
 module.exports = router;

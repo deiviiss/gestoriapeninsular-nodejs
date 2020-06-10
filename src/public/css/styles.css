@@ -1,28 +1,172 @@
 /* estilos */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 body {
-  background-color: #016eb2;
+  background: #f2f2f2;
+  font-family: "Roboto", Arial;
+  border-top: 30px solid #343460;
 }
 
-.row {
-  margin-top: 4%;
+.wrap {
+  width: 90%;
+  max-width: 950px;
+  padding: 40px;
+  margin: auto;
+  background: #fff;
+  -webkit-box-shadow: 0px 0px 3px grey;
+  box-shadow: 0px 0px 3px grey;
 }
 
-/* ----------------------------------------- footer */
-.footer {
-  background-color: white;
-  display: flex;
-  align-items: center;
-  height: 100px;
+.container-form {
   width: 100%;
+  color: white;
+  padding: 1.1em;
 }
-.footer a {
-  color: #016eb2;
+
+.container-form h2 {
+  color: #343460;
+  font-family: "Roboto", Arial;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.container-form .form__register {
+  width: 100%;
+  margin: auto;
+}
+
+.container-form .form__register .form__input-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.container-form .form__register .form__input-item input[type="text"],
+.container-form .form__register .form__input-item [type="tel"] {
+  font-family: "Roboto", Arial;
+  font-size: 16px;
+  color: #343460;
+  width: 100%;
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #87b4cf;
+}
+
+.container-form .form__register .form__input-item input[type="text"]:focus,
+.container-form .form__register .form__input-item input[type="text"]:active,
+.container-form .form__register .form__input-item [type="tel"]:focus,
+.container-form .form__register .form__input-item [type="tel"]:active {
+  outline: none;
+  border-bottom: 2px solid #343460;
+}
+
+.container-form .form__register .form__input-item input[type="text"].error,
+.container-form .form__register .form__input-item [type="tel"].error {
+  outline: none;
+  border-bottom: 2px solid #d32f2f;
+}
+
+.container-form
+  .form__register
+  .form__input-item
+  input[type="text"].error
+  + label,
+.container-form .form__register .form__input-item [type="tel"].error + label {
+  color: #d32f2f;
+}
+
+.container-form .form__register .form__input-item p {
+  color: #343460;
+}
+
+.container-form .form__register .form__input-item label {
+  color: #343460;
+}
+
+.container-form .form__register .form__input-item label.label {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  line-height: 16px;
+  margin-left: 16px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.container-form .form__register .form__input-item label.active {
+  top: -16px;
+  font-size: 12px;
+  line-height: 12px;
+  color: #b7d1df;
+}
+
+.container-form .form__register .form__input-item.radio label {
+  display: inline-block;
   cursor: pointer;
-  font-size: 14px;
-  padding-left: 30px;
-  text-decoration: none;
+  color: #343460;
+  position: relative;
+  padding: 5px 15px 5px 51px;
+  font-size: 1em;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
-.footer a:hover {
-  text-decoration: underline;
+
+.container-form .form__register .form__input-item.radio label:hover {
+  background: #343460;
+  color: white;
 }
+
+.container-form .form__register .form__input-item.radio label:before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  left: 25px;
+  top: 7px;
+  border-radius: 50%;
+  background: none;
+  border: 2px solid #343460;
+}
+
+.container-form .form__register .form__input-item.error label {
+  color: #d32f2f;
+}
+
+.container-form .form__register .form__input-item.error label:hover {
+  background: #d32f2f;
+}
+
+.container-form .form__register .form__input-item.error label:before {
+  border: 2px solid #d32f2f;
+}
+
+.container-form .form__register .form__input-item.radio input[type="radio"] {
+  display: none;
+}
+
+.container-form
+  .form__register
+  .form__input-item.radio
+  input[type="radio"]:checked
+  + label:before {
+  display: none;
+}
+
+.container-form
+  .form__register
+  .form__input-item.radio
+  input[type="radio"]:checked
+  + label {
+  padding: 5px 15px;
+  background: #343460;
+  border-radius: 2px;
+  color: white;
+}
+/*# sourceMappingURL=styles.css.map */

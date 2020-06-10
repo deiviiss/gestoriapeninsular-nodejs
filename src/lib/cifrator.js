@@ -1,26 +1,27 @@
-//cifra los password
+//cifra y compara los password
 
 const bcryptjs = require('bcryptjs');
-const helpers = {};
+
+const cifrator = {};
 
 
 //metodos del objeto
 
 //encripta contraseña
-helpers.encript = async (password) => {
-  const salt = await bcryptjs.genSalt(10);//metodo de bcryptjs que crea una hash
-  const hashPassword = await bcryptjs.hash(password, salt); //metodo de bcryptjs que cifra la contraseña
+cifrator.encryptaPassword = async (password) => {
+  const salt = await bcryptjs.genSalt(10);//metodo de bcryptjs que crea una cadena de caraccteres (salt)
+  const hashPassword = await bcryptjs.hash(password, salt);//metodo de bcryptjs que cifra la contraseña
   return hashPassword;
 };
 
 //compara contraseña
-helpers.comparaPassword = async (password, savedPassword) => {
-  console.log('Este es ', password)
+cifrator.comparaPassword = async (password, savedPassword) => {
+  console.log('Comparación de los pass', password, savedPassword)
   try {
-    return await bcryptjs.compare(password, savedPassword)
+    return await bcryptjs.compare(password, savedPassword);
   } catch (e) {
     console.log(e)
   }
 };
 
-module.exports = helpers;
+module.exports = cifrator;
