@@ -1,0 +1,159 @@
+/* estilos */
+
+//Variables
+
+$color-primary: #343460;
+$color-light-primary: #87b4cf;
+$color-white: #f2f2f2;
+$color-divider: #b7d1df;
+$color-red: #d32f2f;
+
+$borde: 2px;
+$font-family: "Roboto", Arial;
+
+//basic estilos
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url("/img/bacgroun.jpg");
+  font-family: "Roboto", Arial;
+  border-top: 30px solid $color-primary;
+}
+
+.wrap {
+  width: 90%;
+  max-width: 950px;
+  padding: 40px;
+  margin: auto;
+  background: #fff;
+  box-shadow: 0px 0px 3px grey;
+}
+
+.container-form {
+  width: 100%;
+  color: white;
+  padding: 1.1em;
+
+  h2 {
+    color: $color-primary;
+    font-family: $font-family;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
+
+  .form__register {
+    width: 100%;
+    margin: auto;
+
+    .form__input-item {
+      position: relative;
+      margin-bottom: 32px;
+
+      input[type="text"],
+      [type="tel"] {
+        font-family: $font-family;
+        font-size: 16px;
+        color: $color-primary;
+        width: 100%;
+        outline: none;
+        background: none;
+        border: none;
+        border-bottom: $borde solid $color-light-primary;
+        &:focus,
+        &:active {
+          outline: none;
+          border-bottom: $borde solid $color-primary;
+        }
+        &.error {
+          outline: none;
+          border-bottom: $borde solid $color-red;
+          + label {
+            color: $color-red;
+          }
+        }
+      }
+
+      p {
+        color: $color-primary;
+      }
+
+      label {
+        color: $color-primary;
+        &.label {
+          position: absolute;
+          top: 0px;
+          left: 0;
+          // font-size: 16px;
+          line-height: 16px;
+          margin-left: 16px;
+          transition: all 0.3s ease;
+        }
+        &.active {
+          top: -16px;
+          font-size: 12px;
+          line-height: 12px;
+          color: $color-divider;
+        }
+      }
+
+      &.radio label {
+        display: inline-block;
+        cursor: pointer;
+        color: $color-primary;
+        position: relative;
+        padding: 5px 15px 5px 51px;
+        font-size: 1em;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        &:hover {
+          background: rgba($color-primary, 1);
+          color: white;
+        }
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 17px;
+          height: 17px;
+          position: absolute;
+          left: 25px;
+          top: 7px;
+          border-radius: 50%;
+          background: none;
+          border: $borde solid $color-primary;
+        }
+      }
+
+      &.error {
+        label {
+          color: $color-red;
+          &:hover {
+            background: rgba($color-red, 2);
+          }
+          &:before {
+            border: $borde solid $color-red;
+          }
+        }
+      }
+
+      &.radio {
+        input[type="radio"] {
+          display: none;
+          &:checked + label:before {
+            display: none;
+          }
+          &:checked + label {
+            padding: 5px 15px;
+            background: $color-primary;
+            border-radius: $borde;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
