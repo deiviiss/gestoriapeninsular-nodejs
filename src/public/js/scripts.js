@@ -1,7 +1,7 @@
 var form = document.formulario_cliente;
 var elementos = form.elements;
 
-console.log(elementos);
+// console.log(elementos);
 
 //funciones
 
@@ -17,36 +17,26 @@ var validarInputs = function () {
       }
     }
   };
-
-  /*
-  //compara passwords
-  if (elementos.password.value !== elementos.password2.value) {
-    elementos.passwpod.value = ''
-    elementos.password2.value = ''
-    elementos.password.className = elementos.password.className + ' error'
-    elementos.password2.className = elementos.password2.className + ' error'
-  } else {
-    elementos.password.className = elementos.password.replace('error', '')
-    elementos.password2.className = elementos.password2.replace('error', '')
-  }
-  */
   return true;
 };
 
-var validarRadios = () => {
-  var opciones = document.getElementsByClassName('service');
+var validarRadios = function () {
+  var opciones = document.getElementsByName('service');
   var resultado = false;
+  console.log(opciones);
 
-  //rocerre buscando radio
+  //recorre buscando radio
   for (var i = 0; i < elementos.length; i++) {
     if (elementos[i].type == 'radio' && elementos[i].name == 'service') {
+
       //recorre los radio buscando checked
-      for (var o = 0; 0 < opciones.length; o++) {
+      for (var o = 0; o < opciones.length; o++) {
         if (opciones[o].checked) {
           resultado = true;
           break;
         }
       }
+      console.log('Las opciones ', opciones);
       if (resultado == false) {
         elementos[i].parentNode.className = elementos[i].parentNode.className + ' error';
         console.log('El campo servicio no está completo')
@@ -68,7 +58,7 @@ var enviar = function (e) {
     e.preventDefault();
   } else {
     console.log('Envia los datos')
-    e.preventDefault();
+    // e.preventDefault();
   }
 };
 

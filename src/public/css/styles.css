@@ -3,36 +3,54 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
-  background: #f2f2f2;
+  background: url("/img/background.jpg");
   font-family: "Roboto", Arial;
-  border-top: 30px solid #343460;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: black;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/*Estilos formulario*/
 .wrap {
   width: 90%;
   max-width: 950px;
-  padding: 40px;
+  padding: 20px 40px;
   margin: auto;
   background: #fff;
   -webkit-box-shadow: 0px 0px 3px grey;
-  box-shadow: 0px 0px 3px grey;
+          box-shadow: 0px 0px 3px grey;
+}
+
+h2 {
+  color: #343460;
+  font-family: "Roboto", Arial;
+  margin-bottom: 1.5em;
+  font-size: 1.5em;
 }
 
 .container-form {
   width: 100%;
   color: white;
   padding: 1.1em;
-}
-
-.container-form h2 {
-  color: #343460;
-  font-family: "Roboto", Arial;
-  text-align: center;
-  margin-bottom: 0.5em;
 }
 
 .container-form .form__register {
@@ -46,7 +64,8 @@ body {
 }
 
 .container-form .form__register .form__input-item input[type="text"],
-.container-form .form__register .form__input-item [type="tel"] {
+.container-form .form__register .form__input-item [type="tel"],
+.container-form .form__register .form__input-item [type="password"] {
   font-family: "Roboto", Arial;
   font-size: 16px;
   color: #343460;
@@ -57,26 +76,25 @@ body {
   border-bottom: 2px solid #87b4cf;
 }
 
-.container-form .form__register .form__input-item input[type="text"]:focus,
-.container-form .form__register .form__input-item input[type="text"]:active,
+.container-form .form__register .form__input-item input[type="text"]:focus, .container-form .form__register .form__input-item input[type="text"]:active,
 .container-form .form__register .form__input-item [type="tel"]:focus,
-.container-form .form__register .form__input-item [type="tel"]:active {
+.container-form .form__register .form__input-item [type="tel"]:active,
+.container-form .form__register .form__input-item [type="password"]:focus,
+.container-form .form__register .form__input-item [type="password"]:active {
   outline: none;
   border-bottom: 2px solid #343460;
 }
 
 .container-form .form__register .form__input-item input[type="text"].error,
-.container-form .form__register .form__input-item [type="tel"].error {
+.container-form .form__register .form__input-item [type="tel"].error,
+.container-form .form__register .form__input-item [type="password"].error {
   outline: none;
   border-bottom: 2px solid #d32f2f;
 }
 
-.container-form
-  .form__register
-  .form__input-item
-  input[type="text"].error
-  + label,
-.container-form .form__register .form__input-item [type="tel"].error + label {
+.container-form .form__register .form__input-item input[type="text"].error + label,
+.container-form .form__register .form__input-item [type="tel"].error + label,
+.container-form .form__register .form__input-item [type="password"].error + label {
   color: #d32f2f;
 }
 
@@ -102,7 +120,6 @@ body {
   top: -16px;
   font-size: 12px;
   line-height: 12px;
-  color: #b7d1df;
 }
 
 .container-form .form__register .form__input-item.radio label {
@@ -151,19 +168,11 @@ body {
   display: none;
 }
 
-.container-form
-  .form__register
-  .form__input-item.radio
-  input[type="radio"]:checked
-  + label:before {
+.container-form .form__register .form__input-item.radio input[type="radio"]:checked + label:before {
   display: none;
 }
 
-.container-form
-  .form__register
-  .form__input-item.radio
-  input[type="radio"]:checked
-  + label {
+.container-form .form__register .form__input-item.radio input[type="radio"]:checked + label {
   padding: 5px 15px;
   background: #343460;
   border-radius: 2px;

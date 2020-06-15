@@ -20,31 +20,53 @@ $font-family: "Roboto", Arial;
 }
 
 body {
-  background: url("/img/bacgroun.jpg");
+  background: url("/img/background.jpg");
   font-family: "Roboto", Arial;
-  border-top: 30px solid $color-primary;
+  // border-top: 30px solid $color-primary;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  // border: 1px solid green;
+  -webkit-text-fill-color: black;
+  // -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/*Estilos formulario*/
 
 .wrap {
   width: 90%;
   max-width: 950px;
-  padding: 40px;
+  padding: 20px 40px;
   margin: auto;
   background: #fff;
   box-shadow: 0px 0px 3px grey;
+}
+
+h2 {
+  color: $color-primary;
+  font-family: $font-family;
+  // text-align: center;
+  margin-bottom: 1.5em;
+  font-size: 1.5em;
 }
 
 .container-form {
   width: 100%;
   color: white;
   padding: 1.1em;
-
-  h2 {
-    color: $color-primary;
-    font-family: $font-family;
-    text-align: center;
-    margin-bottom: 0.5em;
-  }
 
   .form__register {
     width: 100%;
@@ -55,7 +77,8 @@ body {
       margin-bottom: 32px;
 
       input[type="text"],
-      [type="tel"] {
+      [type="tel"],
+      [type="password"] {
         font-family: $font-family;
         font-size: 16px;
         color: $color-primary;
@@ -97,7 +120,7 @@ body {
           top: -16px;
           font-size: 12px;
           line-height: 12px;
-          color: $color-divider;
+          // color: $color-divider;
         }
       }
 

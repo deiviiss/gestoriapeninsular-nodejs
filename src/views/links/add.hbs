@@ -1,10 +1,10 @@
 <div class="container-form">
 
-  <h2 class="form__title">Datos del Cliente</h2>
-
   <div class="wrap">
 
-    <form action="/links/add" method="get" class="form__register" name="formulario_cliente">
+    <h2 class="form__title">Datos del Cliente</h2>
+
+    <form action="/links/add" method="post" class="form__register" name="formulario_cliente">
 
       <div class="form__input">
 
@@ -28,6 +28,11 @@
           <label for="afore" class='label'>Afore</label>
         </div>
 
+        <div class="form__input-item">
+          <input type="text" id="monto" name="monto">
+          <label for="monto" class='label'>Monto a retirar</label>
+        </div>
+
         <div class="form__input-item radio">
           <p>Servicios Operativos</p>
           <input type="radio" id="service20" name="service" value="service20">
@@ -36,11 +41,6 @@
           <label for="service25">25%</label>
           <input type="radio" id="service30" name="service" value="service30">
           <label for="service30">30%</label>
-        </div>
-
-        <div class="form__input-item">
-          <input type="text" id="monto" name="monto">
-          <label for="monto" class='label'>Monto a retirar</label>
         </div>
 
         <div class="form__input-item">
@@ -68,3 +68,5 @@
     </form>
   </div>
 </div>
+
+<script src="/js/scripts.js"></script>
