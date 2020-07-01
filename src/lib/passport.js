@@ -63,6 +63,7 @@ passport.use(
       // console.log(result)
       newUser.id = result.insertId; //usa la propiedad del objeto devuelto por la consulta sql
       console.log(newUser)
+      req.flash('success', 'Bienvenido ' + newUser.username)
       return done(null, newUser); //lo almacena en una sesión
     }
   )

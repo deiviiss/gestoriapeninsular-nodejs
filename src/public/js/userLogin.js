@@ -5,33 +5,40 @@ console.log(elementos);
 
 //funciones
 
-var validarInputs = function () {
-  //   for (var i = 0; i < elementos.length; i++) {
-  //     if (elementos[i].type == 'text' || elementos[i].type == 'password') {
-  //       if (elementos[i].value == 0) {
-  //         console.log('El campo ' + elementos[i].name + ' esta incompleto');
-  //         elementos[i].className = elementos[i].className + ' error';
-  //         return false;
-  //       } else {
-  //         elementos[i].className = elementos[i].className.replace + ('error', '');
-  //       }
-  //     }
-  //   };
+//mostrar esconder contraseñas
 
-  //compara passwords
-  if (elementos.password.value !== elementos.password2.value) {
-    elementos.password.value = ''
-    elementos.password2.value = ''
-    elementos.password.className = elementos.password.className + ' error'
-    elementos.password2.className = elementos.password2.className + ' error'
+function passHide() {
+  var pass = document.getElementById("pass").type;
+  if (pass == 'password') {
+    $('#pass').removeAttr('type');
+    $('#pass').attr('type', 'text');
+    $('#show').addClass('fa-eye-slash').removeClass('fa-eye');
   } else {
-    elementos.password.className = elementos.password.replace('error', '')
-    elementos.password2.className = elementos.password2.replace('error', '')
+    $('#pass').attr('type', 'password');
+    $('#show').addClass('fa-eye').removeClass('fa-eye-slash');
   }
+}
+
+
+//validar inputs
+
+var validarInputs = function () {
+  for (var i = 0; i < elementos.length; i++) {
+    if (elementos[i].type == 'text' || elementos[i].type == 'password') {
+      if (elementos[i].value == 0) {
+        console.log('El campo ' + elementos[i].name + ' esta incompleto');
+        elementos[i].className = elementos[i].className + ' error';
+        return false;
+      } else {
+        elementos[i].className = elementos[i].className.replace + ('error', '');
+      }
+    }
+  };
 
   return true;
 }
 
+//envia formulario
 
 var enviar = function (e) {
   if (!validarInputs()) {
@@ -44,7 +51,6 @@ var enviar = function (e) {
 };
 
 //funciones blur y focus
-//Optimizar funciones con el método toggle de JS para agregar y quitar la clase
 var focusInput = function () {
   this.parentElement.children[1].className = 'label active';
   this.parentElement.children[0].className = this.parentElement.children[0].className.replace('error', '');

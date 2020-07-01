@@ -102,6 +102,10 @@ h2 {
   color: #343460;
 }
 
+.container-form .form__register .form__input-item i {
+  font-size: 0.8em;
+}
+
 .container-form .form__register .form__input-item label {
   color: #343460;
 }

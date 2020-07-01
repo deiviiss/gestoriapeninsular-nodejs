@@ -1,3 +1,5 @@
+{{!-- Formulario de registro de usuario --}}
+
 <div class="container-form">
 
   <div class="wrap">
@@ -19,13 +21,15 @@
         </div>
 
         <div class="form__input-item">
-          <input type="password" name="password">
-          <label for="password" class='label'>Contraseña</label>
+          <input type="password" name="password" id="pass">
+          <label for="password" class='label'>Contraseña <i class="fa fa-eye" id="show"
+              onclick="passHide()"></i></label>
         </div>
 
         <div class="form__input-item">
-          <input type="password" name="password2">
-          <label for="password2" class='label'>Confirmar Contraseña</label>
+          <input type="password" name="password2" id="pass2">
+          <label for="password2" class='label'>Confirmar Contraseña <i class="fa fa-eye" id="show2"
+              onclick="passHide()"></i></label>
         </div>
 
 
@@ -34,11 +38,11 @@
           <label for="zona" class='label'>Zona</label>
 
         </div>
-
-        <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit"
-          value="Registrar">
     </form>
+
+    <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Registrar">
+
   </div>
 </div>
 
-<script src="/js/login.js"></script>
+<script src="/js/userRegister.js"></script>

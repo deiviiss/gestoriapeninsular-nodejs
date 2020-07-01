@@ -1,7 +1,7 @@
 var form = document.formulario_cliente;
 var elementos = form.elements;
 
-// console.log(elementos);
+console.log(elementos);
 
 //funciones
 
@@ -63,7 +63,6 @@ var enviar = function (e) {
 };
 
 //funciones blur y focus
-//Optimizar funciones con el método toggle de JS para agregar y quitar la clase
 var focusInput = function () {
   this.parentElement.children[1].className = 'label active';
   this.parentElement.children[0].className = this.parentElement.children[0].className.replace('error', '');
@@ -84,5 +83,4 @@ for (var i = 0; i < elementos.length; i++) {
     elementos[i].addEventListener('focus', focusInput);
     elementos[i].addEventListener('blur', blurInput)
   }
-
 };

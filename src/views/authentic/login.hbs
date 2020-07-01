@@ -1,3 +1,5 @@
+{{!-- Formulario de inicio de sesión --}}
+
 <div class="container-form">
 
   <div class="wrap">
@@ -14,8 +16,9 @@
         </div>
 
         <div class="form__input-item">
-          <input type="password" name="password">
-          <label for="password" class='label'>Contraseña</label>
+          <input type="password" name="password" id="pass">
+          <label for="password" class='label'>Contraseña <i class="fa fa-eye" id="show"
+              onclick="passHide()"></i></label>
         </div>
 
         <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Ingresar">
@@ -25,4 +28,4 @@
   </div>
 </div>
 
-<script src="/js/login.js"></script>
+<script src="/js/userLogin.js"></script>
