@@ -1,5 +1,7 @@
 /* estilos */
 
+//menu desplegable en las afores
+
 //Variables
 
 $color-primary: #343460;
@@ -22,7 +24,6 @@ $font-family: "Roboto", Arial;
 body {
   background: url("/img/background.jpg");
   font-family: "Roboto", Arial;
-  // border-top: 30px solid $color-primary;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -46,138 +47,201 @@ select:-webkit-autofill:focus {
 
 /*Estilos formulario*/
 
-.wrap {
-  width: 90%;
-  max-width: 950px;
-  padding: 20px 40px;
-  margin: auto;
-  background: #fff;
-  box-shadow: 0px 0px 3px grey;
-}
-
-h2 {
-  color: $color-primary;
-  font-family: $font-family;
-  // text-align: center;
-  margin-bottom: 1.5em;
-  font-size: 1.5em;
-}
-
 .container-form {
-  width: 100%;
+  // propiedades anteriores
+  /*width: 100%;
   color: white;
-  padding: 1.1em;
+  padding: 1.1em;*/
 
-  .form__register {
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 0;
+  min-height: calc(100vh - 200px);
+
+  .wrap {
+    // propiedades anteriores
+    /* width: 90%;
+    max-width: 950px;
+    padding: 20px 40px;
     margin: auto;
+    background: #fff;
+    box-shadow: 0px 0px 3px grey;*/
 
-    .form__input-item {
-      position: relative;
-      margin-bottom: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    color: #ffffff;
+    // padding: 60px 68px 40px;
+    margin: 2px;
+    padding: 25px;
+    min-height: 300px;
+    width: 400px;
+    font-size: 14px;
+    /*Para heredar tamaño de fuente*/
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
 
-      input[type="text"],
-      [type="tel"],
-      [type="password"] {
-        font-family: $font-family;
-        font-size: 16px;
-        color: $color-primary;
-        width: 100%;
-        outline: none;
-        background: none;
-        border: none;
-        border-bottom: $borde solid $color-light-primary;
-        &:focus,
-        &:active {
-          outline: none;
-          border-bottom: $borde solid $color-primary;
-        }
-        &.error {
-          outline: none;
-          border-bottom: $borde solid $color-red;
-          + label {
-            color: $color-red;
+    h2 {
+      color: $color-primary;
+      font-family: $font-family;
+      // text-align: center;
+      margin-bottom: 1.5em;
+      font-size: 1.5em;
+    }
+
+    .form__register {
+      width: 100%;
+      margin: auto;
+      .form__input {
+        .form__input-semanas,
+        .form__input-afore {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          #scotizadas,
+          #sdescontadas,
+          #monto {
+            text-align: center;
+          }
+
+          #monto,
+          #sdescontadas {
+            margin-left: 2px;
           }
         }
-      }
 
-      p {
-        color: $color-primary;
-      }
+        .form___input-porcent {
+          display: flex;
+          justify-content: center;
+        }
 
-      i {
-        font-size: 0.8em;
-      }
-
-      label {
-        color: $color-primary;
-        &.label {
-          position: absolute;
-          top: 0px;
-          left: 0;
-          // font-size: 16px;
-          line-height: 16px;
+        p {
+          color: $color-primary;
           margin-left: 16px;
-          transition: all 0.3s ease;
         }
-        &.active {
-          top: -16px;
-          font-size: 12px;
-          line-height: 12px;
-          // color: $color-divider;
-        }
-      }
 
-      &.radio label {
-        display: inline-block;
-        cursor: pointer;
-        color: $color-primary;
-        position: relative;
-        padding: 5px 15px 5px 51px;
-        font-size: 1em;
-        border-radius: 3px;
-        transition: all 0.3s ease;
-        &:hover {
-          background: rgba($color-primary, 1);
-          color: white;
-        }
-        &:before {
-          content: "";
-          display: inline-block;
-          width: 17px;
-          height: 17px;
-          position: absolute;
-          left: 25px;
-          top: 7px;
-          border-radius: 50%;
-          background: none;
-          border: $borde solid $color-primary;
-        }
-      }
+        .form__input-item {
+          position: relative;
+          margin-bottom: 32px;
 
-      &.error {
-        label {
-          color: $color-red;
-          &:hover {
-            background: rgba($color-red, 2);
+          #honorarios {
+            text-align: center;
           }
-          &:before {
-            border: $borde solid $color-red;
-          }
-        }
-      }
 
-      &.radio {
-        input[type="radio"] {
-          display: none;
-          &:checked + label:before {
-            display: none;
+          select {
+            margin-top: 3px;
           }
-          &:checked + label {
-            padding: 5px 15px;
-            background: $color-primary;
-            border-radius: $borde;
-            color: white;
+
+          select,
+          input[type="text"],
+          [type="tel"],
+          [type="password"] {
+            padding-right: 20px;
+            font-family: $font-family;
+            font-size: 16px;
+            color: $color-primary;
+            width: 100%;
+            outline: none;
+            background: none;
+            border: none;
+            border-bottom: $borde solid $color-light-primary;
+            &:focus,
+            &:active {
+              outline: none;
+              border-bottom: $borde solid $color-primary;
+            }
+            &.error {
+              outline: none;
+              border-bottom: $borde solid $color-red;
+              + label {
+                color: $color-red;
+              }
+            }
+          }
+
+          // p {
+          //   color: $color-primary;
+          // }
+
+          i {
+            font-size: 0.8em;
+          }
+
+          label {
+            color: $color-primary;
+            &.label {
+              position: absolute;
+              top: 0px;
+              left: 0;
+              // font-size: 16px;
+              line-height: 16px;
+              margin-left: 16px;
+              transition: all 0.3s ease;
+            }
+            &.active {
+              top: -16px;
+              font-size: 12px;
+              line-height: 12px;
+              // color: $color-divider;
+            }
+          }
+
+          &.radio label {
+            display: inline-block;
+            cursor: pointer;
+            color: $color-primary;
+            position: relative;
+            padding: 5px 15px 5px 51px;
+            font-size: 1em;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            &:hover {
+              background: rgba($color-primary, 1);
+              color: white;
+            }
+            &:before {
+              content: "";
+              display: inline-block;
+              width: 17px;
+              height: 17px;
+              position: absolute;
+              left: 25px;
+              top: 7px;
+              border-radius: 50%;
+              background: none;
+              border: $borde solid $color-primary;
+            }
+          }
+
+          &.error {
+            label {
+              color: $color-red;
+              &:hover {
+                background: rgba($color-red, 2);
+              }
+              &:before {
+                border: $borde solid $color-red;
+              }
+            }
+          }
+
+          &.radio {
+            input[type="radio"] {
+              display: none;
+              &:checked + label:before {
+                display: none;
+              }
+              &:checked + label {
+                padding: 5px 15px;
+                background: $color-primary;
+                border-radius: $borde;
+                color: white;
+              }
+            }
           }
         }
       }

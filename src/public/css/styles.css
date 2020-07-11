@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* estilos */
 * {
   margin: 0;
@@ -30,42 +31,128 @@ select:-webkit-autofill:focus {
 }
 
 /*Estilos formulario*/
-.wrap {
-  width: 90%;
-  max-width: 950px;
-  padding: 20px 40px;
-  margin: auto;
-  background: #fff;
-  -webkit-box-shadow: 0px 0px 3px grey;
-          box-shadow: 0px 0px 3px grey;
+.container-form {
+  /*width: 100%;
+  color: white;
+  padding: 1.1em;*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px 0;
+  min-height: calc(100vh - 200px);
 }
 
-h2 {
+.container-form .wrap {
+  /* width: 90%;
+    max-width: 950px;
+    padding: 20px 40px;
+    margin: auto;
+    background: #fff;
+    box-shadow: 0px 0px 3px grey;*/
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  color: #ffffff;
+  margin: 2px;
+  padding: 25px;
+  min-height: 300px;
+  width: 400px;
+  font-size: 14px;
+  /*Para heredar tamaño de fuente*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container-form .wrap h2 {
   color: #343460;
   font-family: "Roboto", Arial;
   margin-bottom: 1.5em;
   font-size: 1.5em;
 }
 
-.container-form {
-  width: 100%;
-  color: white;
-  padding: 1.1em;
-}
-
-.container-form .form__register {
+.container-form .wrap .form__register {
   width: 100%;
   margin: auto;
 }
 
-.container-form .form__register .form__input-item {
+.container-form .wrap .form__register .form__input .form__input-semanas,
+.container-form .wrap .form__register .form__input .form__input-afore {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container-form .wrap .form__register .form__input .form__input-semanas #scotizadas,
+.container-form .wrap .form__register .form__input .form__input-semanas #sdescontadas,
+.container-form .wrap .form__register .form__input .form__input-semanas #monto,
+.container-form .wrap .form__register .form__input .form__input-afore #scotizadas,
+.container-form .wrap .form__register .form__input .form__input-afore #sdescontadas,
+.container-form .wrap .form__register .form__input .form__input-afore #monto {
+  text-align: center;
+}
+
+.container-form .wrap .form__register .form__input .form__input-semanas #monto,
+.container-form .wrap .form__register .form__input .form__input-semanas #sdescontadas,
+.container-form .wrap .form__register .form__input .form__input-afore #monto,
+.container-form .wrap .form__register .form__input .form__input-afore #sdescontadas {
+  margin-left: 2px;
+}
+
+.container-form .wrap .form__register .form__input .form___input-porcent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container-form .wrap .form__register .form__input p {
+  color: #343460;
+  margin-left: 16px;
+}
+
+.container-form .wrap .form__register .form__input .form__input-item {
   position: relative;
   margin-bottom: 32px;
 }
 
-.container-form .form__register .form__input-item input[type="text"],
-.container-form .form__register .form__input-item [type="tel"],
-.container-form .form__register .form__input-item [type="password"] {
+.container-form .wrap .form__register .form__input .form__input-item #honorarios {
+  text-align: center;
+}
+
+.container-form .wrap .form__register .form__input .form__input-item select {
+  margin-top: 3px;
+}
+
+.container-form .wrap .form__register .form__input .form__input-item select,
+.container-form .wrap .form__register .form__input .form__input-item input[type="text"],
+.container-form .wrap .form__register .form__input .form__input-item [type="tel"],
+.container-form .wrap .form__register .form__input .form__input-item [type="password"] {
+  padding-right: 20px;
   font-family: "Roboto", Arial;
   font-size: 16px;
   color: #343460;
@@ -76,41 +163,41 @@ h2 {
   border-bottom: 2px solid #87b4cf;
 }
 
-.container-form .form__register .form__input-item input[type="text"]:focus, .container-form .form__register .form__input-item input[type="text"]:active,
-.container-form .form__register .form__input-item [type="tel"]:focus,
-.container-form .form__register .form__input-item [type="tel"]:active,
-.container-form .form__register .form__input-item [type="password"]:focus,
-.container-form .form__register .form__input-item [type="password"]:active {
+.container-form .wrap .form__register .form__input .form__input-item select:focus, .container-form .wrap .form__register .form__input .form__input-item select:active,
+.container-form .wrap .form__register .form__input .form__input-item input[type="text"]:focus,
+.container-form .wrap .form__register .form__input .form__input-item input[type="text"]:active,
+.container-form .wrap .form__register .form__input .form__input-item [type="tel"]:focus,
+.container-form .wrap .form__register .form__input .form__input-item [type="tel"]:active,
+.container-form .wrap .form__register .form__input .form__input-item [type="password"]:focus,
+.container-form .wrap .form__register .form__input .form__input-item [type="password"]:active {
   outline: none;
   border-bottom: 2px solid #343460;
 }
 
-.container-form .form__register .form__input-item input[type="text"].error,
-.container-form .form__register .form__input-item [type="tel"].error,
-.container-form .form__register .form__input-item [type="password"].error {
+.container-form .wrap .form__register .form__input .form__input-item select.error,
+.container-form .wrap .form__register .form__input .form__input-item input[type="text"].error,
+.container-form .wrap .form__register .form__input .form__input-item [type="tel"].error,
+.container-form .wrap .form__register .form__input .form__input-item [type="password"].error {
   outline: none;
   border-bottom: 2px solid #d32f2f;
 }
 
-.container-form .form__register .form__input-item input[type="text"].error + label,
-.container-form .form__register .form__input-item [type="tel"].error + label,
-.container-form .form__register .form__input-item [type="password"].error + label {
+.container-form .wrap .form__register .form__input .form__input-item select.error + label,
+.container-form .wrap .form__register .form__input .form__input-item input[type="text"].error + label,
+.container-form .wrap .form__register .form__input .form__input-item [type="tel"].error + label,
+.container-form .wrap .form__register .form__input .form__input-item [type="password"].error + label {
   color: #d32f2f;
 }
 
-.container-form .form__register .form__input-item p {
-  color: #343460;
-}
-
-.container-form .form__register .form__input-item i {
+.container-form .wrap .form__register .form__input .form__input-item i {
   font-size: 0.8em;
 }
 
-.container-form .form__register .form__input-item label {
+.container-form .wrap .form__register .form__input .form__input-item label {
   color: #343460;
 }
 
-.container-form .form__register .form__input-item label.label {
+.container-form .wrap .form__register .form__input .form__input-item label.label {
   position: absolute;
   top: 0px;
   left: 0;
@@ -120,13 +207,13 @@ h2 {
   transition: all 0.3s ease;
 }
 
-.container-form .form__register .form__input-item label.active {
+.container-form .wrap .form__register .form__input .form__input-item label.active {
   top: -16px;
   font-size: 12px;
   line-height: 12px;
 }
 
-.container-form .form__register .form__input-item.radio label {
+.container-form .wrap .form__register .form__input .form__input-item.radio label {
   display: inline-block;
   cursor: pointer;
   color: #343460;
@@ -138,12 +225,12 @@ h2 {
   transition: all 0.3s ease;
 }
 
-.container-form .form__register .form__input-item.radio label:hover {
+.container-form .wrap .form__register .form__input .form__input-item.radio label:hover {
   background: #343460;
   color: white;
 }
 
-.container-form .form__register .form__input-item.radio label:before {
+.container-form .wrap .form__register .form__input .form__input-item.radio label:before {
   content: "";
   display: inline-block;
   width: 17px;
@@ -156,27 +243,27 @@ h2 {
   border: 2px solid #343460;
 }
 
-.container-form .form__register .form__input-item.error label {
+.container-form .wrap .form__register .form__input .form__input-item.error label {
   color: #d32f2f;
 }
 
-.container-form .form__register .form__input-item.error label:hover {
+.container-form .wrap .form__register .form__input .form__input-item.error label:hover {
   background: #d32f2f;
 }
 
-.container-form .form__register .form__input-item.error label:before {
+.container-form .wrap .form__register .form__input .form__input-item.error label:before {
   border: 2px solid #d32f2f;
 }
 
-.container-form .form__register .form__input-item.radio input[type="radio"] {
+.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"] {
   display: none;
 }
 
-.container-form .form__register .form__input-item.radio input[type="radio"]:checked + label:before {
+.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label:before {
   display: none;
 }
 
-.container-form .form__register .form__input-item.radio input[type="radio"]:checked + label {
+.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label {
   padding: 5px 15px;
   background: #343460;
   border-radius: 2px;

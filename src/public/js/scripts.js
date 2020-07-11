@@ -7,7 +7,7 @@ console.log(elementos);
 
 var validarInputs = function () {
   for (var i = 0; i < elementos.length; i++) {
-    if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel') {
+    if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel' || elementos[i].type == 'select-one') {
       if (elementos[i].value == 0) {
         console.log('El campo ' + elementos[i].name + ' esta incompleto');
         elementos[i].className = elementos[i].className + ' error';
@@ -79,7 +79,7 @@ var blurInput = function () {
 form.addEventListener('submit', enviar);
 
 for (var i = 0; i < elementos.length; i++) {
-  if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel') {
+  if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel' || elementos[i].type == 'select-one') {
     elementos[i].addEventListener('focus', focusInput);
     elementos[i].addEventListener('blur', blurInput)
   }

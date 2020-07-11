@@ -23,34 +23,54 @@
           <label for="nss" class='label'>NSS</label>
         </div>
 
-        <div class="form__input-item">
-          <input type="text" id="afore" name="afore">
-          <label for="afore" class='label'>Afore</label>
+        <div class="form__input-afore">
+
+          <div class="form__input-item">
+            <select>
+              <option value=""></option>
+              <option value="Banamex">Banamex</option>
+              <option value="Coppel">Coppel</option>
+              <option value="Profuturo">Profuturo</option>
+              <option value="XXI Banorte">XXI Banorte</option>
+            </select>
+            {{!-- <input type="text" id="afore" name="afore" class="form__input-item--space"> --}}
+            <label for="afore" class='label active'>Afore</label>
+          </div>
+
+          <div class="form__input-item">
+            <input type="text" id="monto" name="monto">
+            <label for="monto" class='label'>Monto a retirar</label>
+          </div>
+        </div>
+
+        <p>Servicios Operativos</p>
+        <div class="form___input-porcent">
+          <div class="form__input-item radio">
+
+            <input type="radio" id="service20" name="service" value="service20">
+            <label for="service20">20%</label>
+            <input type="radio" id="service25" name="service" value="service25">
+            <label for="service25">25%</label>
+            <input type="radio" id="service30" name="service" value="service30">
+            <label for="service30">30%</label>
+          </div>
         </div>
 
         <div class="form__input-item">
-          <input type="text" id="monto" name="monto">
-          <label for="monto" class='label'>Monto a retirar</label>
+          <input type="text" id="honorarios" name="honorarios">
+          <label for="honorarios" class='label'>Servicios administrativos</label>
         </div>
 
-        <div class="form__input-item radio">
-          <p>Servicios Operativos</p>
-          <input type="radio" id="service20" name="service" value="service20">
-          <label for="service20">20%</label>
-          <input type="radio" id="service25" name="service" value="service25">
-          <label for="service25">25%</label>
-          <input type="radio" id="service30" name="service" value="service30">
-          <label for="service30">30%</label>
-        </div>
+        <div class="form__input-semanas">
+          <div class="form__input-item">
+            <input type="text" id="scotizadas" name="scotizadas">
+            <label for="scotizadas" class='label'>Semanas Cotizadas</label>
+          </div>
 
-        <div class="form__input-item">
-          <input type="text" id="scotizadas" name="scotizadas">
-          <label for="scotizadas" class='label'>Semanas Cotizadas</label>
-        </div>
-
-        <div class="form__input-item">
-          <input type="text" id="sdescontadas" name="sdescontadas">
-          <label for="sdescontadas" class='label'>Semanas Descontadas</label>
+          <div class="form__input-item">
+            <input type="text" id="sdescontadas" name="sdescontadas">
+            <label for="sdescontadas" class='label'>Semanas Descontadas</label>
+          </div>
         </div>
 
         <div class="form__input-item">
