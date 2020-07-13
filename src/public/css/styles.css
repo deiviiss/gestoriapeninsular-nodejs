@@ -30,6 +30,90 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/*Estilos navigation*/
+.header {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.header__logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 40px;
+}
+
+.header__logo .header__logo--btnDesktop {
+  color: #343460;
+  cursor: pointer;
+}
+
+.header__logo .header__logo--btnMobile {
+  display: none;
+}
+
+.nav {
+  display: none;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.nav .nav__main {
+  display: block;
+  cursor: pointer;
+}
+
+.nav .nav__main a {
+  color: #343460;
+  text-decoration: none;
+}
+
+.nav .nav__main p {
+  margin: 0;
+  margin-right: 60px;
+}
+
+.nav .nav__main .nav__menu {
+  display: none;
+  text-decoration: none;
+  list-style: none;
+  padding: 5px;
+}
+
+.nav .nav__main .nav__menu li {
+  font-size: 12px;
+}
+
+.nav .nav__main .nav__menu li a {
+  color: #343460;
+  text-decoration: none;
+}
+
+.nav .nav__main:hover p {
+  border-bottom: 2px solid #343460;
+}
+
+.nav .nav__main:hover .nav__menu {
+  display: block;
+}
+
+.nav .nav__main:hover .nav__menu :hover a {
+  border-bottom: 2px solid #343460;
+}
+
+.nav.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 /*Estilos formulario*/
 .container-form {
   /*width: 100%;
@@ -268,5 +352,66 @@ select:-webkit-autofill:focus {
   background: #343460;
   border-radius: 2px;
   color: white;
+}
+
+@media (max-width: 700px) {
+  .header__logo .header__logo--btnDesktop {
+    display: none;
+  }
+  .header__logo .header__logo--btnMobile {
+    display: block;
+  }
+  .nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #343460;
+    height: 100%;
+    padding: 30px;
+    opacity: 0.9;
+    -webkit-transform: translateX(-700px);
+            transform: translateX(-700px);
+    z-index: 3;
+    width: 85%;
+    -webkit-transition: -webkit-transform 1s ease-in-out;
+    transition: -webkit-transform 1s ease-in-out;
+    transition: transform 1s ease-in-out;
+    transition: transform 1s ease-in-out, -webkit-transform 1s ease-in-out;
+    font-size: 24px;
+  }
+  .nav .nav__main p {
+    margin: 0 40px 0 0;
+    cursor: pointer;
+    color: #f2f2f2;
+  }
+  .nav .nav__main .nav__menu li {
+    padding: 10px;
+  }
+  .nav .nav__main .nav__menu li a {
+    color: #f2f2f2;
+  }
+  .nav .nav__main:hover p {
+    border-bottom: 2px solid #f2f2f2;
+  }
+  .nav .nav__main:hover .nav__menu :hover a {
+    border-bottom: 2px solid #f2f2f2;
+  }
+  .nav.show {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
 }
 /*# sourceMappingURL=styles.css.map */

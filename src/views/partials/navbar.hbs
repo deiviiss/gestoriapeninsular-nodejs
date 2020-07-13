@@ -1,53 +1,69 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="/"><img src="/img/logo2.png" alt=""></a>
+<header class="header">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ml-auto">
-
-        {{# if user}}
-
-        <li class="nav-item active">
-          <a class="nav-link" href="/links">Clientes<span class="sr-only">(current)</span></a>
-        </li>
+  <div class="header__logo">
+    <a href="/"><img src="/img/logo2.png" alt=""></a>
 
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">Inicio</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a href="/links/add" class="dropdown-item">Registro Cliente</a>
-            <a href="/links/consult" class="dropdown-item">Consulta</a>
-          </div>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">Perfil</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a href="/profile" class="dropdown-item">Ver perfil</a>
-            <a href="/logout" class="dropdown-item">Cerrar sesión</a>
-          </div>
-        </li>
-
-        {{else}}
-
-        <li class="nav-item active">
-          <a class="nav-link" href="/login">Iniciar sesión<span class="sr-only">(current)</span></a>
-        </li>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="/register">Registrarse<span class="sr-only">(current)</span></a>
-        </li>
-
-        {{/if}}
-
-      </ul>
+    <div class="header__logo--btnDesktop">
+      <i class="fas fa-bars fa-2x"></i>
     </div>
+
+    <div class="header__logo--btnMobile">
+      <i class="fas fa-bars fa-2x"></i>
+    </div>
+
   </div>
-</nav>
+
+  <div class="header__nav">
+
+    <nav class="nav">
+
+      {{# if user}}
+      <div class="nav__main">
+        <p>Clientes</p>
+        <ul class="nav__menu">
+
+          <li class="nav__menu--item">
+            <a href="/links">Buscar Cliente</a>
+          </li>
+
+          <li class="nav__menu--item">
+            <a href="/links/add">Registro Cliente</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav__main">
+        <p>Perfil</p>
+
+        <ul class="nav__menu">
+
+          <li class="nav__menu--item">
+            <a href="/profile">Ver perfil</a>
+          </li>
+
+          <li class="nav__menu--item">
+            <a href="/logout">Cerrar sesión</a>
+          </li>
+        </ul>
+
+      </div>
+
+      {{else}}
+      <div class="nav__main">
+        <a href="/register">
+          <p>Register</p>
+        </a>
+      </div>
+
+      <div class="nav__main">
+        <a href="/login">
+          <p>Login</p>
+        </a>
+      </div>
+
+      {{/if}}
+    </nav>
+  </div>
+  <hr>
+</header>

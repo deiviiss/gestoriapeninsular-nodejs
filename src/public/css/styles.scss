@@ -1,7 +1,5 @@
 /* estilos */
 
-//menu desplegable en las afores
-
 //Variables
 
 $color-primary: #343460;
@@ -43,6 +41,75 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: black;
   // -webkit-box-shadow: 0 0 0px 1000px #000 inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+/*Estilos navigation*/
+.header {
+  background-color: $color-white;
+  padding: 10px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+
+  .header__logo--btnDesktop {
+    color: $color-primary;
+    cursor: pointer;
+  }
+  .header__logo--btnMobile {
+    display: none;
+  }
+}
+
+.nav {
+  display: none;
+  justify-content: flex-end;
+
+  .nav__main {
+    display: block;
+    cursor: pointer;
+    a {
+      color: $color-primary;
+      text-decoration: none;
+    }
+    p {
+      margin: 0;
+      margin-right: 60px;
+    }
+    .nav__menu {
+      display: none;
+      text-decoration: none;
+      list-style: none;
+      padding: 5px;
+
+      li {
+        font-size: 12px;
+        a {
+          color: $color-primary;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .nav__main:hover {
+    p {
+      border-bottom: $borde solid $color-primary;
+    }
+    .nav__menu {
+      display: block;
+      :hover a {
+        border-bottom: $borde solid $color-primary;
+      }
+    }
+  }
+}
+
+.nav.show {
+  display: flex;
 }
 
 /*Estilos formulario*/
@@ -246,5 +313,67 @@ select:-webkit-autofill:focus {
         }
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .header__logo {
+    .header__logo--btnDesktop {
+      display: none;
+    }
+    .header__logo--btnMobile {
+      display: block;
+    }
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $color-primary;
+    height: 100%;
+    padding: 30px;
+    opacity: 0.9;
+    transform: translateX(-700px);
+    z-index: 3;
+    width: 85%;
+    transition: transform 1s ease-in-out;
+
+    font-size: 24px;
+
+    .nav__main {
+      p {
+        margin: 0 40px 0 0;
+        cursor: pointer;
+        color: $color-white;
+      }
+
+      .nav__menu li {
+        padding: 10px;
+        a {
+          color: $color-white;
+        }
+      }
+    }
+
+    .nav__main:hover {
+      p {
+        border-bottom: 2px solid $color-white;
+      }
+      .nav__menu {
+        :hover a {
+          border-bottom: $borde solid $color-white;
+        }
+      }
+    }
+  }
+
+  .nav.show {
+    transform: translateX(-20px);
   }
 }
