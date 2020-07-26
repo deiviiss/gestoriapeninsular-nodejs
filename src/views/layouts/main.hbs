@@ -7,6 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestoria Peninsular</title>
+  <link rel="icon" type="image/png" href="/img/logo1.png">
+
   {{!-- google fonts --}}
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   {{!-- boostrap 4 --}}
@@ -18,13 +20,17 @@
 
 <body>
 
-  {{> navbar}}
+  <div class="container-wrap">
+    {{> navbar}}
 
-  {{> message}}
+    <div class="main">
+      {{> message}}
 
-  {{{body}}}
+      {{{body}}}
+    </div>
 
-  {{> footer}}
+    {{> footer}}
+  </div>
 
   {{!-- font awesome --}}
   <script src="https://kit.fontawesome.com/f73142c108.js" crossorigin="anonymous"></script>

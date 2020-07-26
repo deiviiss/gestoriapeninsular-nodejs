@@ -1,5 +1,3 @@
-@charset "UTF-8";
-/* estilos */
 * {
   margin: 0;
   padding: 0;
@@ -9,10 +7,26 @@
 
 body {
   background: url("/img/background.jpg");
-  font-family: "Roboto", Arial;
   background-position: center center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
+  background-color: #23273b;
+  font-family: "Roboto", Arial;
+}
+
+body .container-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  min-height: 100vh;
 }
 
 /* Change autocomplete styles in WebKit */
@@ -33,7 +47,25 @@ select:-webkit-autofill:focus {
 /*Estilos navigation*/
 .header {
   background-color: #f2f2f2;
-  padding: 10px;
+  padding: 10px 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 12px solid #f2f2f2;
+}
+
+.header hr {
+  margin: 5px;
 }
 
 .header__logo {
@@ -46,16 +78,25 @@ select:-webkit-autofill:focus {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 40px;
+  padding: 0 10px;
+}
+
+.header__logo img {
+  width: 75%;
 }
 
 .header__logo .header__logo--btnDesktop {
-  color: #343460;
+  color: rgba(35, 39, 59, 0.8);
   cursor: pointer;
 }
 
 .header__logo .header__logo--btnMobile {
   display: none;
+  color: rgba(35, 39, 59, 0.8);
+}
+
+.header__nav {
+  position: relative;
 }
 
 .nav {
@@ -63,6 +104,9 @@ select:-webkit-autofill:focus {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  font-size: 14px;
+  position: absolute;
+  z-index: 3;
 }
 
 .nav .nav__main {
@@ -71,7 +115,7 @@ select:-webkit-autofill:focus {
 }
 
 .nav .nav__main a {
-  color: #343460;
+  color: #23273b;
   text-decoration: none;
 }
 
@@ -85,6 +129,11 @@ select:-webkit-autofill:focus {
   text-decoration: none;
   list-style: none;
   padding: 5px;
+  margin-top: 1px;
+  margin-left: 10px;
+  border-radius: 2px;
+  background-color: rgba(35, 39, 59, 0.7);
+  width: 50%;
 }
 
 .nav .nav__main .nav__menu li {
@@ -92,20 +141,21 @@ select:-webkit-autofill:focus {
 }
 
 .nav .nav__main .nav__menu li a {
-  color: #343460;
+  color: #f2f2f2;
   text-decoration: none;
 }
 
 .nav .nav__main:hover p {
-  border-bottom: 2px solid #343460;
+  border-bottom: 2px solid #23273b;
 }
 
 .nav .nav__main:hover .nav__menu {
   display: block;
+  position: absolute;
 }
 
 .nav .nav__main:hover .nav__menu :hover a {
-  border-bottom: 2px solid #343460;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 .nav.show {
@@ -114,45 +164,61 @@ select:-webkit-autofill:focus {
   display: flex;
 }
 
-/*Estilos formulario*/
-.container-form {
-  /*width: 100%;
-  color: white;
-  padding: 1.1em;*/
+/*Estilos main*/
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  max-width: 1128px;
+  margin: 0 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  padding: 20px 0;
+  /*Estilos formulario*/
+}
+
+.main .container-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 20px 0;
+  min-width: 75%;
   min-height: calc(100vh - 200px);
+  /*Estilos index*/
 }
 
-.container-form .wrap {
-  /* width: 90%;
-    max-width: 950px;
-    padding: 20px 40px;
-    margin: auto;
-    background: #fff;
-    box-shadow: 0px 0px 3px grey;*/
+.main .container-box .form {
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid #ffffff;
   border-radius: 20px;
   color: #ffffff;
   margin: 2px;
   padding: 25px;
+  width: 90%;
+  max-width: 450px;
   min-height: 300px;
-  width: 400px;
   font-size: 14px;
-  /*Para heredar tamaño de fuente*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -164,48 +230,47 @@ select:-webkit-autofill:focus {
           flex-direction: column;
 }
 
-.container-form .wrap h2 {
-  color: #343460;
+.main .container-box .form h2 {
+  color: #23273b;
   font-family: "Roboto", Arial;
   margin-bottom: 1.5em;
   font-size: 1.5em;
 }
 
-.container-form .wrap .form__register {
+.main .container-box .form .form__register {
   width: 100%;
   margin: auto;
 }
 
-.container-form .wrap .form__register .form__input .form__input-semanas,
-.container-form .wrap .form__register .form__input .form__input-afore {
+.main .container-box .form .form__register .form__input .form__input-semanas,
+.main .container-box .form .form__register .form__input .form__input-afore {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.container-form .wrap .form__register .form__input .form__input-semanas #scotizadas,
-.container-form .wrap .form__register .form__input .form__input-semanas #sdescontadas,
-.container-form .wrap .form__register .form__input .form__input-semanas #monto,
-.container-form .wrap .form__register .form__input .form__input-afore #scotizadas,
-.container-form .wrap .form__register .form__input .form__input-afore #sdescontadas,
-.container-form .wrap .form__register .form__input .form__input-afore #monto {
+.main .container-box .form .form__register .form__input .form__input-semanas #scotizadas,
+.main .container-box .form .form__register .form__input .form__input-semanas #sdescontadas,
+.main .container-box .form .form__register .form__input .form__input-semanas #monto,
+.main .container-box .form .form__register .form__input .form__input-afore #scotizadas,
+.main .container-box .form .form__register .form__input .form__input-afore #sdescontadas,
+.main .container-box .form .form__register .form__input .form__input-afore #monto {
   text-align: center;
 }
 
-.container-form .wrap .form__register .form__input .form__input-semanas #monto,
-.container-form .wrap .form__register .form__input .form__input-semanas #sdescontadas,
-.container-form .wrap .form__register .form__input .form__input-afore #monto,
-.container-form .wrap .form__register .form__input .form__input-afore #sdescontadas {
+.main .container-box .form .form__register .form__input .form__input-semanas #monto,
+.main .container-box .form .form__register .form__input .form__input-semanas #sdescontadas,
+.main .container-box .form .form__register .form__input .form__input-afore #monto,
+.main .container-box .form .form__register .form__input .form__input-afore #sdescontadas {
   margin-left: 2px;
 }
 
-.container-form .wrap .form__register .form__input .form___input-porcent {
+.main .container-box .form .form__register .form__input .form___input-porcent {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -214,74 +279,74 @@ select:-webkit-autofill:focus {
           justify-content: center;
 }
 
-.container-form .wrap .form__register .form__input p {
-  color: #343460;
+.main .container-box .form .form__register .form__input p {
+  color: #23273b;
   margin-left: 16px;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item {
+.main .container-box .form .form__register .form__input .form__input-item {
   position: relative;
   margin-bottom: 32px;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item #honorarios {
+.main .container-box .form .form__register .form__input .form__input-item #honorarios {
   text-align: center;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item select {
+.main .container-box .form .form__register .form__input .form__input-item select {
   margin-top: 3px;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item select,
-.container-form .wrap .form__register .form__input .form__input-item input[type="text"],
-.container-form .wrap .form__register .form__input .form__input-item [type="tel"],
-.container-form .wrap .form__register .form__input .form__input-item [type="password"] {
+.main .container-box .form .form__register .form__input .form__input-item select,
+.main .container-box .form .form__register .form__input .form__input-item input[type="text"],
+.main .container-box .form .form__register .form__input .form__input-item [type="tel"],
+.main .container-box .form .form__register .form__input .form__input-item [type="password"] {
   padding-right: 20px;
   font-family: "Roboto", Arial;
   font-size: 16px;
-  color: #343460;
+  color: #23273b;
   width: 100%;
   outline: none;
   background: none;
   border: none;
-  border-bottom: 2px solid #87b4cf;
+  border-bottom: 2px solid #0071b8;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item select:focus, .container-form .wrap .form__register .form__input .form__input-item select:active,
-.container-form .wrap .form__register .form__input .form__input-item input[type="text"]:focus,
-.container-form .wrap .form__register .form__input .form__input-item input[type="text"]:active,
-.container-form .wrap .form__register .form__input .form__input-item [type="tel"]:focus,
-.container-form .wrap .form__register .form__input .form__input-item [type="tel"]:active,
-.container-form .wrap .form__register .form__input .form__input-item [type="password"]:focus,
-.container-form .wrap .form__register .form__input .form__input-item [type="password"]:active {
+.main .container-box .form .form__register .form__input .form__input-item select:focus, .main .container-box .form .form__register .form__input .form__input-item select:active,
+.main .container-box .form .form__register .form__input .form__input-item input[type="text"]:focus,
+.main .container-box .form .form__register .form__input .form__input-item input[type="text"]:active,
+.main .container-box .form .form__register .form__input .form__input-item [type="tel"]:focus,
+.main .container-box .form .form__register .form__input .form__input-item [type="tel"]:active,
+.main .container-box .form .form__register .form__input .form__input-item [type="password"]:focus,
+.main .container-box .form .form__register .form__input .form__input-item [type="password"]:active {
   outline: none;
-  border-bottom: 2px solid #343460;
+  border-bottom: 2px solid #23273b;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item select.error,
-.container-form .wrap .form__register .form__input .form__input-item input[type="text"].error,
-.container-form .wrap .form__register .form__input .form__input-item [type="tel"].error,
-.container-form .wrap .form__register .form__input .form__input-item [type="password"].error {
+.main .container-box .form .form__register .form__input .form__input-item select.error,
+.main .container-box .form .form__register .form__input .form__input-item input[type="text"].error,
+.main .container-box .form .form__register .form__input .form__input-item [type="tel"].error,
+.main .container-box .form .form__register .form__input .form__input-item [type="password"].error {
   outline: none;
   border-bottom: 2px solid #d32f2f;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item select.error + label,
-.container-form .wrap .form__register .form__input .form__input-item input[type="text"].error + label,
-.container-form .wrap .form__register .form__input .form__input-item [type="tel"].error + label,
-.container-form .wrap .form__register .form__input .form__input-item [type="password"].error + label {
+.main .container-box .form .form__register .form__input .form__input-item select.error + label,
+.main .container-box .form .form__register .form__input .form__input-item input[type="text"].error + label,
+.main .container-box .form .form__register .form__input .form__input-item [type="tel"].error + label,
+.main .container-box .form .form__register .form__input .form__input-item [type="password"].error + label {
   color: #d32f2f;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item i {
+.main .container-box .form .form__register .form__input .form__input-item i {
   font-size: 0.8em;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item label {
-  color: #343460;
+.main .container-box .form .form__register .form__input .form__input-item label {
+  color: #23273b;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item label.label {
+.main .container-box .form .form__register .form__input .form__input-item label.label {
   position: absolute;
   top: 0px;
   left: 0;
@@ -291,16 +356,16 @@ select:-webkit-autofill:focus {
   transition: all 0.3s ease;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item label.active {
+.main .container-box .form .form__register .form__input .form__input-item label.active {
   top: -16px;
   font-size: 12px;
   line-height: 12px;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio label {
+.main .container-box .form .form__register .form__input .form__input-item.radio label {
   display: inline-block;
   cursor: pointer;
-  color: #343460;
+  color: #23273b;
   position: relative;
   padding: 5px 15px 5px 51px;
   font-size: 1em;
@@ -309,12 +374,12 @@ select:-webkit-autofill:focus {
   transition: all 0.3s ease;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio label:hover {
-  background: #343460;
+.main .container-box .form .form__register .form__input .form__input-item.radio label:hover {
+  background: #23273b;
   color: white;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio label:before {
+.main .container-box .form .form__register .form__input .form__input-item.radio label:before {
   content: "";
   display: inline-block;
   width: 17px;
@@ -324,42 +389,116 @@ select:-webkit-autofill:focus {
   top: 7px;
   border-radius: 50%;
   background: none;
-  border: 2px solid #343460;
+  border: 2px solid #23273b;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.error label {
+.main .container-box .form .form__register .form__input .form__input-item.error label {
   color: #d32f2f;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.error label:hover {
+.main .container-box .form .form__register .form__input .form__input-item.error label:hover {
   background: #d32f2f;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.error label:before {
+.main .container-box .form .form__register .form__input .form__input-item.error label:before {
   border: 2px solid #d32f2f;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"] {
+.main .container-box .form .form__register .form__input .form__input-item.radio input[type="radio"] {
   display: none;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label:before {
+.main .container-box .form .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label:before {
   display: none;
 }
 
-.container-form .wrap .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label {
+.main .container-box .form .form__register .form__input .form__input-item.radio input[type="radio"]:checked + label {
   padding: 5px 15px;
-  background: #343460;
+  background: #23273b;
   border-radius: 2px;
   color: white;
 }
 
+.main .container-box .index {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  margin: 2px;
+  padding: 25px;
+  width: 90%;
+  max-width: 450px;
+  min-height: 300px;
+  font-size: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #23273b;
+}
+
+.main .container-box .index h1 {
+  text-align: center;
+  margin-bottom: 20%;
+  font-size: 24px;
+}
+
+.main .container-box .index table {
+  text-align: center;
+  width: 100%;
+}
+
+.main .container-box .index table th,
+.main .container-box .index table td {
+  width: 10%;
+}
+
+/*Footer*/
+.footer {
+  background-color: rgba(35, 39, 59, 0.8);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 15%;
+  min-height: 30px;
+  width: 100%;
+  font-size: 12px;
+  margin-top: 0.5em;
+}
+
+.footer a {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding-left: 30px;
+}
+
+.footer a :hover {
+  text-decoration: underline;
+}
+
+/*Responsive design*/
 @media (max-width: 700px) {
   .header__logo .header__logo--btnDesktop {
     display: none;
   }
   .header__logo .header__logo--btnMobile {
     display: block;
+  }
+  .header__nav {
+    position: initial;
   }
   .nav {
     display: -webkit-box;
@@ -378,7 +517,7 @@ select:-webkit-autofill:focus {
     position: absolute;
     top: 0;
     left: 0;
-    background: #343460;
+    background: #23273b;
     height: 100%;
     padding: 30px;
     opacity: 0.9;
@@ -412,6 +551,15 @@ select:-webkit-autofill:focus {
   .nav.show {
     -webkit-transform: translateX(-20px);
             transform: translateX(-20px);
+  }
+}
+
+@media (max-width: 360px) {
+  .footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 /*# sourceMappingURL=styles.css.map */

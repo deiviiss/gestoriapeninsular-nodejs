@@ -37,6 +37,15 @@ router.get('/', isLoggedIn, async (req, res) => {
   res.render('links/list.hbs', { links }) //muestra el objeto en la vista
 })
 
+//consulta
+router.post('/consult', isLoggedIn, async (req, res) => {
+  const { cliente } = req.body
+
+  // console.log(consultaCliente)
+  links = await pool.query('SELECT * FROM tramites WHERE cliente = ?', [cliente])
+  res.render('links/list.hbs', { links })
+})
+
 //borrar clientes
 router.get('/delete/:idtramites', isLoggedIn, async (req, res) => {
   const { idtramites } = req.params
@@ -68,21 +77,6 @@ router.post('/edit/:idtramites', isLoggedIn, async (req, res) => {
   await pool.query('UPDATE tramites set ? WHERE idtramites = ?', [updateCliente, idtramites])
   req.flash('message', 'Cliente editado correctamente')
   res.redirect('/links');
-})
-
-//consulta
-router.get('/consult', isLoggedIn, (req, res) => {
-  res.render('links/consult.hbs')
-})
-
-router.post('/consult', isLoggedIn, async (req, res) => {
-  const { cliente } = req.body
-  const consultaCliente = {
-    cliente
-  }
-  // console.log(consultaCliente)
-  await pool.query('SELECT * FROM tramites WHERE cliente = ?', [consultaCliente])
-  res.send(consultaCliente)
 })
 
 module.exports = router;
