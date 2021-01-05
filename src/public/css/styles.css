@@ -205,6 +205,7 @@ select:-webkit-autofill:focus {
           flex-direction: column;
   min-width: 75%;
   min-height: calc(100vh - 200px);
+  /*Estilos buscador*/
   /*Estilos index*/
 }
 
@@ -417,6 +418,19 @@ select:-webkit-autofill:focus {
   background: #23273b;
   border-radius: 2px;
   color: white;
+}
+
+.main .container-box .search form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.main .container-box .search input {
+  margin: 1%;
 }
 
 .main .container-box .index {

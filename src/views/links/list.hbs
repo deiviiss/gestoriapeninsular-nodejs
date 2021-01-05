@@ -1,63 +1,43 @@
 <div class="container-box">
 
-  <form action="/links/consult" method="post">
-    <label for="cliente">Cliente</label>
-    <input type="text" name="cliente">
-    <button type="submit">Buscar</button>
+  <div class="search">
+    <form action="/links/consult" method="post">
+      <label for="cliente">Cliente</label>
+      <input type="text" name="cliente" class="form-control">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+  </div>
 
-  </form>
-  <div class="index">
-    <table>
-      <thead>
-        <tr>
-          <th>Id Cliente</th>
-          <th>Nombre del cliente</th>
-          <th>Curp</th>
-          <th>NSS</th>
-          <th>Afore</th>
-          <th>Monto</th>
-          <th>Semanas cotizadas</th>
-          <th>Semanas descontandas</th>
-          <th>Dirección</th>
-          <th>Teléfono</th>
-          <th>Outsourcing</th>
-          <th></th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-    </table>
-    {{#each links}}
-    <table>
+  <div class="container p-4">
+    <div class="row">
+      {{#each links}}
+      <div class="col-md-6 mx-auto">
+        <div class="card text-center">
+          <div class="card-body">
 
-      {{!-- <thead>
-        <tr>
-          <th>Nombre del cliente</th>
-          <th>Curp</th>
-          <th>Fecha</th>
-        </tr>
-      </thead> --}}
+            <p class="m-1">Nombre del cliente</p>
+            <p class="m-1">{{cliente}}</p>
+            <p class="m-1">Curp</p>
+            <p class="m-1">{{curp}}</p>
+            <p class="m-1">Fecha de trámite</p>
+            <p class="m-1">{{fecha_tramite}}</p>
+            <p class="m-1">Cantidad a retirar</p>
+            <p class="m-1">{{monto}}</p>
 
-
-      <tr>
-        <td> {{cliente}}</td>
-        <td>{{curp}}</td>
-        <td>{{nss}}</td>
-        <td>{{showTime create_at}}</td>
-      </tr>
-
-    </table>
-
-    {{!-- <a href="/links/delete/{{idtramites}}" class="btn btn-danger">Delete</a>
-    <a href="/links/edit/{{idtramites}}" class="btn btn-secondary">Edit</a> 
-    {{else}}
-    <div class="col-md-4 mx-auto">
-      <div class="card card-body text-center">
-        <p>There are not links saved yet.</p>
-        <a href="/links/add">Create one</a>
+          </div>
+        </div>
       </div>
-    </div>--}}
-    {{/each}}
-
+      {{else}}
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p>There are not Links saved yet.</p>
+          <a href="/links/add">Create One!</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
   </div>
 </div>
+
+
 {{!-- {{this}} muestra los datos que recorre --}}

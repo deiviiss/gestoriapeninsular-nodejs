@@ -24,7 +24,7 @@ CREATE TABLE `tramites` (
   `idtramites` int NOT NULL AUTO_INCREMENT,
   `cliente` varchar(60) NOT NULL,
   `curp` varchar(18),
-  `nss` int NOT NULL,
+  `nss` varchar(11) NOT NULL,
   `afore` varchar(45),
   `monto` int,
   `scotizadas` int,

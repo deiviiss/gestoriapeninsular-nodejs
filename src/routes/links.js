@@ -15,15 +15,29 @@ router.get('/add', isLoggedIn, (req, res) => {
 
 // Recibe el formulario
 router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
-  const { cliente, curp, nss, sdescontadas, scotizadas, direccion, telefono } = req.body; //objeto del formulario
+  const { asesor, cliente, curp, afore, nss, monto, sueldo_base, fecha_baja, fecha_tramite, direccion, telefono, observaciones, status, outsourcing, zona, pendiente, scotizadas, sdescontadas, fecha_ultimo_retiro, honorarios, seguro } = req.body; //objeto del formulario
   const newCliente = {
+    asesor,
     cliente,
     curp,
+    afore,
     nss,
-    sdescontadas,
-    scotizadas,
+    monto,
+    sueldo_base,
+    fecha_baja,
+    fecha_tramite,
     direccion,
-    telefono
+    telefono,
+    observaciones,
+    status,
+    outsourcing,
+    zona,
+    pendiente,
+    scotizadas,
+    sdescontadas,
+    fecha_ultimo_retiro,
+    honorarios,
+    seguro
   };
   await pool.query('INSERT INTO tramites set ?', [newCliente]) //insertamos los datos en la base, la petición es asincrona
   req.flash('success', 'Cliente guardado correctamente')//parámetros: el nombre de como se guarda el mensaje y el valor del mensaje
@@ -33,7 +47,7 @@ router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
   const links = await pool.query('SELECT * FROM tramites');
-  console.log(links)
+  // console.log(links)
   res.render('links/list.hbs', { links }) //muestra el objeto en la vista
 })
 
@@ -41,8 +55,8 @@ router.get('/', isLoggedIn, async (req, res) => {
 router.post('/consult', isLoggedIn, async (req, res) => {
   const { cliente } = req.body
 
-  // console.log(consultaCliente)
-  links = await pool.query('SELECT * FROM tramites WHERE cliente = ?', [cliente])
+  console.log(cliente)
+  links = await pool.query('SELECT * FROM tramites WHERE semana = ?', [cliente])
   res.render('links/list.hbs', { links })
 })
 

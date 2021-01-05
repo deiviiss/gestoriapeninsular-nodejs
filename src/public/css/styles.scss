@@ -10,6 +10,7 @@ $color-red: #d32f2f;
 
 $borde: 2px;
 $font-family: "Roboto", Arial;
+$test: 2px solid red;
 
 //basic estilos
 
@@ -347,6 +348,19 @@ select:-webkit-autofill:focus {
             }
           }
         }
+      }
+    }
+
+    /*Estilos buscador*/
+
+    .search {
+      form {
+        display: flex;
+        align-items: baseline;
+      }
+
+      input {
+        margin: 1%;
       }
     }
 
