@@ -1,6 +1,8 @@
 //almacena las llaves para utilzar el servicio, numero de puerto conexion y dirección de la base de datos
 
-const newLocal = require('dotenv').config();
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config();
+}
 
 module.exports = {
   database: {
