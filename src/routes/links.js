@@ -60,7 +60,7 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   links = await pool.query('SELECT * FROM tramites WHERE id = ? ', [busqueda])
 
-  console.log([busqueda])
+  // console.log([busqueda])
 
   if (links.length > 0) {
 
