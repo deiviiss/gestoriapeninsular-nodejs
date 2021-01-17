@@ -25,7 +25,7 @@ passport.use(
       if (rows.length > 0) {
         const user = rows[0];
         const validarPassword = await cifrator.comparaPassword(password, user.password);
-        // console.log('Resultado de la validación del pass', validarPassword)
+
         if (validarPassword) {
           done(null, user, req.flash('success', 'Bienvenido ' + user.username));
         } else {
@@ -58,7 +58,7 @@ passport.use(
       };
 
       newUser.password = await cifrator.encryptaPassword(password); //crea la contraseña encriptada
-      // console.log(password);
+
       const result = await pool.query('INSERT INTO users SET ?', newUser); //guarda en database
       // console.log(result)
       newUser.id = result.insertId; //usa la propiedad del objeto devuelto por la consulta sql

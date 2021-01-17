@@ -16,7 +16,6 @@ cifrator.encryptaPassword = async (password) => {
 
 //compara contraseña
 cifrator.comparaPassword = async (password, savedPassword) => {
-  console.log('Comparación de los pass', password, savedPassword)
   try {
     return await bcryptjs.compare(password, savedPassword);
   } catch (e) {
