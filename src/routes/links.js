@@ -6,14 +6,16 @@ const router = express.Router(); //metodo de express que devuelve un objeto para
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
+const helpers = require('../lib/handlebars')
+
 //routes
 
-//Formulario
+// Envía el formulario captura cliente
 router.get('/add', isLoggedIn, (req, res) => {
   res.render('links/add.hbs')
 })
 
-// Recibe el formulario
+// Recibe el formulario captura cliente
 router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
   const { asesor, cliente, curp, afore, nss, monto, sueldo_base, fecha_baja, fecha_tramite, direccion, telefono, observaciones, status, outsourcing, zona, pendiente, scotizadas, sdescontadas, fecha_ultimo_retiro, honorarios, seguro } = req.body; //objeto del formulario
   const newCliente = {
@@ -46,17 +48,48 @@ router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
-  const links = await pool.query('SELECT * FROM tramites');
+  // const links = await pool.query('SELECT * FROM tramites');
   // console.log(links)
-  res.render('links/list.hbs', { links }) //muestra el objeto en la vista
+  res.render('links/list.hbs') //muestra el objeto en la vista
 })
 
 //consulta
-router.post('/consult', isLoggedIn, async (req, res) => {
-  const { cliente } = req.body
+router.post('/query', isLoggedIn, async (req, res) => {
 
-  console.log(cliente)
-  links = await pool.query('SELECT * FROM tramites WHERE semana = ?', [cliente])
+  const { busqueda } = req.body
+
+  links = await pool.query('SELECT * FROM tramites WHERE id = ? ', [busqueda])
+
+  console.log([busqueda])
+
+  if (links.length > 0) {
+
+    let montoPeso = (links[0].monto)
+    let fechaFormat = (links[0].fecha_tramite)
+
+    links[0].monto = helpers.formatterPeso.format(montoPeso)
+
+    // console.log(fechaFormat)
+
+    date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+
+    let month = new Array(); //Array que contiene los meses
+    month[0] = "Enero";
+    month[1] = "Febrero";
+    month[2] = "Marzo";
+    month[3] = "Abril";
+    month[4] = "Mayo";
+    month[5] = "Junio";
+    month[6] = "Julio";
+    month[7] = "Agosto";
+    month[8] = "Septiembre";
+    month[9] = "Octubre";
+    month[10] = "Noviembre";
+    month[11] = "Deciembre";
+
+    links[0].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+
+  }
   res.render('links/list.hbs', { links })
 })
 

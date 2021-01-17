@@ -1,10 +1,10 @@
 <div class="container-box">
 
   <div class="search">
-    <form action="/links/consult" method="post">
-      <label for="cliente">Cliente</label>
-      <input type="text" name="cliente" class="form-control">
-      <button type="submit" class="btn btn-primary">Buscar</button>
+    <form action="/links/query" method="post">
+      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
+      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autofocus>
+      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
     </form>
   </div>
 
@@ -15,14 +15,12 @@
         <div class="card text-center">
           <div class="card-body">
 
-            <p class="m-1">Nombre del cliente</p>
-            <p class="m-1">{{cliente}}</p>
-            <p class="m-1">Curp</p>
-            <p class="m-1">{{curp}}</p>
-            <p class="m-1">Fecha de trámite</p>
-            <p class="m-1">{{fecha_tramite}}</p>
-            <p class="m-1">Cantidad a retirar</p>
-            <p class="m-1">{{monto}}</p>
+            <h5 class="card-title m-1">Nombre del cliente</h5>
+            <p class="card-text m-1">{{cliente}}</p>
+            <h5 class="card-title m-1">Fecha de trámite</h5>
+            <p class="card-text m-1">{{fecha_tramite}}</p>
+            <h5 class="card-title m-1">Cantidad a retirar</h5>
+            <p class="card-text m-1">{{monto}}</p>
 
           </div>
         </div>
@@ -30,8 +28,8 @@
       {{else}}
       <div class="col-md-4 mx-auto">
         <div class="card card-body text-center">
-          <p>There are not Links saved yet.</p>
-          <a href="/links/add">Create One!</a>
+          <p>No se ha realizado ninguna busqueda.</p>
+          <a href="/profile">Ir a perfil!</a>
         </div>
       </div>
       {{/each}}

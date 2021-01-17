@@ -16,6 +16,14 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   {{!-- styles --}}
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- CSS alertify -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+
 </head>
 
 <body>
@@ -23,8 +31,9 @@
   <div class="container-wrap">
     {{> navbar}}
 
+    {{> message}}
+
     <div class="main">
-      {{> message}}
 
       {{{body}}}
     </div>
@@ -50,6 +59,21 @@
   {{!-- navbar js --}}
 
   <script src="/js/navbar.js"></script>
+
+  {{!-- calcularCosto js --}}
+
+  <script src="js/calcularCosto.js"></script>
+
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+  <script>
+    let cantidadARetirar = document.getElementById("cantidadRetiro");
+    let btnCalcular = document.getElementById("btnCalcular")
+    let sucursal = document.getElementById("sucursalRetiro")
+
+    //event
+    btnCalcular.addEventListener("click", calcularRetiro)
+  </script>
 
 </body>
 

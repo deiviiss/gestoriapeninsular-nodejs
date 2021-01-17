@@ -45,7 +45,6 @@ app.use(flash()); //mostrar mensajes
 app.use(passport.initialize()); //inicializa passport
 app.use(passport.session()); //indica donde guardar los datos de la sesión passport
 
-
 //global variables
 app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //mensaje disponible en todas las vistas
@@ -56,8 +55,8 @@ app.use((req, res, next) => {
 
 //routes
 app.use(require('./routes/index.js')); //ruta inicial
+app.use(require('./routes/calcular.js')); //ruta calcular
 app.use(require('./routes/authentication.js')); //ruta de autenficación
-//app.use(require('./routes/user.js')); ruta de desconocida
 app.use('/links', require('./routes/links.js')); //ruta de links con prefijo /links/archivo
 
 //public

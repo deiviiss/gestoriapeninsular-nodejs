@@ -1,4 +1,11 @@
-//menu responsive se encima
+/*
+#  ·················
+#    _______________
+#   /·___/·___/·___/
+#  /·/__(__··|__··)
+#  \___/____/____/
+#  ·················
+*/
 
 //Variables
 
@@ -69,90 +76,90 @@ select:-webkit-autofill:focus {
   }
 }
 
-.header__logo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
+// .header__logo {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 0 10px;
 
-  img {
-    width: 75%;
-  }
+//   img {
+//     width: 75%;
+//   }
 
-  .header__logo--btnDesktop {
-    color: rgba(35, 39, 59, 0.8);
-    cursor: pointer;
-  }
-  .header__logo--btnMobile {
-    display: none;
-    color: rgba(35, 39, 59, 0.8);
-  }
-}
+//   .header__logo--btnDesktop {
+//     color: rgba(35, 39, 59, 0.8);
+//     cursor: pointer;
+//   }
+//   .header__logo--btnMobile {
+//     display: none;
+//     color: rgba(35, 39, 59, 0.8);
+//   }
+// }
 
 .header__nav {
   position: relative;
 }
 
-.nav {
-  display: none;
-  justify-content: flex-end;
-  font-size: 14px;
-  position: absolute;
-  z-index: 3;
+// .nav {
+//   display: none;
+//   justify-content: flex-end;
+//   font-size: 14px;
+//   position: absolute;
+//   z-index: 3;
 
-  .nav__main {
-    display: block;
-    cursor: pointer;
+//   .nav__main {
+//     display: block;
+//     cursor: pointer;
 
-    a {
-      color: $color-primary;
-      text-decoration: none;
-    }
-    p {
-      margin: 0;
-      margin-right: 60px;
-    }
+//     a {
+//       color: $color-primary;
+//       text-decoration: none;
+//     }
+//     p {
+//       margin: 0;
+//       margin-right: 60px;
+//     }
 
-    .nav__menu {
-      display: none;
-      text-decoration: none;
-      list-style: none;
-      padding: 5px;
-      margin-top: 1px;
-      margin-left: 10px;
-      border-radius: $borde;
-      background-color: rgba(35, 39, 59, 0.7);
-      width: 50%;
+//     .nav__menu {
+//       display: none;
+//       text-decoration: none;
+//       list-style: none;
+//       padding: 5px;
+//       margin-top: 1px;
+//       margin-left: 10px;
+//       border-radius: $borde;
+//       background-color: rgba(35, 39, 59, 0.7);
+//       width: 50%;
 
-      li {
-        font-size: 12px;
-        a {
-          color: $color-white;
-          text-decoration: none;
-        }
-      }
-    }
-  }
+//       li {
+//         font-size: 12px;
+//         a {
+//           color: $color-white;
+//           text-decoration: none;
+//         }
+//       }
+//     }
+//   }
 
-  .nav__main:hover {
-    p {
-      border-bottom: $borde solid $color-primary;
-    }
+//   .nav__main:hover {
+//     p {
+//       border-bottom: $borde solid $color-primary;
+//     }
 
-    .nav__menu {
-      display: block;
-      position: absolute;
+//     .nav__menu {
+//       display: block;
+//       position: absolute;
 
-      :hover a {
-        border-bottom: $borde solid $color-white;
-      }
-    }
-  }
-}
+//       :hover a {
+//         border-bottom: $borde solid $color-white;
+//       }
+//     }
+//   }
+// }
 
-.nav.show {
-  display: flex;
-}
+// .nav.show {
+//   display: flex;
+// }
 
 /*Estilos main*/
 .main {
@@ -164,7 +171,7 @@ select:-webkit-autofill:focus {
   max-width: 1128px;
   margin: 0 auto;
   flex: 1 0 auto;
-  padding: 20px 0;
+  padding: 0.3%;
 
   /*Estilos formulario*/
   .container-box {
@@ -196,6 +203,54 @@ select:-webkit-autofill:focus {
         font-family: $font-family;
         margin-bottom: 1.5em;
         font-size: 1.5em;
+      }
+
+      .form__cotizar {
+        width: 100%;
+        margin: auto;
+
+        .form__input {
+          .form__input-item {
+            position: relative;
+            margin-bottom: 32px;
+
+            input[type="number"] {
+              padding-right: 20px;
+              padding-top: 12px;
+              font-family: $font-family;
+              font-size: 16px;
+              color: $color-primary;
+              width: 100%;
+              outline: none;
+              background: none;
+              border: none;
+              border-bottom: $borde solid $color-light-primary;
+              text-align: center;
+              &:focus,
+              &:active {
+                outline: none;
+                border-bottom: $borde solid $color-primary;
+              }
+            }
+
+            label {
+              color: $color-primary;
+              &.label {
+                position: absolute;
+                top: 0px;
+                left: 0;
+                line-height: 16px;
+                margin-left: 16px;
+                transition: all 0.3s ease;
+              }
+              &.active {
+                top: -16px;
+                font-size: 12px;
+                line-height: 12px;
+              }
+            }
+          }
+        }
       }
 
       .form__register {
@@ -354,6 +409,8 @@ select:-webkit-autofill:focus {
     /*Estilos buscador*/
 
     .search {
+      width: 80%;
+
       form {
         display: flex;
         align-items: baseline;

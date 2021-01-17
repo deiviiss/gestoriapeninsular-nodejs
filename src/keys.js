@@ -28,11 +28,11 @@
 
 // module.exports = {
 //   database: {
-//     host: 'burrralzhxqwzesspjdc-mysql.services.clever-cloud.com',
-//     user: 'uspxtyy5w7utyrjh',
-//     password: '56lhDNoWPExTuLpFRRFi',
+//     host: 'bchgdz4wpbnvj3z2tprd-mysql.services.clever-cloud.com',
+//     user: 'u8r3bvvmjyzisqda',
+//     password: 'XrimPyAN7WLBoYrm6SCV',
 //     port: 3306,
-//     database: 'burrralzhxqwzesspjdc'
+//     database: 'bchgdz4wpbnvj3z2tprd'
 //   }
 // }
 
@@ -40,10 +40,10 @@
 
 module.exports = {
   database: {
-    host: 'b8uz1sgg0mtp0nubn0x1-mysql.services.clever-cloud.com',
-    user: 'u0fda66xjisejag8',
-    password: 'gZLkjX1yUUMKWGUur340',
-    port: 3306,
-    database: 'b8uz1sgg0mtp0nubn0x1'
+    host: 'b1lzhqoq4mm2737watmg-mysql.services.clever-cloud.com',
+    user: 'uspxtyy5w7utyrjh',
+    password: 'tFuzkAJvgGTuczFPtw3C',
+    port: 20572,
+    database: 'b1lzhqoq4mm2737watmg'
   }
 }

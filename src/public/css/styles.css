@@ -1,3 +1,12 @@
+@charset "UTF-8";
+/*
+#  ·················
+#    _______________
+#   /·___/·___/·___/
+#  /·/__(__··|__··)
+#  \___/____/____/
+#  ·················
+*/
 * {
   margin: 0;
   padding: 0;
@@ -68,100 +77,8 @@ select:-webkit-autofill:focus {
   margin: 5px;
 }
 
-.header__logo {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 0 10px;
-}
-
-.header__logo img {
-  width: 75%;
-}
-
-.header__logo .header__logo--btnDesktop {
-  color: rgba(35, 39, 59, 0.8);
-  cursor: pointer;
-}
-
-.header__logo .header__logo--btnMobile {
-  display: none;
-  color: rgba(35, 39, 59, 0.8);
-}
-
 .header__nav {
   position: relative;
-}
-
-.nav {
-  display: none;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  font-size: 14px;
-  position: absolute;
-  z-index: 3;
-}
-
-.nav .nav__main {
-  display: block;
-  cursor: pointer;
-}
-
-.nav .nav__main a {
-  color: #23273b;
-  text-decoration: none;
-}
-
-.nav .nav__main p {
-  margin: 0;
-  margin-right: 60px;
-}
-
-.nav .nav__main .nav__menu {
-  display: none;
-  text-decoration: none;
-  list-style: none;
-  padding: 5px;
-  margin-top: 1px;
-  margin-left: 10px;
-  border-radius: 2px;
-  background-color: rgba(35, 39, 59, 0.7);
-  width: 50%;
-}
-
-.nav .nav__main .nav__menu li {
-  font-size: 12px;
-}
-
-.nav .nav__main .nav__menu li a {
-  color: #f2f2f2;
-  text-decoration: none;
-}
-
-.nav .nav__main:hover p {
-  border-bottom: 2px solid #23273b;
-}
-
-.nav .nav__main:hover .nav__menu {
-  display: block;
-  position: absolute;
-}
-
-.nav .nav__main:hover .nav__menu :hover a {
-  border-bottom: 2px solid #f2f2f2;
-}
-
-.nav.show {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 /*Estilos main*/
@@ -185,7 +102,7 @@ select:-webkit-autofill:focus {
   -webkit-box-flex: 1;
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
-  padding: 20px 0;
+  padding: 0.3%;
   /*Estilos formulario*/
 }
 
@@ -236,6 +153,55 @@ select:-webkit-autofill:focus {
   font-family: "Roboto", Arial;
   margin-bottom: 1.5em;
   font-size: 1.5em;
+}
+
+.main .container-box .form .form__cotizar {
+  width: 100%;
+  margin: auto;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item input[type="number"] {
+  padding-right: 20px;
+  padding-top: 12px;
+  font-family: "Roboto", Arial;
+  font-size: 16px;
+  color: #23273b;
+  width: 100%;
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #0071b8;
+  text-align: center;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item input[type="number"]:focus, .main .container-box .form .form__cotizar .form__input .form__input-item input[type="number"]:active {
+  outline: none;
+  border-bottom: 2px solid #23273b;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item label {
+  color: #23273b;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item label.label {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  line-height: 16px;
+  margin-left: 16px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .container-box .form .form__cotizar .form__input .form__input-item label.active {
+  top: -16px;
+  font-size: 12px;
+  line-height: 12px;
 }
 
 .main .container-box .form .form__register {
@@ -418,6 +384,10 @@ select:-webkit-autofill:focus {
   background: #23273b;
   border-radius: 2px;
   color: white;
+}
+
+.main .container-box .search {
+  width: 80%;
 }
 
 .main .container-box .search form {

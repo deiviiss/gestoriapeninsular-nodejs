@@ -16,16 +16,16 @@ passport.use(
       passReqToCallback: true
     },
     async (req, username, password, done) => {
-      console.log(req.body)
-      console.log(username)
-      console.log('La contraseña', password)
+      // console.log(req.body)
+      // console.log(username)
+      // console.log('La contraseña', password)
 
       const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
 
       if (rows.length > 0) {
         const user = rows[0];
         const validarPassword = await cifrator.comparaPassword(password, user.password);
-        console.log('Resultado de la validación del pass', validarPassword)
+        // console.log('Resultado de la validación del pass', validarPassword)
         if (validarPassword) {
           done(null, user, req.flash('success', 'Bienvenido ' + user.username));
         } else {
@@ -58,11 +58,11 @@ passport.use(
       };
 
       newUser.password = await cifrator.encryptaPassword(password); //crea la contraseña encriptada
-      console.log(password);
+      // console.log(password);
       const result = await pool.query('INSERT INTO users SET ?', newUser); //guarda en database
       // console.log(result)
       newUser.id = result.insertId; //usa la propiedad del objeto devuelto por la consulta sql
-      console.log(newUser)
+      // console.log(newUser)
       req.flash('success', 'Bienvenido ' + newUser.username)
       return done(null, newUser); //lo almacena en una sesión
     }
@@ -72,12 +72,12 @@ passport.use(
 //serializar el usuario, guarda el id del usuario
 passport.serializeUser((user, done) => {
   done(null, user.id);
-  console.log('Enserializa', user.id)
+  // console.log('Enserializa', user.id)
 });
 
 //deserializar el usuario, toma el id guardado
 passport.deserializeUser(async (id, done) => {
   const rows = await pool.query('SELECT * FROM users WHERE id=?', [id]);
-  console.log('Des enzerializa', rows)
+  // console.log('Des enzerializa', rows)
   done(null, rows[0]);
 });
