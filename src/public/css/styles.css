@@ -59,6 +59,11 @@ select:-webkit-autofill:focus {
   padding: 10px 10%;
 }
 
+.header .navbar a img {
+  width: 90%;
+  height: 90%;
+}
+
 .header hr {
   margin: 5px;
 }
@@ -456,15 +461,21 @@ select:-webkit-autofill:focus {
 }
 
 /*Responsive design*/
-@media (max-width: 535px) {
+@media (max-width: 530px) {
+  .navbar-brand {
+    width: 70%;
+  }
+}
+
+@media (max-width: 360px) {
   .navbar {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
   }
-}
-
-@media (max-width: 360px) {
+  .navbar-brand {
+    width: 100%;
+  }
   .footer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

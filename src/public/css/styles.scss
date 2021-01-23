@@ -71,6 +71,15 @@ select:-webkit-autofill:focus {
   // justify-content: center;
   // border: 12px solid $color-white;
 
+  .navbar {
+    a {
+      img {
+        width: 90%;
+        height: 90%;
+      }
+    }
+  }
+
   hr {
     margin: 5px;
   }
@@ -403,13 +412,21 @@ select:-webkit-autofill:focus {
 
 /*Responsive design*/
 
-@media (max-width: 535px) {
-  .navbar {
-    justify-content: flex-end;
+@media (max-width: 530px) {
+  .navbar-brand {
+    width: 70%;
   }
 }
 
 @media (max-width: 360px) {
+  .navbar {
+    justify-content: flex-end;
+  }
+
+  .navbar-brand {
+    width: 100%;
+  }
+
   .footer {
     flex-direction: column;
   }
