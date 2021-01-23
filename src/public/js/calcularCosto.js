@@ -38,7 +38,7 @@ const formatterPeso = new Intl.NumberFormat('en-US', {
 
 //   else if (sucursalComision == "comisionForanea") {
 //     comisionForanea()
-//   }
+//   }x|
 //   else {
 
 //     let mensaje = "Elige una sucursal"
