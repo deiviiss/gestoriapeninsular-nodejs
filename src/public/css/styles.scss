@@ -107,8 +107,12 @@ select:-webkit-autofill:focus {
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    min-width: 75%;
+    min-width: 85%;
     min-height: calc(100vh - 400px);
+
+    p {
+      text-align: end;
+    }
 
     .form {
       background: rgba(255, 255, 255, 0.9);
@@ -116,7 +120,7 @@ select:-webkit-autofill:focus {
       border-radius: 20px;
       color: #ffffff;
       // padding: 60px 68px 40px;
-      margin: 2px;
+      margin: 5%;
       padding: 25px;
       width: 90%;
       max-width: 450px;
@@ -131,6 +135,8 @@ select:-webkit-autofill:focus {
         font-family: $font-family;
         margin-bottom: 1.5em;
         font-size: 1.5em;
+        text-align: center;
+        font-weight: 500;
       }
 
       .form__cotizar {
@@ -401,7 +407,7 @@ select:-webkit-autofill:focus {
   a {
     color: $color-white;
     cursor: pointer;
-
+    text-align: center;
     padding-left: 30px;
 
     :hover {
@@ -418,6 +424,12 @@ select:-webkit-autofill:focus {
   }
 }
 
+@media (max-width: 402px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 340px) {
   .navbar {
     justify-content: flex-end;
@@ -425,9 +437,5 @@ select:-webkit-autofill:focus {
 
   .navbar-brand {
     width: 100%;
-  }
-
-  .footer {
-    flex-direction: column;
   }
 }

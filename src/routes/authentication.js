@@ -8,7 +8,7 @@ const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
 
 //login de usuario
 
-//formulario
+// envía formulario
 router.get('/login', isNotLoggedIn, (req, res) => {
   res.render('authentic/login.hbs')
 });
@@ -24,17 +24,17 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 
 //registro de usuario
 
-//formulario
-router.get('/register', isNotLoggedIn, (req, res) => {
-  res.render('authentic/register.hbs')
-});
+// envía formulario
+// router.get('/register', isNotLoggedIn, (req, res) => {
+//   res.render('authentic/register.hbs')
+// });
 
 // recibe el formulario
-router.post('/register', isNotLoggedIn, passport.authenticate('local.register', { //metodo que toma el nombre de la autenticación creada en passport.js
-  successRedirect: '/profile',//donde lo envia cuando esta ok
-  failureRedirect: '/register',//donde lo envia cuando falla
-  failureFlash: true
-}));
+// router.post('/register', isNotLoggedIn, passport.authenticate('local.register', { //metodo que toma el nombre de la autenticación creada en passport.js
+//   successRedirect: '/profile',//donde lo envia cuando esta ok
+//   failureRedirect: '/register',//donde lo envia cuando falla
+//   failureFlash: true
+// }));
 
 //perfil
 router.get('/profile', isLoggedIn, (req, res) => {

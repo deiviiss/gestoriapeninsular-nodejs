@@ -1,5 +1,6 @@
 //guardar listar actualizar eliminar clientes
 
+//dependends
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 
@@ -16,35 +17,35 @@ router.get('/add', isLoggedIn, (req, res) => {
 })
 
 // Recibe el formulario captura cliente
-router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
-  const { asesor, cliente, curp, afore, nss, monto, sueldo_base, fecha_baja, fecha_tramite, direccion, telefono, observaciones, status, outsourcing, zona, pendiente, scotizadas, sdescontadas, fecha_ultimo_retiro, honorarios, seguro } = req.body; //objeto del formulario
-  const newCliente = {
-    asesor,
-    cliente,
-    curp,
-    afore,
-    nss,
-    monto,
-    sueldo_base,
-    fecha_baja,
-    fecha_tramite,
-    direccion,
-    telefono,
-    observaciones,
-    status,
-    outsourcing,
-    zona,
-    pendiente,
-    scotizadas,
-    sdescontadas,
-    fecha_ultimo_retiro,
-    honorarios,
-    seguro
-  };
-  await pool.query('INSERT INTO tramites set ?', [newCliente]) //insertamos los datos en la base, la petición es asincrona
-  req.flash('success', 'Cliente guardado correctamente')//parámetros: el nombre de como se guarda el mensaje y el valor del mensaje
-  res.redirect('/links'); //direciona a los links
-})
+// router.post('/add', isLoggedIn, async (req, res) => { //función asincrona
+//   const { asesor, cliente, curp, afore, nss, monto, sueldo_base, fecha_baja, fecha_tramite, direccion, telefono, observaciones, status, outsourcing, zona, pendiente, scotizadas, sdescontadas, fecha_ultimo_retiro, honorarios, seguro } = req.body; //objeto del formulario
+//   const newCliente = {
+//     asesor,
+//     cliente,
+//     curp,
+//     afore,
+//     nss,
+//     monto,
+//     sueldo_base,
+//     fecha_baja,
+//     fecha_tramite,
+//     direccion,
+//     telefono,
+//     observaciones,
+//     status,
+//     outsourcing,
+//     zona,
+//     pendiente,
+//     scotizadas,
+//     sdescontadas,
+//     fecha_ultimo_retiro,
+//     honorarios,
+//     seguro
+//   };
+//   await pool.query('INSERT INTO tramites set ?', [newCliente]) //insertamos los datos en la base, la petición es asincrona
+//   req.flash('success', 'Cliente guardado correctamente')//parámetros: el nombre de como se guarda el mensaje y el valor del mensaje
+//   res.redirect('/links'); //direciona a los links
+// })
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
@@ -58,16 +59,14 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   const { busqueda } = req.body
 
-  links = await pool.query('SELECT * FROM tramites WHERE id = ? ', [busqueda])
+  links = await pool.query("SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'")
 
-  // console.log([busqueda])
+  console.log([busqueda])
 
   if (links.length > 0) {
 
     let montoPeso = (links[0].monto)
     let fechaFormat = (links[0].fecha_tramite)
-
-    links[0].monto = helpers.formatterPeso.format(montoPeso)
 
     // console.log(fechaFormat)
 
@@ -87,9 +86,16 @@ router.post('/query', isLoggedIn, async (req, res) => {
     month[10] = "Noviembre";
     month[11] = "Deciembre";
 
-    links[0].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+    for (let i = 0; links[0] < 1; i++) {
+      links[0].monto = helpers.formatterPeso.format(montoPeso)
+      links[0].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+    };
+
 
   }
+
+  console.log(links[0].fecha_tramite)
+
   res.render('links/list.hbs', { links })
 })
 
@@ -109,21 +115,21 @@ router.get('/edit/:idtramites', isLoggedIn, async (req, res) => {
   res.render('links/edit', { link: links[0] }) //cero indica que solo tome un objeto del arreglo
 })
 
-router.post('/edit/:idtramites', isLoggedIn, async (req, res) => {
-  const { idtramites } = req.params
-  const { cliente, curp, nss, sdescontadas, scotizadas, direccion, telefono } = req.body; //objeto del formulario
-  const updateCliente = {
-    cliente,
-    curp,
-    nss,
-    sdescontadas,
-    scotizadas,
-    direccion,
-    telefono
-  };
-  await pool.query('UPDATE tramites set ? WHERE idtramites = ?', [updateCliente, idtramites])
-  req.flash('message', 'Cliente editado correctamente')
-  res.redirect('/links');
-})
+// router.post('/edit/:idtramites', isLoggedIn, async (req, res) => {
+//   const { idtramites } = req.params
+//   const { cliente, curp, nss, sdescontadas, scotizadas, direccion, telefono } = req.body; //objeto del formulario
+//   const updateCliente = {
+//     cliente,
+//     curp,
+//     nss,
+//     sdescontadas,
+//     scotizadas,
+//     direccion,
+//     telefono
+//   };
+//   await pool.query('UPDATE tramites set ? WHERE idtramites = ?', [updateCliente, idtramites])
+//   req.flash('message', 'Cliente editado correctamente')
+//   res.redirect('/links');
+// })
 
 module.exports = router;

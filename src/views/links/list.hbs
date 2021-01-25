@@ -3,7 +3,7 @@
   <div class="search">
     <form action="/links/query" method="post">
       {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
-      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autofocus>
+      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
       <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
     </form>
   </div>
@@ -11,16 +11,21 @@
   <div class="container p-4">
     <div class="row">
       {{#each links}}
-      <div class="col-md-6 mx-auto">
-        <div class="card text-center">
+      <div class="col-md-4 mt-4">
+        <div class=" card border-info text-dark bg-light">
+
+          <h5 class="card-header text-muted">Id {{id}}</h5>
+
           <div class="card-body">
 
-            <h5 class="card-title m-1">Nombre del cliente</h5>
+            <h6 class="card-title m-1">Nombre del cliente:</h6>
             <p class="card-text m-1">{{cliente}}</p>
-            <h5 class="card-title m-1">Fecha de trámite</h5>
+            <h6 class="card-title m-1">Fecha de trámite:</h6>
             <p class="card-text m-1">{{fecha_tramite}}</p>
-            <h5 class="card-title m-1">Cantidad a retirar</h5>
+            <h6 class="card-title m-1">Cantidad a retirar:</h6>
             <p class="card-text m-1">{{monto}}</p>
+            <h6 class="card-title m-1">Status:</h6>
+            <p class="card-text m-1">{{status}}</p>
 
           </div>
         </div>
@@ -28,7 +33,7 @@
       {{else}}
       <div class="col-md-4 mx-auto">
         <div class="card card-body text-center">
-          <p>No se ha realizado ninguna busqueda.</p>
+          <p class="text-center">No se ha realizado ninguna busqueda.</p>
           <a href="/profile">Ir a perfil!</a>
         </div>
       </div>

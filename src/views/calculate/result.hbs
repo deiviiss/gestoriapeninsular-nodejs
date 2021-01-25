@@ -1,0 +1,32 @@
+<div class="container-box">
+
+  <div class="container p-4">
+    <div class="row">
+
+      <div class="col-md-6 mx-auto">
+        <div class="card border-info text-dark bg-light">
+
+          <h5 class="card-header">Cotización GP</h5>
+
+          <div class="card-body">
+
+            <h6 class="card-title m-1">Cantidad a retirar:</h6>
+            <p class="card-text m-1">{{retiro.montoPesos}}</p>
+            <h6 class="card-title m-1">Honorarios:</h6>
+            <p class="card-text m-1">{{retiro.cobroPesos}}</p>
+            <h6 class="card-title m-1">Aseguramiento:</h6>
+            <p class="card-text m-1">{{retiro.aseguramientoPesos}}</p>
+            <h6 class="card-title m-1">Total:</h6>
+            <p class="card-text m-1">{{retiro.cobroClientePesos}}</p>
+            <h6 class="card-title m-1">Cliente:</h6>
+            <p class="card-text m-1">{{retiro.libreClientePesos}}</p>
+            <br>
+            <a href="calcular" class="btn btn-info btn-block" id="btnCalcular">Nueva consulta</a>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

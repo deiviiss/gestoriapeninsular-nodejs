@@ -107,10 +107,14 @@ select:-webkit-autofill:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-width: 75%;
+  min-width: 85%;
   min-height: calc(100vh - 400px);
   /*Estilos buscador*/
   /*Estilos index*/
+}
+
+.main .container-box p {
+  text-align: end;
 }
 
 .main .container-box .form {
@@ -118,7 +122,7 @@ select:-webkit-autofill:focus {
   border: 2px solid #ffffff;
   border-radius: 20px;
   color: #ffffff;
-  margin: 2px;
+  margin: 5%;
   padding: 25px;
   width: 90%;
   max-width: 450px;
@@ -140,6 +144,8 @@ select:-webkit-autofill:focus {
   font-family: "Roboto", Arial;
   margin-bottom: 1.5em;
   font-size: 1.5em;
+  text-align: center;
+  font-weight: 500;
 }
 
 .main .container-box .form .form__cotizar {
@@ -453,6 +459,7 @@ select:-webkit-autofill:focus {
 .footer a {
   color: #f2f2f2;
   cursor: pointer;
+  text-align: center;
   padding-left: 30px;
 }
 
@@ -467,6 +474,15 @@ select:-webkit-autofill:focus {
   }
 }
 
+@media (max-width: 402px) {
+  .footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
 @media (max-width: 340px) {
   .navbar {
     -webkit-box-pack: end;
@@ -475,12 +491,6 @@ select:-webkit-autofill:focus {
   }
   .navbar-brand {
     width: 100%;
-  }
-  .footer {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
   }
 }
 /*# sourceMappingURL=styles.css.map */

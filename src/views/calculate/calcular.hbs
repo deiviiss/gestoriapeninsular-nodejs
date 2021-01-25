@@ -1,0 +1,47 @@
+<div class="container-box">
+
+  <div class="form">
+
+    <h2 class="form__title">Retiro Parcial por Desempleo</h2>
+
+    <form action="/calcular" method="post" class="form__cotizar" name="formulario_cotizar">
+
+      {{!-- <div class="form__input">
+        <div class="form__input-item">
+          <select id="sucursalRetiro">
+            <option value=""></option>
+            <option value="retiroLocal">Campeche</option>
+            <option value="retiroForaneo">Cancun</option>
+            <option value="retiroForaneo">Candelaria</option>
+            <option value="retiroForaneo">Carmen</option>
+            <option value="retiroForaneo">Chetumal</option>
+            <option value="retiroForaneo">Cozumel</option>
+            <option value="retiroForaneo">Escarcega</option>
+          </select>
+
+          <label for="sucursal" class='label active'>Sucursal</label>
+        </div>
+      </div> --}}
+
+      <div class="form__input">
+
+        <div class="form__input-item">
+          <input type="number" id="cantidadRetiro" name="montoRetiro" autocomplete="off">
+          <label for="montoRetiro" class="label">Cantidad a Retirar</label>
+        </div>
+
+        <button type="submit" class="btn btn-info btn-block" id="btnCalcular">Calcular</button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<!-- alertify -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- script calcular -->
+<script src="/js/calcularCosto.js"></script>
