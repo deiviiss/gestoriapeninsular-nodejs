@@ -113,6 +113,10 @@ select:-webkit-autofill:focus {
   /*Estilos index*/
 }
 
+.main .container-box h6 {
+  font-weight: bold;
+}
+
 .main .container-box p {
   text-align: end;
 }

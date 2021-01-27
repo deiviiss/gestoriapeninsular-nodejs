@@ -61,40 +61,39 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   links = await pool.query("SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'")
 
-  console.log([busqueda])
+  console.log("Consulta " + [busqueda])
 
   if (links.length > 0) {
 
-    let montoPeso = (links[0].monto)
-    let fechaFormat = (links[0].fecha_tramite)
+    for (var i = 0; i < links.length; i++) {
 
-    // console.log(fechaFormat)
+      let montoPeso = (links[i].monto)
+      let fechaFormat = (links[i].fecha_tramite)
+      let month = new Array(); //Array que contiene los meses
 
-    date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+      month[0] = "Enero";
+      month[1] = "Febrero";
+      month[2] = "Marzo";
+      month[3] = "Abril";
+      month[4] = "Mayo";
+      month[5] = "Junio";
+      month[6] = "Julio";
+      month[7] = "Agosto";
+      month[8] = "Septiembre";
+      month[9] = "Octubre";
+      month[10] = "Noviembre";
+      month[11] = "Deciembre";
 
-    let month = new Array(); //Array que contiene los meses
-    month[0] = "Enero";
-    month[1] = "Febrero";
-    month[2] = "Marzo";
-    month[3] = "Abril";
-    month[4] = "Mayo";
-    month[5] = "Junio";
-    month[6] = "Julio";
-    month[7] = "Agosto";
-    month[8] = "Septiembre";
-    month[9] = "Octubre";
-    month[10] = "Noviembre";
-    month[11] = "Deciembre";
+      date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
 
-    for (let i = 0; links[0] < 1; i++) {
-      links[0].monto = helpers.formatterPeso.format(montoPeso)
-      links[0].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
-    };
+      links[i].monto = helpers.formatterPeso.format(montoPeso)
+      links[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+
+      // console.log(links[i].fecha_tramite)
+    }
 
 
   }
-
-  console.log(links[0].fecha_tramite)
 
   res.render('links/list.hbs', { links })
 })

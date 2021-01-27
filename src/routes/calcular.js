@@ -24,7 +24,7 @@ router.post('/calcular', async (req, res) => {
   let cobroCliente
   let libreCliente
 
-  if (montoRetiro > 39000) {
+  if (montoRetiro > 30801) {
     cobro = montoRetiro * .30
     aseguramiento = 'Incluido'
     cobroCliente = cobro

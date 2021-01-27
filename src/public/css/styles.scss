@@ -110,6 +110,10 @@ select:-webkit-autofill:focus {
     min-width: 85%;
     min-height: calc(100vh - 400px);
 
+    h6 {
+      font-weight: bold;
+    }
+
     p {
       text-align: end;
     }

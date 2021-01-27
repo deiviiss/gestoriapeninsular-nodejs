@@ -36,7 +36,7 @@ app.use(morgan('dev')); //mensajes de servidor
 app.use(bodyParser.urlencoded({ extended: false })); //metodo de bodyParser que permite entender los datos.
 app.use(bodyParser.json()); //metodo de bodyParser que permite entender archivos json.
 
-app.use(session({ //configuración de sesión
+app.use(session({ //configuración de sesión para usar conect-flash
   secret: 'gestoriamysqlsession', //como guarda la sesión
   resave: false, //no renueva la sesión
   saveUninitialized: false, //no vuelve a establecer la sesión
