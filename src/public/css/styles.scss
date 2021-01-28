@@ -71,6 +71,10 @@ select:-webkit-autofill:focus {
   // justify-content: center;
   // border: 12px solid $color-white;
 
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+
   .navbar {
     a {
       img {
@@ -109,6 +113,8 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     min-width: 85%;
     min-height: calc(100vh - 400px);
+
+    padding-top: 13%;
 
     h6 {
       font-weight: bold;
@@ -347,7 +353,7 @@ select:-webkit-autofill:focus {
     /*Estilos buscador*/
 
     .search {
-      width: 80%;
+      width: 50%;
 
       form {
         display: flex;

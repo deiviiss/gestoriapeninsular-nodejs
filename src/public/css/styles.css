@@ -57,6 +57,9 @@ select:-webkit-autofill:focus {
 .header {
   background-color: #f2f2f2;
   padding: 10px 10%;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
 }
 
 .header .navbar a img {
@@ -109,6 +112,7 @@ select:-webkit-autofill:focus {
           flex-direction: column;
   min-width: 85%;
   min-height: calc(100vh - 400px);
+  padding-top: 13%;
   /*Estilos buscador*/
   /*Estilos index*/
 }
@@ -384,7 +388,7 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box .search {
-  width: 80%;
+  width: 50%;
 }
 
 .main .container-box .search form {
