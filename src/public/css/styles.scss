@@ -105,6 +105,8 @@ select:-webkit-autofill:focus {
   flex: 1 0 auto;
   padding: 0.3%;
 
+  padding-top: 30%;
+
   /*Estilos formulario*/
   .container-box {
     display: flex;
@@ -113,8 +115,6 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     min-width: 85%;
     min-height: calc(100vh - 400px);
-
-    padding-top: 13%;
 
     h6 {
       font-weight: bold;
@@ -353,7 +353,7 @@ select:-webkit-autofill:focus {
     /*Estilos buscador*/
 
     .search {
-      width: 50%;
+      width: 80%;
 
       form {
         display: flex;

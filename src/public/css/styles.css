@@ -93,6 +93,7 @@ select:-webkit-autofill:focus {
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
   padding: 0.3%;
+  padding-top: 30%;
   /*Estilos formulario*/
 }
 
@@ -112,7 +113,6 @@ select:-webkit-autofill:focus {
           flex-direction: column;
   min-width: 85%;
   min-height: calc(100vh - 400px);
-  padding-top: 13%;
   /*Estilos buscador*/
   /*Estilos index*/
 }
@@ -388,7 +388,7 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box .search {
-  width: 50%;
+  width: 80%;
 }
 
 .main .container-box .search form {
