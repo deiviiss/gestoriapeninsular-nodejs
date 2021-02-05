@@ -59,12 +59,12 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   const { busqueda } = req.body
 
-  links = await pool.query("SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'")
+  links = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.privilegio] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
 
-  console.log("Consulta " + [busqueda])
-
+  // Condición que recibe el record
   if (links.length > 0) {
 
+    // ciclo for para iterar records recibidos.
     for (var i = 0; i < links.length; i++) {
 
       let montoPeso = (links[i].monto)
@@ -91,8 +91,6 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
       // console.log(links[i].fecha_tramite)
     }
-
-
   }
 
   res.render('links/list.hbs', { links })
