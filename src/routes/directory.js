@@ -25,7 +25,7 @@ router.post('/directorio', isLoggedIn, async (req, res) => {
 
 
 
-  directorio = directorio = await pool.query("SELECT * FROM users WHERE fullname like '%" + [busqueda] + "%'") // consulta a la base
+  directorio = directorio = await pool.query("SELECT * FROM users WHERE fullname like '%" + [busqueda] + "%' OR zona like '%" + [busqueda] + "%'") // consulta a la base
 
   // console.log(directorio)
 

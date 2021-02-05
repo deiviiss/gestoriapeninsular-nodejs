@@ -57,9 +57,6 @@ select:-webkit-autofill:focus {
 .header {
   background-color: #f2f2f2;
   padding: 10px 10%;
-  width: 100%;
-  position: fixed;
-  z-index: 99;
 }
 
 .header .navbar a img {
@@ -93,7 +90,6 @@ select:-webkit-autofill:focus {
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
   padding: 0.3%;
-  padding-top: 30%;
   /*Estilos formulario*/
 }
 

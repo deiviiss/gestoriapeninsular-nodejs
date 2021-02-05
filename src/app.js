@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 //routes
 app.use(require('./routes/index.js')); //ruta inicial
 app.use(require('./routes/calcular.js')); //ruta calcular
+app.use(require('./routes/directory.js')); //ruta directorio
 app.use(require('./routes/authentication.js')); //ruta de autenficación
 app.use('/links', require('./routes/links.js')); //ruta de links con prefijo /links/archivo
 

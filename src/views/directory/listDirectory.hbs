@@ -1,0 +1,47 @@
+<div class="container-box">
+
+  <div class="search">
+    <form action="/directorio" method="post">
+      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
+      <input type="search" placeholder="Buscar" name="busqueda" class="form-control" autocomplete="off">
+      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
+    </form>
+  </div>
+
+  <div class="container p-4">
+    <div class="row">
+      {{#each directorio}}
+      <div class="col-md-6 mt-4 mx-auto">
+        <div class=" card border-info text-dark bg-light">
+
+          <h5 class="card-header text-muted">{{zona}}</h5>
+
+          <div class="card-body">
+
+            <h6 class="card-title m-1">Nombre:</h6>
+            <p class="card-text m-1">{{fullname}}</p>
+            <h6 class="card-title m-1">Puesto:</h6>
+            <p class="card-text m-1">{{puesto}}</p>
+            <h6 class="card-title m-1">Email:</h6>
+            <p class="card-text m-1">{{correo}}</p>
+            <h6 class="card-title m-1">Celular:</h6>
+            <p class="card-text m-1">{{movil}}</p>
+            <h6 class="card-title m-1">Oficina:</h6>
+            <p class="card-text m-1">{{oficina}}</p>
+            <h6 class="card-title m-1">Dirección:</h6>
+            <p class="card-text m-1">{{direccion}}</p>
+
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p class="text-center">No se ha realizado ninguna busqueda.</p>
+          <a href="/profile">Ir a perfil!</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

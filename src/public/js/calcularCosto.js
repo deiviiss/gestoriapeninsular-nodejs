@@ -30,9 +30,10 @@ var validarInputs = function () {
 var enviar = function (e) {
   // console.log(form)
   if (!validarInputs()) {
-    let mensaje = "Ingresa una cantidad."
+    // let mensaje = "Ingresa una cantidad."
 
-    mandarAlert(mensaje)
+    // mandarAlert(mensaje)
+    alert("Ingresa una cantidad")
     e.preventDefault();
   }
   //  else {

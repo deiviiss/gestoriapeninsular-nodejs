@@ -29,10 +29,29 @@
               <i class="fas fa-search mr-1"></i>Clientes
             </a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/calcular">
-              <i class="fas fa-calculator mr-1"></i>Calculadora
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-hands-helping mr-1"></i>Recursos
             </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <a class="dropdown-item" href="/directorio"><i class="fas fa-address-book mr-1"></i>Directorio</a>
+
+              <a class="dropdown-item" href="/calcular"><i class="fas fa-piggy-bank mr-1"></i>Cotización</a>
+
+              <a class="dropdown-item"
+                href="https://serviciosdigitales.imss.gob.mx/semanascotizadas-web/usuarios/IngresoAsegurado"><i
+                  class="far fa-calendar-alt mr-1"></i>Semanas
+                Cotizadas</a>
+              <a class="dropdown-item" href="https://www.gob.mx/curp/"><i class="far fa-list-alt mr-1"></i>CURP</a>
+              <a class="dropdown-item"
+                href="https://app.cfe.mx/Aplicaciones/CCFE/SolicitudesCFE/Solicitudes/ConsultaTuReciboLuzGmx.aspx"><i
+                  class="fab fa-medapps mr-1"></i>CFE</a>
+
+              <div class="dropdown-divider"></div>
+            </div>
           </li>
 
           <li class="nav-item dropdown">
@@ -41,34 +60,15 @@
               <i class="fas fa-user-alt mr-1"></i>Perfil
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/profile">Ver perfil</a>
-              <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+              <a class="dropdown-item" href="/profile"><i class="fas fa-user-edit mr-1"></i>Ver perfil</a>
+              <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt mr-1"></i>Cerrar sesión</a>
               <div class="dropdown-divider"></div>
             </div>
           </li>
 
           {{else}}
-          <li class="nav-item active">
-            <a class="nav-link" href="/calcular">
-              <i class="fas fa-calculator mr-1"></i>Calculadora
-            </a>
-          </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-hands-helping mr-1"></i>Recursos
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item"
-                href="https://serviciosdigitales.imss.gob.mx/semanascotizadas-web/usuarios/IngresoAsegurado">Semanas
-                Cotizadas</a>
-              <a class="dropdown-item" href="https://www.gob.mx/curp/">CURP</a>
-              <a class="dropdown-item"
-                href="https://app.cfe.mx/Aplicaciones/CCFE/SolicitudesCFE/Solicitudes/ConsultaTuReciboLuzGmx.aspx">CFE</a>
-              <div class="dropdown-divider"></div>
-            </div>
-          </li>
+          {{!-- Enlaces visibles sin login --}}
 
         </ul>
       </div>

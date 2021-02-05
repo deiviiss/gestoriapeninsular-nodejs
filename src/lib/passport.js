@@ -27,7 +27,7 @@ passport.use(
         const validarPassword = await cifrator.comparaPassword(password, user.password);
 
         if (validarPassword) {
-          done(null, user, req.flash('success', 'Bienvenido ' + user.username));
+          done(null, user, req.flash('success', 'Bienvenid@ ' + user.username));
         } else {
           done(null, false, req.flash('fail', 'Constraseña incorrecta'));
         }
@@ -51,7 +51,7 @@ passport.use(
       const { fullname, zona } = req.body; //obtiene los datos de req.body
       // const { zona } = req.body;
       let newUser = { //objeto con un nuevo usuario que guarda los datos
-        username,//username: username
+        username, //username: username
         password,
         fullname,
         zona
@@ -63,7 +63,7 @@ passport.use(
       // console.log(result)
       newUser.id = result.insertId; //usa la propiedad del objeto devuelto por la consulta sql
       // console.log(newUser)
-      req.flash('success', 'Bienvenido ' + newUser.username)
+      req.flash('success', 'Bienvenid@ ' + newUser.username)
       return done(null, newUser); //lo almacena en una sesión
     }
   )
