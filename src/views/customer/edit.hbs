@@ -28,6 +28,14 @@
                 <label for="observaciones">{{observaciones}}</label>
               </div>
 
+              {{#if_equal status "Finalizado"}}
+
+              <div class="text-center">
+                <a href="/customer/" class="btn btn-info m-4">Clientes</a>
+              </div>
+
+              {{else}}
+
               <div class="text-center">
 
                 <textarea class="border-" name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
@@ -36,6 +44,9 @@
               <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit"
                 value="Actualizar">
             </div>
+
+            {{/if_equal}}
+
 
           </div>
 
