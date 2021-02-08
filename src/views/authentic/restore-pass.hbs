@@ -1,0 +1,36 @@
+{{!-- Formulario restablecer contraseña --}}
+
+<div class="container-box">
+
+  <div class="form">
+
+    <h2 class="form__title">Restablecer Contraseña</h2>
+
+    <form action="/restore-pass/{{user.id}}" method="post" class="form__register" name="formulario_cliente">
+
+      <div class="form__input">
+
+        <div class="form__input-item">
+          <p>{{user.username}}</p>
+          <label for="username" class='label'>Usuario</label>
+        </div>
+        <div class="form__input-item">
+          <input type="password" name="password" id="pass">
+          <label for="password" class='label'>Contraseña <i class="fa fa-eye" id="show"
+              onclick="passHide()"></i></label>
+        </div>
+
+        <div class="form__input-item">
+          <input type="password" name="password2" id="pass2">
+          <label for="password2" class='label'>Confirmar Contraseña <i class="fa fa-eye" id="show2"
+              onclick="passHide()"></i></label>
+        </div>
+
+        <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Restablecer">
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/userRegister.js"></script>

@@ -13,6 +13,16 @@ const bodyParser = require('body-parser');
 
 const { database } = require('./keys');//solicita la conexión a la bd
 
+//handlebars if_equal
+
+const isEqualHelperHandlerbar = function (a, b, opts) {
+  if (a == b) {
+    return opts.fn(this)
+  } else {
+    return opts.inverse(this)
+  }
+}
+
 //inizializations
 const app = express();
 require('./lib/passport');
@@ -20,16 +30,17 @@ require('./lib/passport');
 //settings
 
 app.set('port', process.env.PORT || 3000); //server port
-app.set('views', path.join(__dirname, 'views')) //ruta para las vistas mediante path.join(_dirname)
+app.set('views', path.join(__dirname, 'views')) //ruta para las vistas mediante path.join(_dirname), le dice a node donde están las vistas
 
-app.engine('.hbs', exphbs({
+app.engine('.hbs', exphbs({ // configuración motor de plantillas
   defaultLayout: 'main', //nombre de la plantilla pricipal
   layoutsDir: path.join(app.get('views'), 'layouts'), //une con el metodo join para unir views con layout
   partialsDir: path.join(app.get('views'), 'partials'), //une con el metodo join para unir views con partials
   extname: '.hbs', //nombre de la extensión
-  helpers: require('./lib/handlebars')
+  helpers: require('./lib/handlebars'), // ruta de los helpers
+  helpers: { if_equal: isEqualHelperHandlerbar } // usar funcion en vistas
 }));
-app.set('view engine', '.hbs'); //motor de plantillas
+app.set('view engine', '.hbs'); // llama motor de plantillas
 
 //middlewares (peticiones)
 app.use(morgan('dev')); //mensajes de servidor
@@ -56,10 +67,10 @@ app.use((req, res, next) => {
 
 //routes
 app.use(require('./routes/index.js')); //ruta inicial
-app.use(require('./routes/calcular.js')); //ruta calcular
-app.use(require('./routes/directory.js')); //ruta directorio
+app.use(require('./routes/calculate.js')); //ruta calcular
 app.use(require('./routes/authentication.js')); //ruta de autenficación
-app.use('/links', require('./routes/links.js')); //ruta de links con prefijo /links/archivo
+app.use('/customer', require('./routes/customer.js')); //ruta de customer con prefijo /customer/archivo
+app.use(require('./routes/directory.js')); //ruta directorio users
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos

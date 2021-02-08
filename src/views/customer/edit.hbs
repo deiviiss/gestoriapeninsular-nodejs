@@ -1,0 +1,49 @@
+{{!-- Formulario agregar observaciones --}}
+
+<div class="container-box">
+
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-6 mt-4 mx-auto">
+
+        <form action="/customer/edit/{{customer.id}}" method="post" class="form__register" name="formulario_cliente">
+
+          <div class="card border-info text-dark bg-light">
+
+            {{#with customer}}
+
+            <h5 class="card-header text-muted">{{cliente}}</h5>
+
+            <div class="card-body">
+
+              <h6 class="card-title m-1">Fecha de trámite:</h6>
+              <p class="card-text m-1">{{fecha_tramite}}</p>
+              <h6 class="card-title m-1">Cantidad a retirar:</h6>
+              <p class="card-text m-1">{{monto}}</p>
+              <h6 class="card-title m-1">Status:</h6>
+              <p class="card-text m-1">{{status}}</p>
+              <h6 class="card-title m-1">Observaciones:</h6>
+
+              <div class="text-center">
+                <label for="observaciones">{{observaciones}}</label>
+              </div>
+
+              <div class="text-center">
+
+                <textarea class="border-" name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
+              </div>
+
+              <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit"
+                value="Actualizar">
+            </div>
+
+          </div>
+
+          {{/with}}
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

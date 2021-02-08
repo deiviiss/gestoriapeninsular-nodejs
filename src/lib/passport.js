@@ -25,9 +25,9 @@ passport.use(
       if (rows.length > 0) {
         const user = rows[0];
         const validarPassword = await cifrator.comparaPassword(password, user.password);
-
         if (validarPassword) {
           done(null, user, req.flash('success', 'Bienvenid@ ' + user.username));
+          console.log(user.admin)
         } else {
           done(null, false, req.flash('fail', 'Constraseña incorrecta'));
         }
@@ -48,13 +48,22 @@ passport.use(
       passReqToCallback: true //para poder recibir datos adicionales en el registro de usuario
     },
     async (req, username, password, done) => {//define lo que hara después de autenticar con done
-      const { fullname, zona } = req.body; //obtiene los datos de req.body
+      const { fullname, zona, puesto,
+        correo,
+        movil,
+        oficina,
+        direccion } = req.body; //obtiene los datos de req.body
       // const { zona } = req.body;
       let newUser = { //objeto con un nuevo usuario que guarda los datos
         username, //username: username
         password,
         fullname,
-        zona
+        zona,
+        puesto,
+        correo,
+        movil,
+        oficina,
+        direccion
       };
 
       newUser.password = await cifrator.encryptaPassword(password); //crea la contraseña encriptada

@@ -15,22 +15,19 @@ const helpers = require('../lib/handlebars')
 router.get('/directorio', isLoggedIn, async (req, res) => {
   const directorio = await pool.query('SELECT * FROM users');
 
-  res.render('directory/listDirectory.hbs', { directorio }) //muestra el objeto en la vista
+  res.render('directory/list.hbs', { directorio }) //muestra el objeto en la vista
 })
 
+// consulta
 router.post('/directorio', isLoggedIn, async (req, res) => {
   const { busqueda } = req.body
 
   // console.log({ busqueda })
 
-
-
   directorio = directorio = await pool.query("SELECT * FROM users WHERE fullname like '%" + [busqueda] + "%' OR zona like '%" + [busqueda] + "%'") // consulta a la base
-
   // console.log(directorio)
 
-  res.render('directory/listDirectory.hbs', { directorio })
-
+  res.render('directory/list.hbs', { directorio })
 })
 
 module.exports = router;

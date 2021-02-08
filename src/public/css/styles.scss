@@ -122,6 +122,11 @@ select:-webkit-autofill:focus {
 
     p {
       text-align: end;
+      color: $color-primary;
+    }
+
+    textarea {
+      margin-bottom: 2%;
     }
 
     .form {

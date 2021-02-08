@@ -4,10 +4,32 @@
       <div class="col-md mx-auto">
         <div class="card text-center">
           <div class="card-body">
-            <h3>Bievenid@ {{user.fullname}} </h3>
+
+            {{#with user}}
+
+            <h3>Bievenid@ {{fullname}} </h3>
             <br>
-            <h4> {{user.username}} </h4>
-            <a href="/links" class="btn btn-info m-4">Clientes</a>
+            <h4> {{username}} </h4>
+            <h6>Email:</h6>
+            <p class="text-center">{{correo}}</p>
+            <h6>Celular:</h6>
+            <p class="text-center">{{movil}}</p>
+            <h6>Teléfono Oficina:</h6>
+            <p class="text-center">{{oficina}}</p>
+            <a href="/customer/" class="btn btn-info m-4">Clientes</a>
+            <br>
+            {{#if_equal puesto "Administrador"}}
+
+            {{else}}
+
+            {{!-- Botones visibles como encargado --}}
+
+            {{/if_equal}}
+
+            <a href="/restore-pass/{{id}}" class="btn btn-danger m-4">Restablecer contraseña</a>
+
+            {{/with}}
+
           </div>
         </div>
       </div>

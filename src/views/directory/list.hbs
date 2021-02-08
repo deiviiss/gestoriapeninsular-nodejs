@@ -23,11 +23,17 @@
             <h6 class="card-title m-1">Puesto:</h6>
             <p class="card-text m-1">{{puesto}}</p>
             <h6 class="card-title m-1">Email:</h6>
-            <p class="card-text m-1">{{correo}}</p>
+            <a href="mailto:{{correo}}">
+              <p class="card-text m-1"><i class="fas fa-envelope mr-1"></i>{{correo}}</p>
+            </a>
             <h6 class="card-title m-1">Celular:</h6>
-            <p class="card-text m-1">{{movil}}</p>
+            <a href="https://wa.me/52{{movil}}" target="_blank">
+              <p class="card-text m-1"><i class="fab fa-whatsapp mr-1"></i>{{movil}}</p>
+            </a>
             <h6 class="card-title m-1">Oficina:</h6>
-            <p class="card-text m-1">{{oficina}}</p>
+            <a href="tel:+52{{oficina}}">
+              <p class="card-text m-1"><i class="fas fa-phone mr-1"></i>{{oficina}}</p>
+            </a>
             <h6 class="card-title m-1">Dirección:</h6>
             <p class="card-text m-1">{{direccion}}</p>
 
