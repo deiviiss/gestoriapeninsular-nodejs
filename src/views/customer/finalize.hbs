@@ -1,0 +1,45 @@
+{{!-- Formulario agregar observaciones --}}
+
+<div class="container-box">
+
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-6 mt-4 mx-auto">
+
+        <form action="/customer/finalize/{{customer.id}}" method="post" class="form__register"
+          name="formulario_cliente">
+
+          <div class="card border-info text-dark bg-light">
+
+            <div class="card_title">
+              <h5 class="card-header text-muted">{{customer.cliente}}</h5>
+            </div>
+
+            <div class="card-body">
+
+              <h6 class="card-title m-1 text-center">Fecha de liquidación:</h6>
+
+              <div class="text-center">
+                <label for="observaciones"></label>
+              </div>
+
+              <div class="text-center">
+
+                <textarea class="border-" name="observaciones" id="observaciones" cols="30" rows="2"></textarea>
+              </div>
+
+              <div class="buttons">
+
+                <input class="btn btn-danger" type="submit" name="btn-submit" id="form__btn-submit" value="Finalizar">
+
+              </div>
+
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

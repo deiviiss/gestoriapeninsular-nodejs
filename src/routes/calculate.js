@@ -14,6 +14,7 @@ router.get('/calcular', (req, res) => {
 
 // Recibe la cantidad a calcular
 router.post('/calcular', async (req, res) => {
+  console.log(req.body)
   const { montoRetiro } = req.body
 
   // console.log(montoRetiro)

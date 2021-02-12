@@ -27,7 +27,7 @@ passport.use(
         const validarPassword = await cifrator.comparaPassword(password, user.password);
         if (validarPassword) {
           done(null, user, req.flash('success', 'Bienvenid@ ' + user.username));
-          console.log(user.admin)
+
         } else {
           done(null, false, req.flash('fail', 'Constraseña incorrecta'));
         }

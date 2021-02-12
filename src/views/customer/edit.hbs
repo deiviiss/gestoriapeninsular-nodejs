@@ -10,48 +10,72 @@
 
           <div class="card border-info text-dark bg-light">
 
-            {{#with customer}}
-
-            <h5 class="card-header text-muted">{{cliente}}</h5>
+            <div class="card_title">
+              <h5 class="card-header text-muted">{{customer.cliente}}</h5>
+              <a href="/customer/"><i class="fas fa-arrow-left text-muted"></i></a>
+            </div>
 
             <div class="card-body">
 
               <h6 class="card-title m-1">Fecha de trámite:</h6>
-              <p class="card-text m-1">{{fecha_tramite}}</p>
+              <p class="card-text m-1">{{customer.fecha_tramite}}</p>
               <h6 class="card-title m-1">Cantidad a retirar:</h6>
-              <p class="card-text m-1">{{monto}}</p>
+              <p class="card-text m-1">{{customer.monto}}</p>
+              <h6 class="card-title m-1">Curp:</h6>
+              <p class="card-text m-1">{{customer.curp}}</p>
+              <h6 class="card-title m-1">NSS:</h6>
+              <p class="card-text m-1">{{customer.nss}}</p>
+              <h6 class="card-title m-1">Semanas cotizadas:</h6>
+              <p class="card-text m-1">{{customer.scotizadas}}</p>
+              <h6 class="card-title m-1">Semanas descontadas:</h6>
+              <p class="card-text m-1">{{customer.sdescontadas}}</p>
+              <h6 class="card-title m-1">Dirección:</h6>
+              <p class="card-text m-1">{{customer.direccion}}</p>
+              <h6 class="card-title m-1">Teléfono:</h6>
+              <p class="card-text m-1">{{customer.telefono}}</p>
               <h6 class="card-title m-1">Status:</h6>
-              <p class="card-text m-1">{{status}}</p>
-              <h6 class="card-title m-1">Observaciones:</h6>
+              <p class="card-text m-1">{{customer.status}}</p>
+              <h6 class="card-title m-1 text-center">Observaciones:</h6>
 
               <div class="text-center">
-                <label for="observaciones">{{observaciones}}</label>
+                <label for="observaciones">{{customer.observaciones}}</label>
               </div>
 
-              {{#if_equal status "Finalizado"}}
-
-              <div class="text-center">
-                <a href="/customer/" class="btn btn-info m-4">Clientes</a>
-              </div>
-
-              {{else}}
+              {{#if_equal customer.status "Pendiente"}}
 
               <div class="text-center">
 
                 <textarea class="border-" name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
               </div>
 
-              <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit"
-                value="Actualizar">
+              <div class="buttons">
+
+                <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
+
+                {{else}}
+
+                <a href="/customer/" class="btn btn-info m-4 buttons">Clientes</a>
+
+                {{/if_equal}}
+
+                {{#if_equal customer.status "Finalizado"}}
+
+                {{!-- Sí no está finalizado--}}
+
+                {{else}}
+
+                {{#if_equal user.permiso "Administrador"}}
+
+                <a href="/customer/finalize/{{customer.id}}" class="btn btn-danger">Finalizar</a>
+
+                {{/if_equal}}
+                {{/if_equal}}
+
+              </div>
+
             </div>
 
-            {{/if_equal}}
-
-
           </div>
-
-          {{/with}}
-
         </form>
       </div>
     </div>

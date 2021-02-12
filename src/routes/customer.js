@@ -23,7 +23,7 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   const { busqueda } = req.body
 
-  customers = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.privilegio] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+  customers = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
 
   // Condición que recibe el record
   if (customers.length > 0) {
@@ -108,12 +108,15 @@ router.post('/query', isLoggedIn, async (req, res) => {
 // })
 
 //editar clientes
+//envia formulario
 router.get('/edit/:id', isLoggedIn, async (req, res) => {
   // console.log(req.params)
 
   const { id } = req.params
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+  const user = await req.user
 
+  // console.log(user.id)
   // console.log(customer[0])
 
   // Condición que recibe el record
@@ -124,6 +127,7 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
 
       let montoPeso = (customer[i].monto)
       let fechaFormat = (customer[i].fecha_tramite)
+
       let month = new Array(); //Array que contiene los meses
 
       month[0] = "Enero";
@@ -148,9 +152,10 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
     }
   }
 
-  res.render('customer/edit', { customer: customer[0] }) //cero indica que solo tome un objeto del arreglo
+  res.render('customer/edit', { customer: customer[0], user: user }) //cero indica que solo tome un objeto del arreglo
 })
 
+//recibe el formulario
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const { observaciones } = req.body; //objeto del formulario
@@ -164,6 +169,41 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
 
   req.flash('success', 'Cliente editado correctamente')
+  res.redirect('/customer');
+})
+
+// recibe el formulario finalizar
+router.get('/finalize/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+
+  res.render('customer/finalize', { customer: customer[0] })
+
+  // const updateCliente = {
+  //   observaciones,
+  //   status: finalizado
+  // };
+
+  // await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+
+  // req.flash('success', 'Cliente editado correctamente')
+  // res.redirect('/customer');
+})
+
+router.post('/finalize/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const { observaciones } = req.body; //objeto del formulario
+
+  // console.log(id, observaciones)
+
+  const updateCliente = {
+    observaciones: 'Liquidado ' + observaciones,
+    status: 'Finalizado'
+  };
+
+  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+
+  req.flash('success', 'Cliente finalizado correctamente')
   res.redirect('/customer');
 })
 
