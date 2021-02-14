@@ -13,8 +13,8 @@ const helpers = require('../lib/handlebars')
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
-  // const links = await pool.query('SELECT * FROM tramites');
-  // console.log(links)
+  // const customer = await pool.query('SELECT * FROM tramites');
+  // console.log(customer)
   res.render('customer/list.hbs') //muestra el objeto en la vista
 })
 
@@ -23,42 +23,110 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   const { busqueda } = req.body
 
-  customers = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+  customer = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
 
-  // Condición que recibe el record
-  if (customers.length > 0) {
+  //helper que cambia el formato de fecha y moneda
+  customers = helpers.formatterCustomers(customer)
 
-    // ciclo for para iterar records recibidos.
-    for (var i = 0; i < customers.length; i++) {
+  res.render('customer/list.hbs', { customer })
+})
 
-      let montoPeso = (customers[i].monto)
-      let fechaFormat = (customers[i].fecha_tramite)
-      let month = new Array(); //Array que contiene los meses
 
-      month[0] = "Enero";
-      month[1] = "Febrero";
-      month[2] = "Marzo";
-      month[3] = "Abril";
-      month[4] = "Mayo";
-      month[5] = "Junio";
-      month[6] = "Julio";
-      month[7] = "Agosto";
-      month[8] = "Septiembre";
-      month[9] = "Octubre";
-      month[10] = "Noviembre";
-      month[11] = "Diciembre";
+//agregar observaciones clientes (ENCARGADO)
+//envia formulario para editar
+router.get('/edit/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
-      date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+  // console.log(user.id)
+  // console.log(customer[0])
 
-      customers[i].monto = helpers.formatterPeso.format(montoPeso)
-      customers[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+  //helper que cambia el formato de fecha y moneda
+  helpers.formatterCustomers(customer)
 
-      // console.log(customers[i].fecha_tramite)
-    }
+  res.render('customer/edit', { customer: customer[0] }) //cero indica que solo tome un objeto del arreglo
+})
+
+//recibe el formulario para editar
+router.post('/edit/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const { observaciones } = req.body; //objeto del formulario
+  const user = req.user
+
+  // console.log(id, observaciones)
+
+  const updateCliente = {
+    observaciones: observaciones + ' (' + user.fullname + ').'
+  };
+
+  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+
+  helpers.formatterCustomers(customer)
+
+  // req.flash('success', 'Cliente editado correctamente')
+  res.render('customer/edit', { customer: customer[0] });
+  // res.redirect('/customer/edit')
+})
+
+//finalizar clientes (REGIONAL)
+// envía el formulario status
+router.get('/status/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+
+  res.render('customer/status', { customer: customer[0] })
+})
+
+//recibe el formulario status
+router.post('/status/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const { status } = req.body; //objeto del formulario
+
+  const updateCliente = {
+    status,
+    pendiente: ''
+  };
+
+  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+
+  res.render('customer/finalize', { customer: customer[0] });
+})
+
+//recibe el formulario para observaciones de status
+router.post('/finalize/:id', isLoggedIn, async (req, res) => {
+  const { id } = req.params
+  const { observaciones } = req.body; //objeto del formulario
+  const user = req.user
+
+  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+
+  console.log(customer[0].status === 'Fallido')
+
+  // valida el status del cliente para agregar la observación
+  if (customer[0].status === 'Finalizado') {
+    updateCliente = {
+      observaciones: 'Liquidado ' + observaciones + " (" + user.fullname + ").",
+    };
+  }
+  else {
+    updateCliente = {
+      observaciones: observaciones + " (" + user.fullname + ").",
+    };
   }
 
-  res.render('customer/list.hbs', { customers })
+  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+
+  // helpers.formatterCustomers(customer)
+
+  req.flash('success', 'Cliente finalizado correctamente')
+
+  res.redirect('/customer')
+  // res.render('customer/edit', { customer: customer[0], user: user });
 })
+
+module.exports = router;
 
 // Add customer
 // Envía el formulario captura cliente
@@ -106,105 +174,3 @@ router.post('/query', isLoggedIn, async (req, res) => {
 //   req.flash('fail', 'Cliente borrado correctamente')
 //   res.redirect('/customer')
 // })
-
-//editar clientes
-//envia formulario
-router.get('/edit/:id', isLoggedIn, async (req, res) => {
-  // console.log(req.params)
-
-  const { id } = req.params
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
-  const user = await req.user
-
-  // console.log(user.id)
-  // console.log(customer[0])
-
-  // Condición que recibe el record
-  if (customer.length > 0) {
-
-    // ciclo for para iterar records recibidos.
-    for (var i = 0; i < customer.length; i++) {
-
-      let montoPeso = (customer[i].monto)
-      let fechaFormat = (customer[i].fecha_tramite)
-
-      let month = new Array(); //Array que contiene los meses
-
-      month[0] = "Enero";
-      month[1] = "Febrero";
-      month[2] = "Marzo";
-      month[3] = "Abril";
-      month[4] = "Mayo";
-      month[5] = "Junio";
-      month[6] = "Julio";
-      month[7] = "Agosto";
-      month[8] = "Septiembre";
-      month[9] = "Octubre";
-      month[10] = "Noviembre";
-      month[11] = "Diciembre";
-
-      date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
-
-      customer[i].monto = helpers.formatterPeso.format(montoPeso)
-      customer[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
-
-      // console.log(customers[i].fecha_tramite)
-    }
-  }
-
-  res.render('customer/edit', { customer: customer[0], user: user }) //cero indica que solo tome un objeto del arreglo
-})
-
-//recibe el formulario
-router.post('/edit/:id', isLoggedIn, async (req, res) => {
-  const { id } = req.params
-  const { observaciones } = req.body; //objeto del formulario
-
-  // console.log(id, observaciones)
-
-  const updateCliente = {
-    observaciones
-  };
-
-  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
-
-  req.flash('success', 'Cliente editado correctamente')
-  res.redirect('/customer');
-})
-
-// recibe el formulario finalizar
-router.get('/finalize/:id', isLoggedIn, async (req, res) => {
-  const { id } = req.params
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
-
-  res.render('customer/finalize', { customer: customer[0] })
-
-  // const updateCliente = {
-  //   observaciones,
-  //   status: finalizado
-  // };
-
-  // await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
-
-  // req.flash('success', 'Cliente editado correctamente')
-  // res.redirect('/customer');
-})
-
-router.post('/finalize/:id', isLoggedIn, async (req, res) => {
-  const { id } = req.params
-  const { observaciones } = req.body; //objeto del formulario
-
-  // console.log(id, observaciones)
-
-  const updateCliente = {
-    observaciones: 'Liquidado ' + observaciones,
-    status: 'Finalizado'
-  };
-
-  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
-
-  req.flash('success', 'Cliente finalizado correctamente')
-  res.redirect('/customer');
-})
-
-module.exports = router;

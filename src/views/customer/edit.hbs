@@ -41,20 +41,25 @@
                 <label for="observaciones">{{customer.observaciones}}</label>
               </div>
 
-              {{#if_equal customer.status "Pendiente"}}
+              {{#if_equal customer.status "Finalizado"}}
+
+
+              <div class="text-center">
+                <a href="/customer/" class="btn btn-info">Clientes</a>
+              </div>
+
+
+              {{else}}
 
               <div class="text-center">
 
-                <textarea class="border-" name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
+                <textarea required class="border-" name="observaciones" id="observaciones" cols="30"
+                  rows="5"></textarea>
               </div>
 
-              <div class="buttons">
-
+              <div class="text-center">
                 <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
 
-                {{else}}
-
-                <a href="/customer/" class="btn btn-info m-4 buttons">Clientes</a>
 
                 {{/if_equal}}
 
@@ -66,11 +71,12 @@
 
                 {{#if_equal user.permiso "Administrador"}}
 
-                <a href="/customer/finalize/{{customer.id}}" class="btn btn-danger">Finalizar</a>
+
+                <a href="/customer/status/{{customer.id}}" class="btn btn-danger">Finalizar</a>
+
 
                 {{/if_equal}}
                 {{/if_equal}}
-
               </div>
 
             </div>

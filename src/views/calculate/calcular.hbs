@@ -4,35 +4,50 @@
 
     <h2 class="form__title">Retiro Parcial por Desempleo</h2>
 
-    <form action="/calcular" method="post" class="form__cotizar" name="formulario_cotizar">
+
+    <form action="/calcular/{{user.permiso}}" method="post" class="form__cotizar" name="formulario_cotizar">
+      {{#if_equal user.permiso "Administrador"}}
 
       <div class="form__input">
         <div class="form__input-item">
-          <select id="sucursalRetiro">
+          <label for="zona" class='label active'>Sucursal</label>
+          <select name="zona">
             <option value=""></option>
-            <option value="retiroLocal">Campeche</option>
-            <option value="retiroForaneo">Cancun</option>
-            <option value="retiroForaneo">Candelaria</option>
-            <option value="retiroForaneo">Carmen</option>
-            <option value="retiroForaneo">Chetumal</option>
-            <option value="retiroForaneo">Cozumel</option>
-            <option value="retiroForaneo">Escarcega</option>
+            <option value="Campeche">Campeche</option>
+            <option value="Campeche2">Campeche 2</option>
+            <option value="Cancun">Cancun</option>
+            <option value="Carmen">Carmen</option>
+            <option value="Champoton">Champotón</option>
+            <option value="Chetumal">Chetumal</option>
+            <option value="Cozumel">Cozumel</option>
+            <option value="Cuautitlan">Cuautitlán</option>
+            <option value="Cuernavaca">Cuernavaca</option>
+            <option value="Escarcega">Escarcega</option>
+            <option value="Ixtapaluca">Ixtapaluca</option>
+            <option value="Merida">Mérida</option>
+            <option value="Palenque">Palenque</option>
+            <option value="Playa del Carmen">Playa del Carmen</option>
+            <option value="Tizimin">Tizimín</option>
+            <option value="Valladolid">Valladolid</option>
+            <option value="Villahermosa">Villahermosa</option>
           </select>
-
-          <label for="sucursal" class='label active'>Sucursal</label>
-        </div>
-      </div>
-
-      <div class="form__input">
-
-        <div class="form__input-item">
-          <input type="number" id="cantidadRetiro" name="montoRetiro" autocomplete="off">
-          <label for="montoRetiro" class="label">Cantidad a Retirar</label>
         </div>
 
-        <button type="submit" class="btn btn-info btn-block" id="btnCalcular">Calcular</button>
+        {{else}}
+        <h4 class="mb-4">{{user.zona}}</h4>
 
-      </div>
+        {{/if_equal}}
+
+        <div class="form__input">
+
+          <div class="form__input-item">
+            <input type="number" id="cantidadRetiro" name="montoRetiro" autocomplete="off">
+            <label for="montoRetiro" class="label">Cantidad a Retirar</label>
+          </div>
+
+          <button type="submit" class="btn btn-info btn-block" id="btnCalcular">Calcular</button>
+
+        </div>
 
     </form>
 

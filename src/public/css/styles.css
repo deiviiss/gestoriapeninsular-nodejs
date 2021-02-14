@@ -126,6 +126,11 @@ select:-webkit-autofill:focus {
   margin-bottom: 2%;
 }
 
+.main .container-box h4 {
+  color: #23273b;
+  margin-bottom: 10px;
+}
+
 .main .container-box .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -188,7 +193,7 @@ select:-webkit-autofill:focus {
 .main .container-box .form h2 {
   color: #23273b;
   font-family: "Roboto", Arial;
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
   font-size: 1.5em;
   text-align: center;
   font-weight: 500;
@@ -201,7 +206,7 @@ select:-webkit-autofill:focus {
 
 .main .container-box .form .form__cotizar .form__input .form__input-item {
   position: relative;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .main .container-box .form .form__cotizar .form__input .form__input-item input[type="number"] {
@@ -292,7 +297,7 @@ select:-webkit-autofill:focus {
 
 .main .container-box .form .form__register .form__input .form__input-item {
   position: relative;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .main .container-box .form .form__register .form__input .form__input-item #honorarios {

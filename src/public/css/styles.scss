@@ -129,6 +129,11 @@ select:-webkit-autofill:focus {
       margin-bottom: 2%;
     }
 
+    h4 {
+      color: $color-primary;
+      margin-bottom: 10px;
+    }
+
     .buttons {
       display: flex;
       align-items: center;
@@ -171,7 +176,7 @@ select:-webkit-autofill:focus {
       h2 {
         color: $color-primary;
         font-family: $font-family;
-        margin-bottom: 1.5em;
+        margin-bottom: 1em;
         font-size: 1.5em;
         text-align: center;
         font-weight: 500;
@@ -184,7 +189,7 @@ select:-webkit-autofill:focus {
         .form__input {
           .form__input-item {
             position: relative;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
 
             input[type="number"] {
               padding-right: 20px;
@@ -260,7 +265,7 @@ select:-webkit-autofill:focus {
 
           .form__input-item {
             position: relative;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
 
             #honorarios {
               text-align: center;
