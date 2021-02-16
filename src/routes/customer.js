@@ -23,7 +23,15 @@ router.post('/query', isLoggedIn, async (req, res) => {
 
   const { busqueda } = req.body
 
-  customer = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta re usa propiedad de express para traer la zona del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+  // condición para elegir el método de busqueda
+  if (req.user.consulta === "") {
+
+    customer = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [req.user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta está en blanco por lo que muestra todas las zonas.
+
+  } else {
+
+    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  cliente like '%" + [busqueda] + "%'", [req.user.consulta]) // la consulta req usa propiedad de express para traer la consulta del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+  }
 
   //helper que cambia el formato de fecha y moneda
   customers = helpers.formatterCustomers(customer)
