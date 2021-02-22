@@ -14,7 +14,6 @@ const bodyParser = require('body-parser');
 const { database } = require('./keys');//solicita la conexión a la bd
 
 //handlebars if_equal
-
 const isEqualHelperHandlerbar = function (a, b, opts) {
   if (a == b) {
     return opts.fn(this)
@@ -61,7 +60,7 @@ app.use(passport.session()); //indica donde guardar los datos de la sesión pass
 app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //mensaje disponible en todas las vistas
   app.locals.fail = req.flash('fail'); //mensaje disponible en todas las vistas
-  app.locals.user = req.user;
+  app.locals.user = req.user; //usuario disponible en todas las vistas
   next();
 });
 
@@ -71,7 +70,7 @@ app.use(require('./routes/calculate.js')); //ruta calcular
 app.use(require('./routes/authentication.js')); //ruta de autenficación
 app.use('/customer', require('./routes/customer.js')); //ruta de customer con prefijo /customer/archivo
 app.use(require('./routes/directory.js')); //ruta directorio users
-// app.use(require('./routes/resume.js')); //ruta resume
+app.use(require('./routes/resume.js')); //ruta resume
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos
