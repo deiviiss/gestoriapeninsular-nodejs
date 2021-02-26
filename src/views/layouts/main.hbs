@@ -31,10 +31,14 @@
   <div class="container-wrap">
     {{> navbar}}
 
-    {{> message}}
+    <div class="content">
+      {{> message}}
 
-    <div class="main">
-      {{{body}}}
+      <div class="main">
+        {{{body}}}
+      </div>
+
+
     </div>
 
     {{> footer}}

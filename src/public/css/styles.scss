@@ -63,6 +63,7 @@ select:-webkit-autofill:focus {
 
 /*Estilos navigation*/
 .header {
+  // display: none;
   background-color: $color-white;
   padding: 10px 10%;
   // display: flex;
@@ -71,9 +72,9 @@ select:-webkit-autofill:focus {
   // justify-content: center;
   // border: 12px solid $color-white;
 
-  // width: 100%;
-  // position: fixed;
-  // z-index: 99;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
 
   .navbar {
     a {
@@ -93,8 +94,19 @@ select:-webkit-autofill:focus {
 //   position: relative;
 // }
 
+.content {
+  // border: $test;
+  padding-top: 9em;
+}
+
+.float {
+  // border: $test;
+  position: relative;
+}
+
 /*Estilos main*/
 .main {
+  // border: $test;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,6 +144,47 @@ select:-webkit-autofill:focus {
     h4 {
       color: $color-primary;
       margin-bottom: 10px;
+    }
+
+    .tarjeta {
+      margin-top: 10px;
+      background: #ffffff;
+
+      border: 1px solid #797979;
+      box-sizing: border-box;
+      border-radius: 4px;
+
+      padding: 20px;
+    }
+
+    .resume-title {
+      text-align: center;
+      padding-bottom: 15px;
+    }
+
+    .resume-status {
+      text-align: center;
+      // padding-top: 15px;
+      padding-bottom: 20px;
+    }
+
+    .tarjeta-status {
+      p {
+        text-align: center;
+      }
+
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        color: $color-primary;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     .buttons {
@@ -403,7 +456,7 @@ select:-webkit-autofill:focus {
       background: rgba(255, 255, 255, 0.8);
       border: 2px solid #ffffff;
       border-radius: 20px;
-      margin: 2px;
+      margin: 5px;
       padding: 25px;
       width: 90%;
       max-width: 450px;
@@ -462,12 +515,26 @@ select:-webkit-autofill:focus {
 /*Responsive design*/
 
 @media (max-width: 530px) {
+  .content {
+    padding-top: 8em;
+  }
+
   .navbar-brand {
     width: 70%;
   }
 }
 
+@media (max-width: 450px) {
+  .content {
+    padding-top: 7.5em;
+  }
+}
+
 @media (max-width: 402px) {
+  .content {
+    padding-top: 7.2em;
+  }
+
   .footer {
     flex-direction: column;
   }

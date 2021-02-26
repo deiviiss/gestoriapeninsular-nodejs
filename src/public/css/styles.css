@@ -57,6 +57,9 @@ select:-webkit-autofill:focus {
 .header {
   background-color: #f2f2f2;
   padding: 10px 10%;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
 }
 
 .header .navbar a img {
@@ -66,6 +69,14 @@ select:-webkit-autofill:focus {
 
 .header hr {
   margin: 5px;
+}
+
+.content {
+  padding-top: 9em;
+}
+
+.float {
+  position: relative;
 }
 
 /*Estilos main*/
@@ -129,6 +140,45 @@ select:-webkit-autofill:focus {
 .main .container-box h4 {
   color: #23273b;
   margin-bottom: 10px;
+}
+
+.main .container-box .tarjeta {
+  margin-top: 10px;
+  background: #ffffff;
+  border: 1px solid #797979;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.main .container-box .resume-title {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.main .container-box .resume-status {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.main .container-box .tarjeta-status p {
+  text-align: center;
+}
+
+.main .container-box .tarjeta-status a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #23273b;
+}
+
+.main .container-box .grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .main .container-box .buttons {
@@ -451,7 +501,7 @@ select:-webkit-autofill:focus {
   background: rgba(255, 255, 255, 0.8);
   border: 2px solid #ffffff;
   border-radius: 20px;
-  margin: 2px;
+  margin: 5px;
   padding: 25px;
   width: 90%;
   max-width: 450px;
@@ -520,12 +570,24 @@ select:-webkit-autofill:focus {
 
 /*Responsive design*/
 @media (max-width: 530px) {
+  .content {
+    padding-top: 8em;
+  }
   .navbar-brand {
     width: 70%;
   }
 }
 
+@media (max-width: 450px) {
+  .content {
+    padding-top: 7.5em;
+  }
+}
+
 @media (max-width: 402px) {
+  .content {
+    padding-top: 7.2em;
+  }
   .footer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

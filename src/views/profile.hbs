@@ -16,18 +16,19 @@
             <p class="text-center">{{movil}}</p>
             <h6>Teléfono Oficina:</h6>
             <p class="text-center">{{oficina}}</p>
+
             <a href="/customer/" class="btn btn-info m-4">Clientes</a>
-            <br>
+            <a href="/resume/" class="btn btn-info m-4">Resumen</a>
+
             {{#if_equal puesto "Administrador"}}
+
+            {{!-- Botones visibles como administrador --}}
 
             {{else}}
 
             {{!-- Botones visibles como encargado --}}
 
             {{/if_equal}}
-
-            <a href="/restore-pass/{{id}}" class="btn btn-danger m-4">Restablecer contraseña</a>
-
             {{/with}}
 
           </div>

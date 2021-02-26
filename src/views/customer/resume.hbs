@@ -1,51 +1,79 @@
 <div class="container-box">
 
-  <div class="search">
-    <form action="/customer/query" method="post">
-      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
-      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
-      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
-    </form>
-  </div>
-
   <div class="container p-2">
-    <div class="row">
+    <div class="tarjeta">
+      <h2 class="resume-title">
+        {{user.zona}}
+      </h2>
 
-      <p>{{customers}}</p>
-      {{#each customers}}
-      <div class="col-md-6 mt-2 mx-auto">
-        <div class=" card border-info text-dark bg-light">
+      <h6 class="resume-status">
+        Status
+      </h6>
 
-          <h5 class="card-header text-muted">Id {{id}}</h5>
+      <div class="grid">
 
-          <div class="card-body">
-
-            <h6 class="card-title m-1">Nombre del cliente:</h6>
-            <p class="card-text m-1">{{cliente}}</p>
-            <h6 class="card-title m-1">Fecha de trámite:</h6>
-            <p class="card-text m-1">{{fecha_tramite}}</p>
-            <h6 class="card-title m-1">Cantidad a retirar:</h6>
-            <p class="card-text m-1">{{monto}}</p>
-            <h6 class="card-title m-1">Status:</h6>
-            <p class="card-text m-1">{{status}}</p>
-            <h6 class="card-title m-1">Zona:</h6>
-            <p class="card-text m-1">{{zona}}</p>
-
-            <div class="buttons">
-              <a href="/customer/edit/{{id}}" class="btn btn-info">Detalles</a>
-            </div>
-
-          </div>
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.espera}}">
+            <h6 class="tarjeta-title">En espera</h6>
+            <p class="tarjeta-text">{{status.espera}}</p>
+          </a>
         </div>
-      </div>
-      {{else}}
-      <div class="col-md-4 mx-auto">
-        <div class="card card-body text-center">
-          <p class="text-center">No se ha realizado ninguna busqueda.</p>
-          <a href="/profile">Ir a perfil!</a>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.pendiente}}">
+            <h6 class="tarjeta-title">Pendientes</h6>
+            <p class="tarjeta-text">{{status.pendientes}}</p>
+          </a>
         </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.finalizado}}">
+            <h6 class="tarjeta-title">Finalizados</h6>
+            <p class="tarjeta-text">{{status.finalizados}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.fallido}}">
+            <h6 class="tarjeta-title">Fallidos</h6>
+            <p class="tarjeta-text">{{status.fallidos}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.asegurado}}">
+            <h6 class="tarjeta-title">Asegurados</h6>
+            <p class="tarjeta-text">{{status.asegurados}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.baja}}">
+            <h6 class="tarjeta-title">Bajas</h6>
+            <p class="tarjeta-text">{{status.bajas}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.juridico}}">
+            <h6 class="tarjeta-title">Jurídico</h6>
+            <p class="tarjeta-text">{{status.juridico}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.aclaracion}}">
+            <h6 class="tarjeta-title">Aclaración</h6>
+            <p class="tarjeta-text">{{status.aclaraciones}}</p>
+          </a>
+        </div>
+
       </div>
-      {{/each}}
+
+      <div class="buttons">
+        <a href="/customer/" class="btn btn-info">Clientes</a>
+        <a href="/profile" class="btn btn-info">Perfil</a>
+      </div>
     </div>
   </div>
 </div>

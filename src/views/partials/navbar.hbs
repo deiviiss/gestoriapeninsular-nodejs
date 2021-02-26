@@ -7,7 +7,7 @@
     <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #f2f2f2;">
 
       <a class="navbar-brand" href="/">
-        <img src="/img/logo2.png" alt="Logo GP" loading="lazy">
+        <img src="/img/logo2.png" alt="Logo GP" loading="lazy" style="height: 90%;">
       </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -24,10 +24,24 @@
           </li>
           {{# if user}}
 
-          <li class="nav-item active">
-            <a class="nav-link" href="/customer">
-              <i class="fas fa-search mr-1"></i>Clientes
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-users mr-1"></i>Clientes
             </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <a class="dropdown-item" href="/customer">
+                <i class="fas fa-search mr-1"></i>Busqueda
+              </a>
+
+              <a class="dropdown-item" href="/resume/">
+                <i class="fas fa-chart-line mr-1"></i>Resumen
+              </a>
+
+              <div class="dropdown-divider"></div>
+            </div>
           </li>
 
           <li class="nav-item dropdown">
@@ -61,6 +75,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/profile"><i class="fas fa-user-edit mr-1"></i>Ver perfil</a>
+
+              <a class="dropdown-item" href="/restore-pass/{{user.id}}"> <i
+                  class="fas fa-unlock-alt mr-1"></i>Restablecer
+                contraseña</a>
 
               {{#if_equal user.puesto "Administrador"}}
               <a class="dropdown-item" href="/register"><i class="fas fa-user-plus mr-1"></i>Registrar
