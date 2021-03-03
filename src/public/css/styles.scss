@@ -182,15 +182,31 @@ select:-webkit-autofill:focus {
 
     .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       text-align: center;
       margin-bottom: 20px;
+    }
+
+    .btn-edit {
+      margin-bottom: 10px;
+      // border: $test;
     }
 
     .buttons {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+    }
+
+    .btn-order {
+      width: 80%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: stretch;
+
+      .btn-space {
+        margin: 5px;
+        // border: $test;
+      }
     }
 
     .card_title {
@@ -514,9 +530,30 @@ select:-webkit-autofill:focus {
 
 /*Responsive design*/
 
+@media (max-width: 2652px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
 @media (max-width: 530px) {
   .content {
     padding-top: 8em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
   .navbar-brand {

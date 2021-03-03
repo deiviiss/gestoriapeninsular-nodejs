@@ -251,4 +251,26 @@ helpers.calculaCosto = (permiso, body, user) => {
 
 }
 
+helpers.fecha = (fecha) => {
+
+  let month = new Array(); //Array que contiene los meses
+
+  month[0] = "Enero";
+  month[1] = "Febrero";
+  month[2] = "Marzo";
+  month[3] = "Abril";
+  month[4] = "Mayo";
+  month[5] = "Junio";
+  month[6] = "Julio";
+  month[7] = "Agosto";
+  month[8] = "Septiembre";
+  month[9] = "Octubre";
+  month[10] = "Noviembre";
+  month[11] = "Diciembre";
+
+  fechaActual = fecha.getDate() + '/' + month[fecha.getMonth()] + '/' + fecha.getFullYear()
+
+  return fechaActual
+}
+
 module.exports = helpers;

@@ -11,7 +11,7 @@
 
             <div class="card_title">
               <h5 class="card-header text-muted">{{customer.cliente}}</h5>
-              <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+              {{!-- <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a> --}}
             </div>
 
             <div class="card-body">
@@ -40,42 +40,57 @@
                 <label for="observaciones">{{customer.observaciones}}</label>
               </div>
 
-              {{#if_equal customer.status "Finalizado"}}
-
+              {{#if_equal customer.status "Pendiente"}}
 
               <div class="text-center">
-                <a href="/customer/" class="btn btn-info">Clientes</a>
+
+                <textarea required name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
               </div>
 
+              <div class="text-center">
+                <input class="btn btn-info btn-edit" type="submit" name="btn-submit" id="form__btn-submit"
+                  value="Actualizar">
+
+
+                <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
+
+                <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+
+              </div>
+
+              <div class="text-center">
+                {{#if_equal user.permiso "Administrador"}}
+
+                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
+
+                {{/if_equal}}
+              </div>
 
               {{else}}
 
               <div class="text-center">
+                <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
 
-                <textarea required class="border-" name="observaciones" id="observaciones" cols="30"
-                  rows="5"></textarea>
-              </div>
-
-              <div class="text-center">
-                <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
-
-
-                {{/if_equal}}
-
-                {{#if_equal customer.status "Finalizado"}}
-
-                {{!-- Sí no está finalizado--}}
-
-                {{else}}
+                <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
                 {{#if_equal user.permiso "Administrador"}}
 
+                {{#if_equal customer.status "Finalizado"}}
 
-                <a href="/customer/status/{{customer.id}}" class="btn btn-danger">Finalizar</a>
+                {{!-- visible si es finalizado --}}
 
+                {{else}}
+                {{!-- Visible si no es finalizado --}}
+                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
 
                 {{/if_equal}}
+
                 {{/if_equal}}
+
+                {{/if_equal}}
+
               </div>
 
             </div>

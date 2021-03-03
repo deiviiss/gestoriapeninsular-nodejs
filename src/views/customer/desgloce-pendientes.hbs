@@ -1,0 +1,102 @@
+<div class="container-box">
+
+  <div class="search">
+    <form action="/customer/query" method="post">
+      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
+      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
+      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
+    </form>
+  </div>
+
+  <div class="container p-2">
+    <div class="tarjeta">
+      <h2 class="resume-title">
+        {{user.zona}}
+      </h2>
+
+      <h6 class="resume-status">
+        Pendientes
+      </h6>
+
+      <div class="grid">
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.afore}}">
+            <h6 class="tarjeta-title">Afore</h6>
+            <p class="tarjeta-text">{{motivos.afore}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.antigüedad}}">
+            <h6 class="tarjeta-title">Antigüedad</h6>
+            <p class="tarjeta-text">{{motivos.antigüedad}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.cita}}">
+            <h6 class="tarjeta-title">Cita</h6>
+            <p class="tarjeta-text">{{motivos.cita}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.cobro}}">
+            <h6 class="tarjeta-title">Cobro</h6>
+            <p class="tarjeta-text">{{motivos.cobro}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.demanda}}">
+            <h6 class="tarjeta-title">Demanda</h6>
+            <p class="tarjeta-text">{{motivos.demanda}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.documentos}}">
+            <h6 class="tarjeta-title">Documentos</h6>
+            <p class="tarjeta-text">{{motivos.documentos}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.orden}}">
+            <h6 class="tarjeta-title">Orden</h6>
+            <p class="tarjeta-text">{{motivos.orden}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.saldos}}">
+            <h6 class="tarjeta-title">Saldos</h6>
+            <p class="tarjeta-text">{{motivos.saldos}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.tramite}}">
+            <h6 class="tarjeta-title">Trámite</h6>
+            <p class="tarjeta-text">{{motivos.tramite}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/desgloce-pendientes/{{titulos.unificacion}}">
+            <h6 class="tarjeta-title">Unificaciones</h6>
+            <p class="tarjeta-text">{{motivos.unificacion}}</p>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="buttons">
+        <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
+        <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+        <a href="/profile" class="btn btn-info btn-edit"><i class="fas fa-user-alt mr-1"></i>Perfil</a>
+      </div>
+    </div>
+  </div>
+</div>

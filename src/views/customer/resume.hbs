@@ -1,5 +1,13 @@
 <div class="container-box">
 
+  <div class="search">
+    <form action="/customer/query" method="post">
+      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
+      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
+      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
+    </form>
+  </div>
+
   <div class="container p-2">
     <div class="tarjeta">
       <h2 class="resume-title">
@@ -71,8 +79,8 @@
       </div>
 
       <div class="buttons">
-        <a href="/customer/" class="btn btn-info">Clientes</a>
-        <a href="/profile" class="btn btn-info">Perfil</a>
+        <a href="/customer/" class="btn btn-info"><i class="fas fa-users mr-1"></i>Clientes</a>
+        <a href="/profile" class="btn btn-info"><i class="fas fa-user-alt mr-1"></i>Perfil</a>
       </div>
     </div>
   </div>

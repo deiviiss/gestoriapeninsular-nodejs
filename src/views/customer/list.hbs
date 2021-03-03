@@ -8,6 +8,36 @@
     </form>
   </div>
 
+  {{# if orden}}
+  <div class="buttons btn-order">
+
+    <a href="/resume/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+
+    <form action="/resume/{{status}}" method="POST">
+
+      <button type="submit" class="btn btn-info btn-space"><i class="fas fa-angle-down"></i></button>
+    </form>
+    <a href="/resume/{{status}}" class="btn btn-info btn-space"><i class="fas fa-angle-up"></i></a>
+
+  </div>
+
+  {{/if}}
+
+  {{# if ordenMotivo}}
+  <div class="buttons btn-order">
+
+    <a href="/desgloce-pendientes/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+
+    <form action="/desgloce-pendientes/{{motivo}}" method="POST">
+
+      <button type="submit" class="btn btn-info btn-space"><i class="fas fa-angle-down"></i></button>
+    </form>
+    <a href="/desgloce-pendientes/{{motivo}}" class="btn btn-info btn-space"><i class="fas fa-angle-up"></i></a>
+
+  </div>
+
+  {{/if}}
+
   <div class="container p-2">
     <div class="row">
       {{#each customer}}
