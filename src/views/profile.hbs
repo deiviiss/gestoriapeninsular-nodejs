@@ -1,39 +1,35 @@
 <div class="container-box">
   <div class="container p-2">
-    <div class="row">
-      <div class="col-md-6 mt-2 mx-auto">
-        <div class="card text-center">
-          <div class="card-body">
+    <div class="card text-center">
+      <div class="card-body">
 
-            {{#with user}}
+        {{#with user}}
 
-            <h3>Bievenid@ {{fullname}} </h3>
-            <br>
-            <h4> {{username}} </h4>
-            <h6> {{puesto}} </h6>
-            <h6>Email:</h6>
-            <p class="text-center">{{correo}}</p>
-            <h6>Celular:</h6>
-            <p class="text-center">{{movil}}</p>
-            <h6>Teléfono Oficina:</h6>
-            <p class="text-center">{{oficina}}</p>
+        <h3>Bievenid@ {{fullname}} </h3>
+        <br>
+        <h4> {{username}} </h4>
+        <h6> {{puesto}} </h6>
+        <h6>Email:</h6>
+        <p class="text-center">{{correo}}</p>
+        <h6>Celular:</h6>
+        <p class="text-center">{{movil}}</p>
+        <h6>Teléfono Oficina:</h6>
+        <p class="text-center">{{oficina}}</p>
 
-            <a href="/customer/" class="btn btn-info m-4"><i class="fas fa-users mr-1"></i>Clientes</a>
-            <a href="/resume/" class="btn btn-info m-4"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+        <a href="/customer/" class="btn btn-info m-4"><i class="fas fa-users mr-1"></i>Clientes</a>
+        <a href="/resume/" class="btn btn-info m-4"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
-            {{#if_equal puesto "Administrador"}}
+        {{#if_equal puesto "Administrador"}}
 
-            {{!-- Botones visibles como administrador --}}
+        {{!-- Botones visibles como administrador --}}
 
-            {{else}}
+        {{else}}
 
-            {{!-- Botones visibles como encargado --}}
+        {{!-- Botones visibles como encargado --}}
 
-            {{/if_equal}}
-            {{/with}}
+        {{/if_equal}}
+        {{/with}}
 
-          </div>
-        </div>
       </div>
     </div>
   </div>

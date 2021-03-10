@@ -1,0 +1,81 @@
+<div class="container-box">
+  <div class="search">
+    <form action="/list-customer" method="post">
+      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
+      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
+      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
+    </form>
+  </div>
+
+  <section class="list-customers">
+    <div class="wrapper">
+
+      <h3>{{user.fullname}}</h3>
+      <h5>{{user.zona}}</h5>
+
+      {{#each customer}}
+      <div class="customer">
+        <div class="grid-list">
+
+          <h6>Cliente</h6>
+          <p>{{cliente}}</p>
+          <h6>CURP</h6>
+          <p>{{curp}}</p>
+          <h6>NSS</h6>
+          <p>{{nss}}</p>
+
+
+          <h6>Monto</h6>
+          <p>{{monto}}</p>
+
+          <h6>Fecha de trámite</h6>
+          <p>{{fecha_tramite}}</p>
+
+          <h6>Fecha último retiro</h6>
+          <p>{{fecha_ultimo_retiro}}</p>
+          <h6>Semanas Cotizadas</h6>
+          <p>{{scotizadas}}</p>
+
+          <h6>Semanas Descontadas</h6>
+          <p>{{sdescontadas}}</p>
+
+          <h6>Afore</h6>
+          <p>{{afore}}</p>
+          <h6>Asesor</h6>
+          <p>{{asesor}}</p>
+
+          <h6>Status</h6>
+          <p>{{status}}</p>
+
+          {{!-- <p></p>
+          <p></p>
+
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p> --}}
+          <a href="/customer/edit/{{id}}" class="btn btn-info">Detalles</a>
+          {{#if_equal user.permiso "Administrador"}}
+
+          {{else}}
+          <a href="/customer/status/{{id}}" class="btn btn-danger btn-edit">
+            <i class="fas fa-redo-alt mr-1"></i>Status</a>
+
+          {{/if_equal}}
+
+        </div>
+      </div>
+
+      {{/each}}
+
+      <div class="grid">
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,12 +1,16 @@
 <div class="container-box">
 
-  <div class="search" id="search">
+  <div class="search">
     <form action="/customer/query" method="post">
       {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
       <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
       <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
     </form>
   </div>
+
+  <div class="btn btn-primary buttonFloat" style="height:2rem;"><a href="#siteTop"><i class="fas fa-arrow-up">
+
+      </i></a></div>
 
   {{# if orden}}
   <div class="buttons btn-order">
@@ -54,6 +58,8 @@
             <p class="card-text m-1">{{fecha_tramite}}</p>
             <h6 class="card-title m-1">Cantidad a retirar:</h6>
             <p class="card-text m-1">{{monto}}</p>
+            <h6 class="card-title m-1">Afore:</h6>
+            <p class="card-text m-1">{{afore}}</p>
             <h6 class="card-title m-1">Status:</h6>
             <p class="card-text m-1">{{status}}</p>
             <h6 class="card-title m-1">Zona:</h6>

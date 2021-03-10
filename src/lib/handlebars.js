@@ -30,6 +30,7 @@ helpers.formatterCustomers = (sinformato) => {
 
       let montoPeso = (sinformato[i].monto)
       let fechaFormat = (sinformato[i].fecha_tramite)
+      let fechaFormatRetiro = (sinformato[i].fecha_ultimo_retiro)
       let month = new Array(); //Array que contiene los meses
 
       month[0] = "Enero";
@@ -48,7 +49,8 @@ helpers.formatterCustomers = (sinformato) => {
       date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
 
       sinformato[i].monto = helpers.formatterPeso.format(montoPeso)
-      sinformato[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear()
+      sinformato[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear();
+      sinformato[i].fecha_ultimo_retiro = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear();
 
       // console.log(customers[i].fecha_tramite)
     }

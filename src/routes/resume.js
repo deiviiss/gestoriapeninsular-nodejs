@@ -321,7 +321,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
   }
 
   //se envia el status para obtenerlo en post y ordenarlo
-  res.render('customer/list.hbs', { customer, ordenMotivo, motivo })
+  res.render('customer/list-customer.hbs', { customer, ordenMotivo, motivo })
 })
 
 router.post('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {

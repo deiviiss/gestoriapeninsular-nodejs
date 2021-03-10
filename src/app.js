@@ -10,6 +10,7 @@ const passport = require('passport'); //para utiliar sus metodos
 const flash = require('connect-flash'); //mostrar mensajes
 const MySQLStore = require('express-mysql-session')(session);//para guardar la sesión en la base de datos
 const bodyParser = require('body-parser');
+const cors = require('cors'); // http header
 
 const { database } = require('./keys');//solicita la conexión a la bd
 
@@ -42,6 +43,7 @@ app.engine('.hbs', exphbs({ // configuración motor de plantillas
 app.set('view engine', '.hbs'); // llama motor de plantillas
 
 //middlewares (peticiones)
+app.use(cors()); //http header
 app.use(morgan('dev')); //mensajes de servidor
 app.use(bodyParser.urlencoded({ extended: false })); //metodo de bodyParser que permite entender los datos.
 app.use(bodyParser.json()); //metodo de bodyParser que permite entender archivos json.
@@ -71,6 +73,7 @@ app.use(require('./routes/authentication.js')); //ruta de autenficación
 app.use('/customer', require('./routes/customer.js')); //ruta de customer con prefijo /customer/archivo
 app.use(require('./routes/directory.js')); //ruta directorio users
 app.use(require('./routes/resume.js')); //ruta resume
+app.use(require('./routes/list-customer.js'));// react route
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos
