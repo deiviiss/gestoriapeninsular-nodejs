@@ -13,35 +13,39 @@ const helpers = require('../lib/handlebars')
 
 router.get('/resume', isLoggedIn, async (req, res) => {
   const user = req.user
+  const { zona } = req.body
 
-  // customers = await pool.query("SELECT status, COUNT(*) as total FROM tramites WHERE zona like '%" + [req.user.consulta] + "%'GROUP BY status")
+  //todo mejorar está consulta customers = await pool.query("SELECT status, COUNT(*) as total FROM tramites WHERE zona like '%" + [req.user.consulta] + "%'GROUP BY status")
 
   //consulta que recupera cantidades totales
-
   //consulta por region
   if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
 
-    aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'" + "AND region= ?", [user.region])
+    aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'" + "AND zona= ?", [zona])
+    //todo => Agregar a la consulta la zona que se obtiene
 
-    asegurados = await pool.query("SELECT * FROM tramites WHERE status= 'asegurado'" + "AND region= ?", [user.region])
+    asegurados = await pool.query("SELECT * FROM tramites WHERE status= 'asegurado'" + "AND region= ?", [zona])
 
-    bajas = await pool.query("SELECT * FROM tramites WHERE status= 'baja'" + "AND region= ?", [user.region])
+    bajas = await pool.query("SELECT * FROM tramites WHERE status= 'baja'" + "AND region= ?", [zona])
 
-    espera = await pool.query("SELECT * FROM tramites WHERE status= 'en espera'" + "AND region= ?", [user.region])
+    espera = await pool.query("SELECT * FROM tramites WHERE status= 'en espera'" + "AND region= ?", [zona])
 
-    fallidos = await pool.query("SELECT * FROM tramites WHERE status= 'fallido'" + "AND region= ?", [user.region])
+    fallidos = await pool.query("SELECT * FROM tramites WHERE status= 'fallido'" + "AND region= ?", [zona])
 
-    finalizados = await pool.query("SELECT * FROM tramites WHERE status= 'finalizado'" + "AND region= ?", [user.region])
+    finalizados = await pool.query("SELECT * FROM tramites WHERE status= 'finalizado'" + "AND region= ?", [zona])
 
-    juridico = await pool.query("SELECT * FROM tramites WHERE status= 'jurídico'" + "AND region= ?", [user.region])
+    juridico = await pool.query("SELECT * FROM tramites WHERE status= 'jurídico'" + "AND region= ?", [zona])
 
-    pendientes = await pool.query("SELECT * FROM tramites WHERE status= 'pendiente'" + "AND region= ?", [user.region])
+    pendientes = await pool.query("SELECT * FROM tramites WHERE status= 'pendiente'" + "AND region= ?", [zona])
+
+    liquidar = await pool.query("SELECT * FROM tramites WHERE status= 'liquidar'" + "AND region= ?", [zona])
   }
 
   //condición para consulta general
   else if (user.consulta === "") {
 
     aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'")
+    //todo Agregar a la consulta la zona que se obtiene
 
     asegurados = await pool.query("SELECT * FROM tramites WHERE status= 'asegurado'")
 
@@ -56,6 +60,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     juridico = await pool.query("SELECT * FROM tramites WHERE status= 'jurídico'")
 
     pendientes = await pool.query("SELECT * FROM tramites WHERE status= 'pendiente'")
+
+    liquidar = await pool.query("SELECT * FROM tramites WHERE status= 'liquidar'")
   }
 
   //condición para consulta zona
@@ -76,6 +82,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     juridico = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'jurídico'", [req.user.consulta])
 
     pendientes = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'pendiente'", [req.user.consulta])
+
+    liquidar = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'liquidar'", [req.user.consulta])
   }
 
   //objeto con status que se mandara a la vista
@@ -87,7 +95,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     fallidos: fallidos.length,
     finalizados: finalizados.length,
     juridico: juridico.length,
-    pendientes: pendientes.length
+    pendientes: pendientes.length,
+    liquidar: liquidar.length
   }
 
   //objeto con titulos de status
@@ -99,8 +108,11 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     fallido: 'fallido',
     finalizado: 'finalizado',
     juridico: 'jurídico',
-    pendiente: 'pendiente'
+    pendiente: 'pendiente',
+    liquidar: 'liquidar'
   }
+
+  // console.log(region);
 
   res.render('customer/resume.hbs', { status, user, titulos })
 })
@@ -113,7 +125,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
   //consulta que muestra los clientes descendetes
 
-  //consulta por region descendente
+  //todo como traigo la zona elegida por el cliente en la vista zonas
   if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
     customer = await pool.query("SELECT * FROM tramites WHERE status = ? AND region = ? order by fecha_tramite DESC", [status, user.region])
   }
@@ -131,7 +143,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
   //helper que cambia el formato de fecha y moneda
   customer = helpers.formatterCustomers(customer)
 
-  //objeto que condiciona los botones de orden
+  //objeto que condiciona los botones de orden == Depurar
   orden = {
     // ascendente: 'descendente',
     // descendente: 'ascendente'
@@ -145,39 +157,31 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
   else {
     //se envia el status para obtenerlo en post y ordenarlo
-    res.render('customer/list.hbs', { customer, orden, status })
+    res.render('customer/list-customer.hbs', { customer, orden, status })
   }
 })
 
-router.post('/resume/:status', isLoggedIn, async (req, res) => {
-  const { status } = req.params
+
+//=============== resume zonas
+router.get('/resume-zona', isLoggedIn, async (req, res) => {
   const user = req.user
 
-  //consulta que muestra los clientes ascendente
+  console.log(user);
 
-  //consulta por regional ascendente
-  if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
-    customer = await pool.query("SELECT * FROM tramites WHERE status = ? AND region = ? order by fecha_tramite ASC", [status, user.region])
+  //? condición para ocultar la ruta
+  if (user.permiso === "Administrador") {
+    //helper que trae las zonas
+    region = helpers.region(user.region)
+
+    // console.log(region);
+
+    // res.render('customer/zonas.hbs', { region })
+    res.send({ region })
   }
-
-  //consulta por administrador ascendente
-  else if (user.consulta === "") {
-    customer = await pool.query("SELECT * FROM tramites WHERE status = ? order by fecha_tramite ASC", [status])
-  }
-
-  //consulta por zona ascendente
   else {
-    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  status = ? order by fecha_tramite ASC", [user.consulta, status])
+    res.send('404 not found')
   }
 
-  //helper que cambia el formato de fecha y moneda
-  customer = helpers.formatterCustomers(customer)
-
-  //objeto que permite mostrar botones en la vista list
-  orden = {
-  }
-
-  res.render('customer/list.hbs', { customer, orden, status })
 })
 
 //=============== desgloce pendientes
@@ -324,35 +328,70 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
   res.render('customer/list-customer.hbs', { customer, ordenMotivo, motivo })
 })
 
-router.post('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
-  const { motivo } = req.params
-  const user = req.user
-
-  //consulta que muestra los clientes ascendente
-
-  //consulta por regional ascendente
-  if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
-    customer = await pool.query("SELECT * FROM tramites WHERE pendiente = ?" + " AND region = ? order by fecha_tramite ASC", [motivo, user.region])
-  }
-
-  //consulta por administrador ascendente
-  else if (user.consulta === "") {
-    customer = await pool.query("SELECT * FROM tramites WHERE pendiente = ? order by fecha_tramite ASC", [motivo])
-  }
-
-  //consulta por zona ascendente
-  else {
-    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite ASC", [user.consulta, motivo])
-  }
-
-  //helper que cambia el formato de fecha y moneda
-  customer = helpers.formatterCustomers(customer)
-
-  //objeto que permite mostrar botones en la vista list
-  ordenMotivo = {
-  }
-
-  res.render('customer/list.hbs', { customer, ordenMotivo, motivo })
-})
-
 module.exports = router;
+
+
+// ordenaba los clientes ascendente mediante una nueva consulta post
+// router.post('/resume/:status', isLoggedIn, async (req, res) => {
+//   const { status } = req.params
+//   const user = req.user
+
+//   //consulta que muestra los clientes ascendente
+
+//   //consulta por regional ascendente
+//   if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
+//     customer = await pool.query("SELECT * FROM tramites WHERE status = ? AND region = ? order by fecha_tramite ASC", [status, user.region])
+//   }
+
+//   //consulta por administrador ascendente
+//   else if (user.consulta === "") {
+//     customer = await pool.query("SELECT * FROM tramites WHERE status = ? order by fecha_tramite ASC", [status])
+//   }
+
+//   //consulta por zona ascendente
+//   else {
+//     customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  status = ? order by fecha_tramite ASC", [user.consulta, status])
+//   }
+
+//   //helper que cambia el formato de fecha y moneda
+//   customer = helpers.formatterCustomers(customer)
+
+//   //objeto que permite mostrar botones en la vista list
+//   orden = {
+//   }
+
+//   res.render('customer/list.hbs', { customer, orden, status })
+// })
+
+
+// ordenaba lo motivos de forma ascendente
+// router.post('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
+//   const { motivo } = req.params
+//   const user = req.user
+
+//   //consulta que muestra los clientes ascendente
+
+//   //consulta por regional ascendente
+//   if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
+//     customer = await pool.query("SELECT * FROM tramites WHERE pendiente = ?" + " AND region = ? order by fecha_tramite ASC", [motivo, user.region])
+//   }
+
+//   //consulta por administrador ascendente
+//   else if (user.consulta === "") {
+//     customer = await pool.query("SELECT * FROM tramites WHERE pendiente = ? order by fecha_tramite ASC", [motivo])
+//   }
+
+//   //consulta por zona ascendente
+//   else {
+//     customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite ASC", [user.consulta, motivo])
+//   }
+
+//   //helper que cambia el formato de fecha y moneda
+//   customer = helpers.formatterCustomers(customer)
+
+//   //objeto que permite mostrar botones en la vista list
+//   ordenMotivo = {
+//   }
+
+//   res.render('customer/list.hbs', { customer, ordenMotivo, motivo })
+// })

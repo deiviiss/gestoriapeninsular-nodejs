@@ -94,15 +94,16 @@ select:-webkit-autofill:focus {
 //   position: relative;
 // }
 
+// Para ver el message flash
 .content {
   // border: $test;
   padding-top: 9em;
 }
 
-.float {
-  // border: $test;
-  position: relative;
-}
+// .float {
+//   border: $test;
+//   position: relative;
+// }
 
 /*Estilos main*/
 .main {
@@ -119,7 +120,7 @@ select:-webkit-autofill:focus {
 
   // padding-top: 30%;
 
-  /*Estilos formulario*/
+  // contenedor principal
   .container-box {
     display: flex;
     align-items: center;
@@ -128,11 +129,12 @@ select:-webkit-autofill:focus {
     min-width: 85%;
     min-height: calc(100vh - 400px);
 
+    //list de clientes
     .list-customers {
       width: 90%;
 
       .wrapper {
-        border: $test;
+        // border: $test;
         background: #ffffff;
 
         border: 1px solid #797979;
@@ -140,6 +142,24 @@ select:-webkit-autofill:focus {
         border-radius: 4px;
         padding: 20px;
         margin-top: 20px;
+
+        .list-title {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .btn-list {
+          // border: $test;
+          display: flex;
+          justify-content: flex-end;
+
+          a {
+            font-size: 12px;
+            padding: 0;
+            width: 100px;
+            margin: 5px;
+          }
+        }
 
         .customer {
           display: flex;
@@ -201,13 +221,10 @@ select:-webkit-autofill:focus {
       font-size: 14px; /* Cambiar el tamaño de la tipografia */
       border-radius: 5px; /* Borde del boton */
       // padding: 18px 30px; /* Relleno del boton */
-
       position: fixed;
-      bottom: 40px;
-      right: 30px;
       transition: all 300ms ease 0ms;
       box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-      z-index: 99;
+      // z-index: 99;
 
       a {
         color: #ffffff; /* Color del texto */
@@ -242,6 +259,22 @@ select:-webkit-autofill:focus {
       border-radius: 4px;
 
       padding: 20px;
+
+      .form__input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .form__input-item {
+          label {
+            margin: 0;
+          }
+        }
+
+        button {
+          margin-left: 10px;
+        }
+      }
     }
 
     .resume-title {
@@ -628,6 +661,18 @@ select:-webkit-autofill:focus {
     display: grid;
     grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
+
+  .buttonFloat {
+    bottom: 7%;
+    right: 15%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .buttonFloat {
+    bottom: 7%;
+    right: 11%;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -639,6 +684,18 @@ select:-webkit-autofill:focus {
   .grid-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .buttonFloat {
+    bottom: 6%;
+    right: 9%;
+  }
+}
+
+@media (max-width: 720px) {
+  .buttonFloat {
+    bottom: 4%;
+    right: 2%;
   }
 }
 
@@ -658,6 +715,11 @@ select:-webkit-autofill:focus {
     width: 70%;
   }
 
+  .buttonFloat {
+    bottom: 2%;
+    right: 7%;
+  }
+
   .grid-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -673,6 +735,11 @@ select:-webkit-autofill:focus {
 @media (max-width: 402px) {
   .content {
     padding-top: 7.2em;
+  }
+
+  .buttonFloat {
+    bottom: 2%;
+    right: 2%;
   }
 
   .footer {

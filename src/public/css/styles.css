@@ -75,10 +75,6 @@ select:-webkit-autofill:focus {
   padding-top: 9em;
 }
 
-.float {
-  position: relative;
-}
-
 /*Estilos main*/
 .main {
   display: -webkit-box;
@@ -101,7 +97,6 @@ select:-webkit-autofill:focus {
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
   padding: 0.3%;
-  /*Estilos formulario*/
 }
 
 .main .container-box {
@@ -129,7 +124,6 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box .list-customers .wrapper {
-  border: 1px solid red;
   background: #ffffff;
   border: 1px solid #797979;
   -webkit-box-sizing: border-box;
@@ -137,6 +131,31 @@ select:-webkit-autofill:focus {
   border-radius: 4px;
   padding: 20px;
   margin-top: 20px;
+}
+
+.main .container-box .list-customers .wrapper .list-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main .container-box .list-customers .wrapper .btn-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.main .container-box .list-customers .wrapper .btn-list a {
+  font-size: 12px;
+  padding: 0;
+  width: 100px;
+  margin: 5px;
 }
 
 .main .container-box .list-customers .wrapper .customer {
@@ -197,13 +216,10 @@ select:-webkit-autofill:focus {
   border-radius: 5px;
   /* Borde del boton */
   position: fixed;
-  bottom: 40px;
-  right: 30px;
   -webkit-transition: all 300ms ease 0ms;
   transition: all 300ms ease 0ms;
   -webkit-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  z-index: 99;
 }
 
 .main .container-box .buttonFloat a {
@@ -237,6 +253,26 @@ select:-webkit-autofill:focus {
           box-sizing: border-box;
   border-radius: 4px;
   padding: 20px;
+}
+
+.main .container-box .tarjeta .form__input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main .container-box .tarjeta .form__input .form__input-item label {
+  margin: 0;
+}
+
+.main .container-box .tarjeta .form__input button {
+  margin-left: 10px;
 }
 
 .main .container-box .resume-title {
@@ -688,6 +724,17 @@ select:-webkit-autofill:focus {
     -ms-grid-columns: 130px 1fr 130px 1fr 130px 110px;
         grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
+  .buttonFloat {
+    bottom: 7%;
+    right: 15%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .buttonFloat {
+    bottom: 7%;
+    right: 11%;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -702,6 +749,17 @@ select:-webkit-autofill:focus {
     display: grid;
     -ms-grid-columns: 1fr 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .buttonFloat {
+    bottom: 6%;
+    right: 9%;
+  }
+}
+
+@media (max-width: 720px) {
+  .buttonFloat {
+    bottom: 4%;
+    right: 2%;
   }
 }
 
@@ -720,6 +778,10 @@ select:-webkit-autofill:focus {
   .navbar-brand {
     width: 70%;
   }
+  .buttonFloat {
+    bottom: 2%;
+    right: 7%;
+  }
   .grid-list {
     display: -ms-grid;
     display: grid;
@@ -737,6 +799,10 @@ select:-webkit-autofill:focus {
 @media (max-width: 402px) {
   .content {
     padding-top: 7.2em;
+  }
+  .buttonFloat {
+    bottom: 2%;
+    right: 2%;
   }
   .footer {
     -webkit-box-orient: vertical;

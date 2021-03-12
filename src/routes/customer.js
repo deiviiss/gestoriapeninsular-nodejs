@@ -18,6 +18,8 @@ router.get('/', isLoggedIn, async (req, res) => {
 
   customer = helpers.formatterCustomers(customer)
 
+  console.log(customer);
+
   res.render('customer/list-customer.hbs', { customer }) //muestra el objeto en la vista
 })
 

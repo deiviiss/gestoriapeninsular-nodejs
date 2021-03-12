@@ -57,7 +57,17 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 
 //  envía formulario 
 router.get('/register', isLoggedIn, (req, res) => {
-  res.render('authentic/register.hbs')
+  const user = req.user
+
+  //?condición para ocultar la ruta register
+  if (user.permiso === "Administrador") {
+    res.render('authentic/register.hbs')
+  }
+
+  else {
+    res.send('404 not found')
+  }
+
 });
 
 // recibe el formulario

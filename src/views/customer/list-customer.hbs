@@ -1,4 +1,5 @@
 <div class="container-box">
+
   <div class="search">
     <form action="/list-customer" method="post">
       {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
@@ -7,12 +8,22 @@
     </form>
   </div>
 
+  <div class="btn btn-primary buttonFloat" style="height:2rem;">
+    <a href="#siteTop"><i class="fas fa-arrow-up"></i></a>
+  </div>
+
   <section class="list-customers">
     <div class="wrapper">
 
       <h3>{{user.fullname}}</h3>
-      <h5>{{user.zona}}</h5>
+      <div class="list-title">
+        <h5>{{user.zona}}</h5>
 
+        <div class="buttons btn-list">
+          <a href="/resume/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+        </div>
+
+      </div>
       {{#each customer}}
       <div class="customer">
         <div class="grid-list">
@@ -47,13 +58,6 @@
           <h6>Status</h6>
           <p>{{status}}</p>
 
-          {{!-- <p></p>
-          <p></p>
-
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p> --}}
           <a href="/customer/edit/{{id}}" class="btn btn-info">Detalles</a>
           {{#if_equal user.permiso "Administrador"}}
 
@@ -68,14 +72,8 @@
 
       {{/each}}
 
-      <div class="grid">
-
-
-
-
-
-      </div>
     </div>
+
   </section>
 
 </div>

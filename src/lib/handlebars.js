@@ -275,4 +275,81 @@ helpers.fecha = (fecha) => {
   return fechaActual
 }
 
+// Arreglo con las zona por region
+//! pudiera convertirse en una consulta
+helpers.region = (region) => {
+  if (region === 1) {
+    return region = [
+      { zona: 'Campeche' },
+      { zona: 'Campeche2' },
+      { zona: 'Cuernavaca' },
+      { zona: 'Mérida' }
+    ]
+  }
+
+  else if (region === 2) {
+    return region = [
+      { zona: 'Cancun' },
+      { zona: 'Cancun2' },
+      { zona: 'Candelaria' },
+      { zona: 'Chetumal' },
+      { zona: 'Cozumel' },
+      { zona: 'Escarcega' },
+      { zona: 'Playa del Carmen' },
+      { zona: 'Tizimin' },
+      { zona: 'Valladolid' }
+    ]
+  }
+
+  else if (region === 3) {
+    return region = [
+      { zona: 'Campeche3' },
+      { zona: 'Carmen' },
+      { zona: 'Champoton' },
+      { zona: 'Coatzacoalcos' },
+      { zona: 'Palenque' },
+      { zona: 'Villahermosa' }
+    ]
+  }
+
+  else if (region === 4) {
+    return region = [
+      { zona: 'Cuautitlán' },
+      { zona: 'Cuernavaca2' },
+      { zona: 'Ixtapaluca' }
+    ]
+  }
+  else {
+    return region = [
+
+      { zona: 'Campeche' },
+      { zona: 'Campeche2' },
+      { zona: 'Cuernavaca' },
+      { zona: 'Mérida' },
+
+      { zona: 'Campeche3' },
+      { zona: 'Carmen' },
+      { zona: 'Champoton' },
+      { zona: 'Coatzacoalcos' },
+      { zona: 'Palenque' },
+      { zona: 'Villahermosa' },
+
+      { zona: 'Cancun' },
+      { zona: 'Cancun2' },
+      { zona: 'Candelaria' },
+      { zona: 'Chetumal' },
+      { zona: 'Cozumel' },
+      { zona: 'Escarcega' },
+      { zona: 'Playa del Carmen' },
+      { zona: 'Tizimin' },
+      { zona: 'Valladolid' },
+
+      { zona: 'Cuautitlán' },
+      { zona: 'Cuernavaca2' },
+      { zona: 'Ixtapaluca' }
+    ]
+  }
+
+}
+
 module.exports = helpers;
