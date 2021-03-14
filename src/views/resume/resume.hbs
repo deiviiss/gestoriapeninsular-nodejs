@@ -1,12 +1,24 @@
 <div class="container-box">
 
+  {{#if_equal user.permiso "Administrador"}}
+
   <div class="search">
-    <form action="/customer/query" method="post">
-      {{!-- <label for="cliente" class="form-label">Cliente</label> --}}
-      <input type="search" placeholder="Buscar cliente" name="busqueda" class="form-control" autocomplete="off">
-      <button type="submit" class="btn btn-primary fas fa-search" style="height:2rem;"></button>
+    <form action="/resume-zona" method="POST">
+      {{!-- <label for="status" class='label active'>Zona</label> --}}
+
+      <select name="zona" id="zona" class="form-control">
+        <option value="">Elige una zona</option>
+        {{#each region}}
+        <option value="{{zona}}">{{zona}}</option>
+        {{/each}}
+      </select>
+
+      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+
     </form>
   </div>
+
+  {{/if_equal}}
 
   <div class="container p-2">
     <div class="tarjeta">
@@ -14,7 +26,12 @@
         {{user.puesto}}
       </h2>
 
-      <h6 class="resume-status">{{zona}}</h6>
+      {{#if zona}}
+      <h6 class="resume-status">
+        {{zona}}
+      </h6>
+      {{/if}}
+
       <h6 class="resume-status">
         Status
       </h6>
