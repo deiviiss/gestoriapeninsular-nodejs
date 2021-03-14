@@ -16,7 +16,7 @@ router.get('/resume', isLoggedIn, async (req, res) => {
   //todo mejorar está consulta customers = await pool.query("SELECT status, COUNT(*) as total FROM tramites WHERE zona like '%" + [req.user.consulta] + "%'GROUP BY status")
 
   // Consulta Regional
-  if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4) {
+  if (user.puesto === 'Regional') {
 
     aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'" + "AND region= ?", [user.region])
 
@@ -35,13 +35,10 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     pendientes = await pool.query("SELECT * FROM tramites WHERE status= 'pendiente'" + "AND region= ?", [user.region])
 
     liquidar = await pool.query("SELECT * FROM tramites WHERE status= 'liquidar'" + "AND region= ?", [user.region])
-
-    //get zonas
-    region = helpers.region(user.region)
   }
 
   //Consulta Administrador
-  else if (user.consulta === "") {
+  else if (user.puesto === 'Administrador') {
 
     aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'")
 
@@ -60,29 +57,26 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     pendientes = await pool.query("SELECT * FROM tramites WHERE status= 'pendiente'")
 
     liquidar = await pool.query("SELECT * FROM tramites WHERE status= 'liquidar'")
-
-    //get zonas
-    region = helpers.region(user.region)
   }
 
   //Consulta encargado
   else {
 
-    aclaraciones = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'aclaración'", [req.user.consulta])
+    aclaraciones = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'aclaración'", [user.consulta])
 
-    asegurados = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'asegurado'", [req.user.consulta])
+    asegurados = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'asegurado'", [user.consulta])
 
-    bajas = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'baja'", [req.user.consulta])
+    bajas = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'baja'", [user.consulta])
 
-    espera = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'en espera'", [req.user.consulta])
+    espera = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'en espera'", [user.consulta])
 
-    fallidos = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'fallido'", [req.user.consulta])
+    fallidos = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'fallido'", [user.consulta])
 
-    finalizados = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'finalizado'", [req.user.consulta])
+    finalizados = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'finalizado'", [user.consulta])
 
-    juridico = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'jurídico'", [req.user.consulta])
+    juridico = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'jurídico'", [user.consulta])
 
-    pendientes = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'pendiente'", [req.user.consulta])
+    pendientes = await pool.query("SELECT * FROM tramites WHERE zona = ?" + "AND  status= 'pendiente'", [user.consulta])
   }
 
   //objeto con status que se mandara a la vista
@@ -108,6 +102,9 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     juridico: 'jurídico',
     pendiente: 'pendiente'
   }
+
+  //get zonas
+  region = helpers.region(user.region)
 
   res.render('resume/resume.hbs', { status, user, titulos, region })
 

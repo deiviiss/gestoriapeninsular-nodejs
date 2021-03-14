@@ -1,3 +1,5 @@
+//! ruta a ser utilizada con reacj
+
 //dependends
 const express = require('express');
 const router = express.Router(); //objeto para listar rutas

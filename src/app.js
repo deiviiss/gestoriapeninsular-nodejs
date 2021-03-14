@@ -73,7 +73,7 @@ app.use(require('./routes/authentication.js')); //ruta de autenficación
 app.use('/customer', require('./routes/customer.js')); //ruta de customer con prefijo /customer/archivo
 app.use(require('./routes/directory.js')); //ruta directorio users
 app.use(require('./routes/resume.js')); //ruta resume
-app.use(require('./routes/list-customer.js'));// react route
+// app.use(require('./routes/list-customer.js'));// react route
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos

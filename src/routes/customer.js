@@ -13,9 +13,33 @@ const helpers = require('../lib/handlebars')
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
-  customer = await pool.query('SELECT * FROM tramites');
-  // console.log(customer)
+  const user = req.user
 
+  // Consulta Regional
+  if (user.puesto === 'Regional') {
+
+    const sqlSelect = 'SELECT * FROM tramites WHERE region = ?'
+
+    customer = await pool.query(sqlSelect, user.region);
+  }
+
+  //Consulta Administrador
+  else if (user.puesto === "Administrador") {
+
+    const sqlSelect = 'SELECT * FROM tramites'
+
+    customer = await pool.query(sqlSelect);
+  }
+
+  //Consulta encargado
+  else {
+
+    const sqlSelect = 'SELECT * FROM tramites WHERE zona= ?'
+
+    customer = await pool.query(sqlSelect, user.consulta)
+  }
+
+  //helper que cambia el formato de fecha y moneda
   customer = helpers.formatterCustomers(customer)
 
   res.render('customer/list-customer.hbs', { customer }) //muestra el objeto en la vista
@@ -27,13 +51,24 @@ router.post('/query', isLoggedIn, async (req, res) => {
   const { busqueda } = req.body
 
   // condición para elegir el método de busqueda
-  if (user.consulta === "") {
+  if (user.puesto === "Regional") {
 
-    customer = await pool.query("SELECT * FROM tramites WHERE zona like '%" + [user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'") // la consulta está en blanco por lo que muestra todas las zonas.
+    const sqlBuscar = "SELECT * FROM tramites WHERE region = ?" + " AND  cliente like '%" + [busqueda] + "%'"
 
-  } else {
+    customer = await pool.query(sqlBuscar, user.region)
 
-    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  cliente like '%" + [busqueda] + "%'", [req.user.consulta]) // la consulta req usa propiedad de express para traer la consulta del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+  }
+
+  else if (user.puesto === 'Administrador') {
+
+    const sqlBuscar = "SELECT * FROM tramites WHERE zona like '%" + [user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'"; // la consulta está en blanco por lo que muestra todas las zonas.
+
+    customer = await pool.query(sqlBuscar);
+  }
+
+  else {
+
+    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  cliente like '%" + [busqueda] + "%'", [user.consulta]) // la consulta req usa propiedad de express para traer la consulta del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
   }
 
   //helper que cambia el formato de fecha y moneda
