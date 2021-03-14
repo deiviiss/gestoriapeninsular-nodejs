@@ -11,9 +11,10 @@
   <div class="container p-2">
     <div class="tarjeta">
       <h2 class="resume-title">
-        {{user.zona}}
+        {{user.puesto}}
       </h2>
 
+      <h6 class="resume-status">{{zona}}</h6>
       <h6 class="resume-status">
         Status
       </h6>
@@ -73,6 +74,13 @@
           <a href="/resume/{{titulos.aclaracion}}">
             <h6 class="tarjeta-title">Aclaración</h6>
             <p class="tarjeta-text">{{status.aclaraciones}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.aclaracion}}">
+            <h6 class="tarjeta-title">Liquidar</h6>
+            <p class="tarjeta-text">{{status.liquidar}}</p>
           </a>
         </div>
 

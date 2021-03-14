@@ -18,12 +18,10 @@ router.get('/', isLoggedIn, async (req, res) => {
 
   customer = helpers.formatterCustomers(customer)
 
-  console.log(customer);
-
   res.render('customer/list-customer.hbs', { customer }) //muestra el objeto en la vista
 })
 
-//consulta
+//busqueda de cliente
 router.post('/query', isLoggedIn, async (req, res) => {
   const user = req.user
   const { busqueda } = req.body
@@ -51,58 +49,53 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
-  // console.log(user.id)
-  // console.log(customer[0])
-
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
 
   res.render('customer/edit', { customer: customer[0] }) //cero indica que solo tome un objeto del arreglo
 })
 
-//recibe el formulario para editar observaciones
+//recibe el formulario para actualizar observaciones
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const { observaciones } = req.body; //objeto del formulario
   const user = req.user
   const fechaActual = new Date() //new Date() Objeto de Js para manejo de fechas
 
-  // console.log(id, observaciones)
-
+  //objeto con las observaciones y usuario fecha
   const updateCliente = {
     observaciones: observaciones + ' (' + user.fullname + ' ' + helpers.fecha(fechaActual) + ').'
   };
 
+  //actualizo observaciones
   await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
+  //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
 
-  // req.flash('success', 'Cliente editado correctamente')
   res.render('customer/m-pendientes', { customer: customer[0] });
-  // res.redirect('/customer/edit')
 })
 
-//recibe el formulario para motivo de pendiente
+//recibe el formulario para actualizar motivo de pendiente
 router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const { motivo } = req.body; //objeto del formulario
   const user = req.user
 
-  // console.log(motivo);
-
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
+  //objeto con la actualización del motivo
   updateCliente = {
     pendiente: motivo
   };
 
+  //actualizo motivo pendiente
   await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
 
+  //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
 
-  // req.flash('success', 'Cliente finalizado correctamente')
-  // res.redirect('/customer')
   res.render('customer/edit', { customer: customer[0], user: user });
 })
 
@@ -111,10 +104,23 @@ router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
 // envía el formulario status
 router.get('/status/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
+  const { permiso } = req.user;
 
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
-  res.render('customer/status.hbs', { customer: customer[0] })
+  //obtener la propiedad status de la consulta
+  const { status } = customer[0];
+
+  //* Condición para proteger cambio de status
+  if (status === 'Finalizado') {
+    res.redirect('/resume')
+  }
+  else if (permiso === 'Administrador') {
+    res.render('customer/status.hbs', { customer: customer[0] })
+  }
+  else {
+    res.redirect('/resume')
+  }
 })
 
 //recibe el formulario status
@@ -124,8 +130,7 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   const user = req.user
   const fechaActual = new Date()
 
-  // console.log(req.body);
-
+  //objeto con el status y observaciones con fecha y usuario
   const updateCliente = {
     status,
     pendiente: '',
@@ -138,6 +143,7 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   // consulto el status que se acaba de actualizar
   const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
 
+  //valida status que se acaba de actualizar
   if (customer[0].status === 'Pendiente') {
 
     //para colocar el motivo

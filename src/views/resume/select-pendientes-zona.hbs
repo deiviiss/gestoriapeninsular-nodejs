@@ -1,0 +1,52 @@
+{{!-- Formulario agregar motivo al status pendiente--}}
+
+<div class="container-box">
+
+  <div class="container p-2">
+    <div class="row">
+      <div class="col-md-6 mt-2 mx-auto">
+
+        <form action="/pendientes-zona/{{status}}" method="post">
+
+          <div class="card border-info text-dark bg-light">
+
+            <div class="card-title">
+              <h5 class="card-header text-muted">
+                {{user.puesto}}
+              </h5>
+              {{!-- <a onclick="window.history.back()"><i class="fas fa-arrow-left textet-muted"></i></a> --}}
+            </div>
+
+            <div class="card-body">
+
+              <h6 class="card-title mb-4 text-center">Selecciona la zona:</h6>
+
+              <div class="text-center mb-4">
+                <div class="form__input">
+
+                  <div class="form__input-item">
+                    <label for="status" class='label active'>Zona</label>
+
+                    <select name="zona" id="zona">
+                      <option value=""></option>
+                      {{#each region}}
+                      <option value="{{zona}}">{{zona}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn btn-info">Seleccionar</button>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>

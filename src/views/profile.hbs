@@ -17,19 +17,8 @@
         <p class="text-center">{{oficina}}</p>
 
         <a href="/customer/" class="btn btn-info m-4"><i class="fas fa-users mr-1"></i>Clientes</a>
-
-
-        {{#if_equal permiso "Administrador"}}
-
-        {{!-- Botones visibles como administrador --}}
-        <a href="/resume-zona" class="btn btn-info m-4"><i class="fas fa-chart-line mr-1"></i>Zonas</a>
-
-        {{else}}
-
-        {{!-- Botones visibles como encargado --}}
         <a href="/resume/" class="btn btn-info m-4"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
-        {{/if_equal}}
         {{/with}}
 
       </div>
