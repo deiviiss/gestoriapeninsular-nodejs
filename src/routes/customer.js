@@ -16,31 +16,31 @@ router.get('/', isLoggedIn, async (req, res) => {
   const user = req.user
 
   // Consulta Regional
-  if (user.puesto === 'Regional') {
+  // if (user.puesto === 'Regional') {
 
-    const sqlSelect = 'SELECT * FROM tramites WHERE region = ?'
+  //   const sqlSelect = 'SELECT * FROM tramites WHERE region = ?'
 
-    customer = await pool.query(sqlSelect, user.region);
-  }
+  //   customer = await pool.query(sqlSelect, user.region);
+  // }
 
-  //Consulta Administrador
-  else if (user.puesto === "Administrador") {
+  // //Consulta Administrador
+  // else if (user.puesto === "Administrador") {
 
-    const sqlSelect = 'SELECT * FROM tramites'
+  //   const sqlSelect = 'SELECT * FROM tramites'
 
-    customer = await pool.query(sqlSelect);
-  }
+  //   customer = await pool.query(sqlSelect);
+  // }
 
-  //Consulta encargado
-  else {
+  // //Consulta encargado
+  // else {
 
-    const sqlSelect = 'SELECT * FROM tramites WHERE zona= ?'
+  //   const sqlSelect = 'SELECT * FROM tramites WHERE zona= ?'
 
-    customer = await pool.query(sqlSelect, user.consulta)
-  }
+  //   customer = await pool.query(sqlSelect, user.consulta)
+  // }
 
-  //helper que cambia el formato de fecha y moneda
-  customer = helpers.formatterCustomers(customer)
+  // //helper que cambia el formato de fecha y moneda
+  // customer = helpers.formatterCustomers(customer)
 
   res.render('customer/list-customer.hbs', { customer }) //muestra el objeto en la vista
 })
@@ -74,7 +74,7 @@ router.post('/query', isLoggedIn, async (req, res) => {
   //helper que cambia el formato de fecha y moneda
   customers = helpers.formatterCustomers(customer)
 
-  res.render('customer/list.hbs', { customer })
+  res.render('customer/list-customer.hbs', { customer })
 })
 
 //============= agregar observaciones clientes (ENCARGADO)

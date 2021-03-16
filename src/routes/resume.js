@@ -9,6 +9,8 @@ const { isLoggedIn } = require('../lib/auth');
 
 const helpers = require('../lib/handlebars')
 
+// routes
+
 //?=============== renderizar resumen (status encargado)
 router.get('/resume', isLoggedIn, async (req, res) => {
   const user = req.user
@@ -113,7 +115,7 @@ router.get('/resume', isLoggedIn, async (req, res) => {
 //?=============== renderiza resume (status administrador)
 router.post('/resume-zona/', isLoggedIn, async (req, res) => {
   const user = req.user
-  const { zona } = req.body
+  let { zona } = req.body
 
   //* consulta de status (administrador)
   aclaraciones = await pool.query("SELECT * FROM tramites WHERE status= 'aclaración'" + "AND zona= ?", [zona])
@@ -160,20 +162,24 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
     liquidar: 'liquidar'
   }
 
-  region = helpers.region(user.region)
+  region = helpers.region(user.region);
 
-  res.render('resume/resume.hbs', { status, user, titulos, zona, region })
+  //valor a exportar
+  zonaStorage = [zona]
+
+  res.render('resume/resume.hbs', { status, user, titulos, zona, region });
 })
 
 //?=============== renderiza list-customer (status encargado)
 router.get('/resume/:status', isLoggedIn, async (req, res) => {
   const user = req.user
   const { status } = req.params
+  // console.log(req.zonaStorage);
 
   //* Valida user redireciona render pendientes-zona.
-  if (user.region === 1 || user.region === 2 || user.region === 3 || user.region === 4 || user.consulta === "") {
+  if (user.puesto === "Regional" || user.puesto === "Administrador") {
 
-    //obtine las zonas
+    //obtiene las zonas
     region = helpers.region(user.region)
 
     res.render('resume/select-pendientes-zona.hbs', { status, region })
