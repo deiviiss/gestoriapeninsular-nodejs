@@ -42,7 +42,7 @@ router.get('/', isLoggedIn, async (req, res) => {
   // //helper que cambia el formato de fecha y moneda
   // customer = helpers.formatterCustomers(customer)
 
-  res.render('customer/list-customer.hbs', { customer }) //muestra el objeto en la vista
+  res.render('customer/list-customer.hbs') //muestra el objeto en la vista
 })
 
 //busqueda de cliente
