@@ -187,6 +187,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
+        console.log(customer);
 
         //valida el status pendiente
         if (status === 'pendiente') {

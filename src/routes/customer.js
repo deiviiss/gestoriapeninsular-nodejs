@@ -15,6 +15,7 @@ const helpers = require('../lib/handlebars')
 router.get('/', isLoggedIn, async (req, res) => {
   const user = req.user
 
+  //Consulta toma muccho tiempo en renderizar
   // Consulta Regional
   // if (user.puesto === 'Regional') {
 

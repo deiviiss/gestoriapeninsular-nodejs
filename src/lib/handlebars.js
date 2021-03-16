@@ -46,13 +46,15 @@ helpers.formatterCustomers = (sinformato) => {
       month[10] = "Noviembre";
       month[11] = "Diciembre";
 
-      date = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+      dateTramite = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+      dateRetiro = new Date(fechaFormatRetiro) //new Date() Objeto de Js para manejo de fechas
 
       sinformato[i].monto = helpers.formatterPeso.format(montoPeso)
-      sinformato[i].fecha_tramite = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear();
-      sinformato[i].fecha_ultimo_retiro = date.getDate() + '/' + month[date.getMonth()] + '/' + date.getFullYear();
+      sinformato[i].fecha_tramite = dateTramite.getDate() + '/' + month[dateTramite.getMonth()] + '/' + dateTramite.getFullYear();
+      sinformato[i].fecha_ultimo_retiro = dateRetiro.getDate() + '/' + month[dateRetiro.getMonth()] + '/' + dateRetiro.getFullYear();
 
-      // console.log(customers[i].fecha_tramite)
+      console.log('This is ');
+      console.log(sinformato[i].fecha_ultimo_retiro)
     }
     return sinformato
   }
