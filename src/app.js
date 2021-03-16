@@ -63,7 +63,6 @@ app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //mensaje disponible en todas las vistas
   app.locals.fail = req.flash('fail'); //mensaje disponible en todas las vistas
   app.locals.user = req.user; //usuario disponible en todas las vistas
-  app.locals.zonaStorage = req.zonaStorage; //zona disponible
   next();
 });
 
