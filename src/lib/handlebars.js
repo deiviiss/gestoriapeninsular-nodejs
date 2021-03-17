@@ -1,6 +1,6 @@
-//funciones
+//Fuctions
 
-const { body } = require('express-validator');
+// const { body } = require('express-validator');
 const { format } = require('timeago.js'); //requiere el metodo format
 
 const helpers = {} //objeto a utilizar desde las vistas
@@ -167,7 +167,7 @@ helpers.costoforaneo1 = (cantidad) => {
   cobroClientePesos = helpers.formatterPeso.format(cobroCliente)
   libreClientePesos = helpers.formatterPeso.format(libreCliente)
 
-  // // objeto que recibe la vista result
+  // objeto que recibe la vista result
   retiro = {
     montoPesos,
     cobroPesos,
@@ -324,32 +324,28 @@ helpers.region = (region) => {
   }
   else {
     return region = [
-
       { zona: 'Campeche' },
       { zona: 'Campeche2' },
-      { zona: 'Cuernavaca' },
-      { zona: 'Mérida' },
-
       { zona: 'Campeche3' },
-      { zona: 'Carmen' },
-      { zona: 'Champoton' },
-      { zona: 'Coatzacoalcos' },
-      { zona: 'Palenque' },
-      { zona: 'Villahermosa' },
-
       { zona: 'Cancun' },
       { zona: 'Cancun2' },
       { zona: 'Candelaria' },
+      { zona: 'Carmen' },
+      { zona: 'Champoton' },
       { zona: 'Chetumal' },
+      { zona: 'Coatzacoalcos' },
       { zona: 'Cozumel' },
+      { zona: 'Cuautitlán' },
+      { zona: 'Cuernavaca' },
+      { zona: 'Cuernavaca2' },
       { zona: 'Escarcega' },
+      { zona: 'Ixtapaluca' },
+      { zona: 'Mérida' },
+      { zona: 'Palenque' },
       { zona: 'Playa del Carmen' },
       { zona: 'Tizimin' },
       { zona: 'Valladolid' },
-
-      { zona: 'Cuautitlán' },
-      { zona: 'Cuernavaca2' },
-      { zona: 'Ixtapaluca' }
+      { zona: 'Villahermosa' }
     ]
   }
 

@@ -179,12 +179,12 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
     //Si select zona none
     if (zona === "") {
 
+      //consulta regional
       if (user.puesto === "Regional") {
         customer = await pool.query("SELECT * FROM tramites WHERE region = ?" + " AND  status = ? order by fecha_tramite DESC", [user.region, status])
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
-        console.log(customer);
 
         //valida el status pendiente
         if (status === 'pendiente') {
@@ -236,7 +236,10 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             unificacion: 'unificacion'
           }
 
-          res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona })
+          //get zonas
+          region = helpers.region(user.region)
+
+          res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region })
         }
 
         else {
@@ -244,6 +247,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         }
       }
 
+      //consulta administrador
       else {
         customer = await pool.query("SELECT * FROM tramites WHERE status = ? order by fecha_tramite DESC", [status])
 
@@ -300,7 +304,10 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             unificacion: 'unificacion'
           }
 
-          res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona })
+          //get zonas
+          region = helpers.region(user.region)
+
+          res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region })
         }
 
         else {
@@ -447,7 +454,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
   const user = req.user
   const zona = req.query.zona
 
-  //consulta por region descendente
+  //*Consulta Administrador-Regional descendente
   if (user.puesto === 'Regional' || user.puesto === 'Administrador') {
 
     //Si select zona none
@@ -458,6 +465,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
+
         //se envia el status para obtenerlo en post y ordenarlo
         res.render('customer/list-customer.hbs', { customer, motivo, zona })
       }
@@ -467,6 +475,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
+
         //se envia el status para obtenerlo en post y ordenarlo
         res.render('customer/list-customer.hbs', { customer, motivo, zona })
       }
@@ -485,7 +494,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
     }
   }
 
-  // consulta por zona descendente
+  //*Consulta Encargado descendente
   else {
     customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite DESC", [user.consulta, motivo])
 
