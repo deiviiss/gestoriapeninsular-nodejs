@@ -3,7 +3,6 @@
 const { body } = require('express-validator');
 const { format } = require('timeago.js'); //requiere el metodo format
 
-
 const helpers = {} //objeto a utilizar desde las vistas
 
 //metodos del objeto
@@ -51,17 +50,16 @@ helpers.formatterCustomers = (sinformato) => {
 
       sinformato[i].monto = helpers.formatterPeso.format(montoPeso)
       sinformato[i].fecha_tramite = dateTramite.getDate() + '/' + month[dateTramite.getMonth()] + '/' + dateTramite.getFullYear();
+
       if (fechaFormatRetiro === null) {
         sinformato[i].fecha_ultimo_retiro = 'Sin retiro'
       }
       else {
         (sinformato[i].fecha_ultimo_retiro = dateRetiro.getDate() + '/' + month[dateRetiro.getMonth()] + '/' + dateRetiro.getFullYear());
       }
-
     }
     return sinformato
   }
-
 }
 
 //funciones costos

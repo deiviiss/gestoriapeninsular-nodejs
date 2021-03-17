@@ -4,9 +4,6 @@
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 
-const url = require('url');
-const queryString = require('querystring');
-
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
@@ -486,7 +483,6 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
       //se envia el status para obtenerlo en post y ordenarlo
       res.render('customer/list-customer.hbs', { customer, motivo })
     }
-
   }
 
   // consulta por zona descendente
