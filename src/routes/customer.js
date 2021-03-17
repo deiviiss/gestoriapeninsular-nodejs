@@ -13,7 +13,7 @@ const helpers = require('../lib/handlebars')
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
-  const user = req.user
+  // const user = req.user
 
   //Consulta toma muccho tiempo en renderizar
   // Consulta Regional
@@ -24,7 +24,7 @@ router.get('/', isLoggedIn, async (req, res) => {
   //   customer = await pool.query(sqlSelect, user.region);
   // }
 
-  // //Consulta Administrador
+  //Consulta Administrador
   // else if (user.puesto === "Administrador") {
 
   //   const sqlSelect = 'SELECT * FROM tramites'
@@ -32,7 +32,7 @@ router.get('/', isLoggedIn, async (req, res) => {
   //   customer = await pool.query(sqlSelect);
   // }
 
-  // //Consulta encargado
+  //Consulta encargado
   // else {
 
   //   const sqlSelect = 'SELECT * FROM tramites WHERE zona= ?'
@@ -40,7 +40,7 @@ router.get('/', isLoggedIn, async (req, res) => {
   //   customer = await pool.query(sqlSelect, user.consulta)
   // }
 
-  // //helper que cambia el formato de fecha y moneda
+  //helper que cambia el formato de fecha y moneda
   // customer = helpers.formatterCustomers(customer)
 
   res.render('customer/list-customer.hbs') //muestra el objeto en la vista
@@ -100,7 +100,8 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
 
   //objeto con las observaciones y usuario fecha
   const updateCliente = {
-    observaciones: observaciones + ' (' + user.fullname + ' ' + helpers.fecha(fechaActual) + ').'
+    observaciones: observaciones + ' (' + user.fullname + ' ' + helpers.fecha(fechaActual) + ').',
+    fecha_status: fechaActual
   };
 
   //actualizo observaciones
@@ -170,7 +171,8 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   const updateCliente = {
     status,
     pendiente: '',
-    observaciones: observaciones + " (" + user.fullname + ' ' + helpers.fecha(fechaActual) + ")."
+    observaciones: observaciones + " (" + user.fullname + ' ' + helpers.fecha(fechaActual) + ").",
+    fecha_status: fechaActual
   };
 
   //actualizo el status de customer
