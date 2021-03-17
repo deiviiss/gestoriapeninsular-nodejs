@@ -451,7 +451,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
   const zona = req.query.zona
 
   //consulta por region descendente
-  if (user.puesto === 'Regional' || user.puesto === 'Adminsitrador') {
+  if (user.puesto === 'Regional' || user.puesto === 'Administrador') {
 
     //Si select zona none
     if (zona === "") {
@@ -461,7 +461,6 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
-
         //se envia el status para obtenerlo en post y ordenarlo
         res.render('customer/list-customer.hbs', { customer, motivo, zona })
       }
@@ -471,7 +470,6 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
-
         //se envia el status para obtenerlo en post y ordenarlo
         res.render('customer/list-customer.hbs', { customer, motivo, zona })
       }

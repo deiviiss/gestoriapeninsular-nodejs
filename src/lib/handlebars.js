@@ -51,10 +51,13 @@ helpers.formatterCustomers = (sinformato) => {
 
       sinformato[i].monto = helpers.formatterPeso.format(montoPeso)
       sinformato[i].fecha_tramite = dateTramite.getDate() + '/' + month[dateTramite.getMonth()] + '/' + dateTramite.getFullYear();
-      sinformato[i].fecha_ultimo_retiro = dateRetiro.getDate() + '/' + month[dateRetiro.getMonth()] + '/' + dateRetiro.getFullYear();
+      if (fechaFormatRetiro === null) {
+        sinformato[i].fecha_ultimo_retiro = 'Sin retiro'
+      }
+      else {
+        (sinformato[i].fecha_ultimo_retiro = dateRetiro.getDate() + '/' + month[dateRetiro.getMonth()] + '/' + dateRetiro.getFullYear());
+      }
 
-      console.log('This is ');
-      console.log(sinformato[i].fecha_ultimo_retiro)
     }
     return sinformato
   }
