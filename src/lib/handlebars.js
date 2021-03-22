@@ -275,13 +275,9 @@ helpers.region = (region) => {
     return region = [
       { zona: 'Cancun' },
       { zona: 'Cancun2' },
-      { zona: 'Candelaria' },
       { zona: 'Chetumal' },
       { zona: 'Cozumel' },
-      { zona: 'Escarcega' },
       { zona: 'Playa del Carmen' },
-      { zona: 'Tizimin' },
-      { zona: 'Valladolid' }
     ]
   }
 
@@ -301,6 +297,15 @@ helpers.region = (region) => {
       { zona: 'Cuautitlán' },
       { zona: 'Cuernavaca2' },
       { zona: 'Ixtapaluca' }
+    ]
+  }
+
+  else if (region === 5) {
+    return region = [
+      { zona: 'Candelaria' },
+      { zona: 'Escarcega' },
+      { zona: 'Valladolid' },
+      { zona: 'Tizimín' }
     ]
   }
   else {
