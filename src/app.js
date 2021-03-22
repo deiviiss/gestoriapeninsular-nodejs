@@ -1,7 +1,5 @@
 //start app
 
-require('newrelic');
-
 //dependends
 const express = require('express');
 const morgan = require('morgan');
