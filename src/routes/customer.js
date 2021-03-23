@@ -1,4 +1,4 @@
-//guardar listar actualizar eliminar clientes
+//Buscar, listar, cambiar status 
 
 //dependends
 const express = require('express');
@@ -13,35 +13,6 @@ const helpers = require('../lib/handlebars')
 
 //lista de clientes
 router.get('/', isLoggedIn, async (req, res) => {
-  // const user = req.user
-
-  //Consulta toma muccho tiempo en renderizar
-  // Consulta Regional
-  // if (user.puesto === 'Regional') {
-
-  //   const sqlSelect = 'SELECT * FROM tramites WHERE region = ?'
-
-  //   customer = await pool.query(sqlSelect, user.region);
-  // }
-
-  //Consulta Administrador
-  // else if (user.puesto === "Administrador") {
-
-  //   const sqlSelect = 'SELECT * FROM tramites'
-
-  //   customer = await pool.query(sqlSelect);
-  // }
-
-  //Consulta encargado
-  // else {
-
-  //   const sqlSelect = 'SELECT * FROM tramites WHERE zona= ?'
-
-  //   customer = await pool.query(sqlSelect, user.consulta)
-  // }
-
-  //helper que cambia el formato de fecha y moneda
-  // customer = helpers.formatterCustomers(customer)
 
   res.render('customer/list-customer.hbs') //muestra el objeto en la vista
 })
@@ -52,24 +23,22 @@ router.post('/query', isLoggedIn, async (req, res) => {
   const { busqueda } = req.body
 
   // condición para elegir el método de busqueda
-  if (user.puesto === "Regional") {
-
-    const sqlBuscar = "SELECT * FROM tramites WHERE region = ?" + " AND  cliente like '%" + [busqueda] + "%'"
+  if (user.permiso === "Regional") {
+    const sqlBuscar = "SELECT * FROM tramites WHERE region = ? AND  cliente like '%" + [busqueda] + "%'"
 
     customer = await pool.query(sqlBuscar, user.region)
-
   }
 
-  else if (user.puesto === 'Administrador') {
-
-    const sqlBuscar = "SELECT * FROM tramites WHERE zona like '%" + [user.consulta] + "%' AND  cliente like '%" + [busqueda] + "%'"; // la consulta está en blanco por lo que muestra todas las zonas.
+  else if (user.permiso === 'Administrador') {
+    const sqlBuscar = "SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'";
 
     customer = await pool.query(sqlBuscar);
   }
 
   else {
+    const sqlSelect = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
 
-    customer = await pool.query("SELECT * FROM tramites WHERE zona = ?" + " AND  cliente like '%" + [busqueda] + "%'", [user.consulta]) // la consulta req usa propiedad de express para traer la consulta del ususario y ligarla a la consultas que estamos realizando, el usuario solo ve los de su zona
+    customer = await pool.query(sqlSelect, [user.zona])
   }
 
   //helper que cambia el formato de fecha y moneda
@@ -83,7 +52,9 @@ router.post('/query', isLoggedIn, async (req, res) => {
 //envia formulario para editar
 router.get('/edit/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+  const sqlSelect = 'SELECT * FROM tramites WHERE id =?';
+
+  customer = await pool.query(sqlSelect, [id])
 
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
@@ -105,8 +76,12 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   };
 
   //actualizo observaciones
-  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+  const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?';
+  await pool.query(sqlUpdate, [updateCliente, id])
+
+  //consulto cliente
+  const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
+  customer = await pool.query(sqlSelect, [id])
 
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
@@ -120,15 +95,18 @@ router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
   const { motivo } = req.body; //objeto del formulario
   const user = req.user
 
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
-
   //objeto con la actualización del motivo
   updateCliente = {
     pendiente: motivo
   };
 
   //actualizo motivo pendiente
-  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+  const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
+  await pool.query(sqlUpdate, [updateCliente, id])
+
+  //consulto el cliente
+  const sqlSelect = 'SELECT * FROM tramites WHERE id =?';
+  customer = await pool.query(sqlSelect, [id])
 
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
@@ -136,26 +114,30 @@ router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
   res.render('customer/edit', { customer: customer[0], user: user });
 })
 
-//================= Movimiento de status clientes (REGIONAL)
+//================= movimiento de status clientes (REGIONAL)
 
-// envía el formulario status
+//envía el formulario status
 router.get('/status/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const { permiso } = req.user;
 
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+  //consulto al cliente
+  const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
+  customer = await pool.query(sqlSelect, [id])
 
   //obtener la propiedad status de la consulta
   const { status } = customer[0];
 
   //* Condición para proteger cambio de status
   if (status === 'Finalizado') {
+    req.flash('fail', 'Cliente ya finalizado')
     res.redirect('/resume')
   }
-  else if (permiso === 'Administrador') {
+  else if (permiso === 'Administrador' || permiso === 'Regional' || permiso === 'Temporal') {
     res.render('customer/status.hbs', { customer: customer[0] })
   }
   else {
+    req.flash('fail', 'Permiso insuficiente')
     res.redirect('/resume')
   }
 })
@@ -176,10 +158,12 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   };
 
   //actualizo el status de customer
-  await pool.query('UPDATE tramites set ? WHERE id = ?', [updateCliente, id])
+  const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
+  await pool.query(sqlUpdate, [updateCliente, id])
 
   // consulto el status que se acaba de actualizar
-  const customer = await pool.query('SELECT * FROM tramites WHERE id =?', [id])
+  const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
+  customer = await pool.query(sqlSelect, [id])
 
   //valida status que se acaba de actualizar
   if (customer[0].status === 'Pendiente') {

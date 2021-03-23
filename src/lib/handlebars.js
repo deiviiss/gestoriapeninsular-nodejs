@@ -309,7 +309,7 @@ helpers.region = (region) => {
     ]
   }
   else {
-    return region = [
+    return regiones = [
       { zona: 'Campeche' },
       { zona: 'Campeche2' },
       { zona: 'Campeche3' },

@@ -40,6 +40,7 @@
                 <label for="observaciones">{{customer.observaciones}}</label>
               </div>
 
+              {{!-- Determina si es pendiente --}}
               {{#if_equal customer.status "Pendiente"}}
 
               <div class="text-center">
@@ -51,24 +52,38 @@
                 <input class="btn btn-info btn-edit" type="submit" name="btn-submit" id="form__btn-submit"
                   value="Actualizar">
 
-
                 <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
 
                 <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
               </div>
 
+              {{!-- Pendiente y administrador --}}
+              {{#if_equal user.permiso "Administrador"}}
               <div class="text-center">
-                {{#if_equal user.permiso "Administrador"}}
-
                 <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
                   <i class="fas fa-redo-alt mr-1"></i>Status</a>
-
-                {{/if_equal}}
               </div>
+              {{/if_equal}}
 
+              {{!-- Pendiente y regional --}}
+              {{#if_equal user.permiso "Regional"}}
+              <div class="text-center">
+                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
+              </div>
+              {{/if_equal}}
+
+              {{!-- Pendiente y temporal --}}
+              {{#if_equal user.permiso "Temporal"}}
+              <div class="text-center">
+                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
+              </div>
+              {{/if_equal}}
+
+              {{!-- Si no es pendiente --}}
               {{else}}
-
               <div class="text-center">
                 <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
 
@@ -76,16 +91,8 @@
 
                 {{#if_equal user.permiso "Administrador"}}
 
-                {{#if_equal customer.status "Finalizado"}}
-
-                {{!-- visible si es finalizado --}}
-
-                {{else}}
-                {{!-- Visible si no es finalizado --}}
                 <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
                   <i class="fas fa-redo-alt mr-1"></i>Status</a>
-
-                {{/if_equal}}
 
                 {{/if_equal}}
 

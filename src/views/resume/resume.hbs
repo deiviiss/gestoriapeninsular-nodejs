@@ -20,6 +20,27 @@
 
   {{/if_equal}}
 
+  {{#if_equal user.permiso "Regional"}}
+
+  <div class="search">
+    <form action="/resume-zona" method="POST">
+      {{!-- <label for="status" class='label active'>Zona</label> --}}
+
+      <select name="zona" id="zona" class="form-control">
+        <option value="">Elige una zona</option>
+        {{#each region}}
+        <option value="{{zona}}">{{zona}}</option>
+        {{/each}}
+      </select>
+
+      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+
+    </form>
+  </div>
+
+  {{/if_equal}}
+
+
   <div class="container p-2">
     <div class="tarjeta">
       <h2 class="resume-title">
@@ -30,6 +51,8 @@
       <h6 class="resume-status">
         {{zona}}
       </h6>
+      {{else}}
+      <h6 class="resume-status">{{user.zona}}</h6>
       {{/if}}
 
       <h6 class="resume-status">

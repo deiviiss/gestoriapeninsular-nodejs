@@ -1,5 +1,7 @@
 <div class="container-box">
 
+  {{#if_equal user.permiso "Administrador"}}
+
   <div class="search">
     <form action="/resume-zona" method="POST">
       {{!-- <label for="status" class='label active'>Zona</label> --}}
@@ -15,6 +17,28 @@
 
     </form>
   </div>
+
+  {{/if_equal}}
+
+  {{#if_equal user.permiso "Regional"}}
+
+  <div class="search">
+    <form action="/resume-zona" method="POST">
+      {{!-- <label for="status" class='label active'>Zona</label> --}}
+
+      <select name="zona" id="zona" class="form-control">
+        <option value="">Elige una zona</option>
+        {{#each region}}
+        <option value="{{zona}}">{{zona}}</option>
+        {{/each}}
+      </select>
+
+      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+
+    </form>
+  </div>
+
+  {{/if_equal}}
 
   <div class="container p-2">
     <div class="tarjeta">
