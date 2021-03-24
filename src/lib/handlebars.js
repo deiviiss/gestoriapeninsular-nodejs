@@ -275,6 +275,7 @@ helpers.region = (region) => {
     return region = [
       { zona: 'Cancun' },
       { zona: 'Cancun2' },
+      { zona: 'Candelaria' },
       { zona: 'Chetumal' },
       { zona: 'Cozumel' },
       { zona: 'Playa del Carmen' },
@@ -302,7 +303,6 @@ helpers.region = (region) => {
 
   else if (region === 5) {
     return region = [
-      { zona: 'Candelaria' },
       { zona: 'Escarcega' },
       { zona: 'Valladolid' },
       { zona: 'Tizimín' }
