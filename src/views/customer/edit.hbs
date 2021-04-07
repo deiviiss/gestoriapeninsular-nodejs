@@ -2,109 +2,118 @@
 <div class="container-box">
 
   <div class="container p-2">
-    <div class="row">
-      <div class="col-md-6 mt-2 mx-auto">
 
-        <form action="/customer/edit/{{customer.id}}" method="post" class="form__register" name="formulario_cliente">
+    <div class="col-md-8 mt-2 mx-auto">
 
-          <div class="card border-info text-dark bg-light">
+      <form action="/customer/edit/{{customer.id}}" method="post" class="form__edit" name="formulario_cliente">
 
-            <div class="card_title">
-              <h5 class="card-header text-muted">{{customer.cliente}}</h5>
-              <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+        <div class="card border-info text-dark bg-light">
+
+          <div class="card_title">
+            <h5 class="card-header text-muted">{{customer.cliente}}</h5>
+            <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+          </div>
+
+          <div class="card-body">
+
+            <h6 class="card-title m-1">Fecha de trámite:</h6>
+            <p class="card-text m-1">{{customer.fecha_tramite}}</p>
+            <h6 class="card-title m-1">Cantidad a retirar:</h6>
+            <p class="card-text m-1">{{customer.monto}}</p>
+            <h6 class="card-title m-1">Curp:</h6>
+            <p class="card-text m-1">{{customer.curp}}</p>
+            <h6 class="card-title m-1">NSS:</h6>
+            <p class="card-text m-1">{{customer.nss}}</p>
+            <h6 class="card-title m-1">Afore:</h6>
+            <p class="card-text m-1">{{customer.afore}}</p>
+            <h6 class="card-title m-1">Semanas cotizadas:</h6>
+            <p class="card-text m-1">{{customer.scotizadas}}</p>
+            <h6 class="card-title m-1">Semanas descontadas:</h6>
+            <p class="card-text m-1">{{customer.sdescontadas}}</p>
+            <h6 class="card-title m-1">Dirección:</h6>
+            <p class="card-text m-1">{{customer.direccion}}</p>
+            <h6 class="card-title m-1">Teléfono:</h6>
+            <p class="card-text m-1">{{customer.telefono}}</p>
+            <h6 class="card-title m-1">Status:</h6>
+            <p class="card-text m-1">{{customer.status}}</p>
+            <h6 class="card-title m-1">Motivo:</h6>
+            <p class="card-text m-1">{{customer.pendiente}}</p>
+            <h6 class="card-title m-1">Zona:</h6>
+            <p class="card-text m-1">{{customer.zona}}</p>
+            <h6 class="card-title m-1">Fecha actualización:</h6>
+            <p class="card-text m-1">{{customer.fecha_status}}</p>
+            <h6 class="card-title m-1">Fecha solución:</h6>
+            <p class="card-text m-1">{{customer.fecha_solucion}}</p>
+
+            <h6 class="card-title m-1 text-center">Observaciones:</h6>
+
+            <p class="card-title m1 text-center">
+              <label for="observaciones">{{customer.observaciones}}</label>
+            </p>
+
+            {{!-- Determina si es pendiente --}}
+            {{#if_equal customer.status "Pendiente"}}
+
+            <div class="text-center">
+              <textarea required name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
             </div>
 
-            <div class="card-body">
+            <div class="text-center">
+              <input class="btn btn-info btn-edit" type="submit" name="btn-submit" id="form__btn-submit"
+                value="Actualizar">
 
-              <h6 class="card-title m-1">Fecha de trámite:</h6>
-              <p class="card-text m-1">{{customer.fecha_tramite}}</p>
-              <h6 class="card-title m-1">Cantidad a retirar:</h6>
-              <p class="card-text m-1">{{customer.monto}}</p>
-              <h6 class="card-title m-1">Curp:</h6>
-              <p class="card-text m-1">{{customer.curp}}</p>
-              <h6 class="card-title m-1">NSS:</h6>
-              <p class="card-text m-1">{{customer.nss}}</p>
-              <h6 class="card-title m-1">Semanas cotizadas:</h6>
-              <p class="card-text m-1">{{customer.scotizadas}}</p>
-              <h6 class="card-title m-1">Semanas descontadas:</h6>
-              <p class="card-text m-1">{{customer.sdescontadas}}</p>
-              <h6 class="card-title m-1">Dirección:</h6>
-              <p class="card-text m-1">{{customer.direccion}}</p>
-              <h6 class="card-title m-1">Teléfono:</h6>
-              <p class="card-text m-1">{{customer.telefono}}</p>
-              <h6 class="card-title m-1">Status:</h6>
-              <p class="card-text m-1">{{customer.status}}</p>
-              <h6 class="card-title m-1 text-center">Observaciones:</h6>
+              <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
 
-              <div class="text-center">
-                <label for="observaciones">{{customer.observaciones}}</label>
-              </div>
+              <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
-              {{!-- Determina si es pendiente --}}
-              {{#if_equal customer.status "Pendiente"}}
+            </div>
 
-              <div class="text-center">
+            {{!-- Pendiente y administrador --}}
+            {{#if_equal user.permiso "Administrador"}}
+            <div class="text-center">
+              <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                <i class="fas fa-redo-alt mr-1"></i>Status</a>
+            </div>
+            {{/if_equal}}
 
-                <textarea required name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
-              </div>
+            {{!-- Pendiente y regional --}}
+            {{#if_equal user.permiso "Regional"}}
+            <div class="text-center">
+              <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                <i class="fas fa-redo-alt mr-1"></i>Status</a>
+            </div>
+            {{/if_equal}}
 
-              <div class="text-center">
-                <input class="btn btn-info btn-edit" type="submit" name="btn-submit" id="form__btn-submit"
-                  value="Actualizar">
+            {{!-- Pendiente y temporal --}}
+            {{#if_equal user.permiso "Temporal"}}
+            <div class="text-center">
+              <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                <i class="fas fa-redo-alt mr-1"></i>Status</a>
+            </div>
+            {{/if_equal}}
 
-                <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
+            {{!-- Si no es pendiente --}}
+            {{else}}
+            <div class="text-center">
+              <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
 
-                <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+              <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
 
-              </div>
-
-              {{!-- Pendiente y administrador --}}
               {{#if_equal user.permiso "Administrador"}}
-              <div class="text-center">
-                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
-                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
-              </div>
+
+              <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
+                <i class="fas fa-redo-alt mr-1"></i>Status</a>
+
               {{/if_equal}}
 
-              {{!-- Pendiente y regional --}}
-              {{#if_equal user.permiso "Regional"}}
-              <div class="text-center">
-                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
-                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
-              </div>
               {{/if_equal}}
-
-              {{!-- Pendiente y temporal --}}
-              {{#if_equal user.permiso "Temporal"}}
-              <div class="text-center">
-                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
-                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
-              </div>
-              {{/if_equal}}
-
-              {{!-- Si no es pendiente --}}
-              {{else}}
-              <div class="text-center">
-                <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
-
-                <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
-
-                {{#if_equal user.permiso "Administrador"}}
-
-                <a href="/customer/status/{{customer.id}}" class="btn btn-danger btn-edit">
-                  <i class="fas fa-redo-alt mr-1"></i>Status</a>
-
-                {{/if_equal}}
-
-                {{/if_equal}}
-
-              </div>
 
             </div>
 
           </div>
-        </form>
-      </div>
+
+        </div>
+      </form>
     </div>
   </div>
 

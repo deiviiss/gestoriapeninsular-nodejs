@@ -37,6 +37,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     pendientes = await pool.query(sqlSelect + "AND region= ?", ['pendiente', user.region])
 
     liquidar = await pool.query(sqlSelect + "AND region= ?", ['liquidar', user.region])
+
+    actualizar = await pool.query(sqlSelect + "AND region= ?", ['actualizar', user.region])
   }
 
   //*Consulta Administrador
@@ -58,6 +60,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     pendientes = await pool.query(sqlSelect, 'pendiente')
 
     liquidar = await pool.query(sqlSelect, 'liquidar')
+
+    actualizar = await pool.query(sqlSelect, 'actualizar')
   }
 
   //*Consulta encargado
@@ -79,6 +83,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     pendientes = await pool.query(sqlSelect + "AND zona = ?", ['pendiente', user.zona])
 
     liquidar = await pool.query(sqlSelect + "AND zona = ?", ['liquidar', user.zona])
+
+    actualizar = await pool.query(sqlSelect + "AND zona = ?", ['actualizar', user.zona])
   }
 
   //objeto con status que se mandara a la vista
@@ -91,7 +97,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     finalizados: finalizados.length,
     juridico: juridico.length,
     pendientes: pendientes.length,
-    liquidar: liquidar.length
+    liquidar: liquidar.length,
+    actualizar: actualizar.length
   }
 
   //objeto con titulos de status
@@ -104,7 +111,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     finalizado: 'finalizado',
     juridico: 'jurídico',
     pendiente: 'pendiente',
-    liquidar: 'liquidar'
+    liquidar: 'liquidar',
+    actualizar: 'actualizar'
   }
 
   region = helpers.region(user.region)
@@ -138,6 +146,8 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
 
   liquidar = await pool.query(sqlSelect + "AND zona = ?", ['liquidar', zona])
 
+  actualizar = await pool.query(sqlSelect + "AND zona = ?", ['actualizar', zona])
+
   //objeto con status que se mandara a la vista
   status = {
     aclaraciones: aclaraciones.length,
@@ -148,7 +158,8 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
     finalizados: finalizados.length,
     juridico: juridico.length,
     pendientes: pendientes.length,
-    liquidar: liquidar.length
+    liquidar: liquidar.length,
+    actualizar: actualizar.length
   }
 
   //objeto con titulos de status
@@ -161,7 +172,8 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
     finalizado: 'finalizado',
     juridico: 'jurídico',
     pendiente: 'pendiente',
-    liquidar: 'liquidar'
+    liquidar: 'liquidar',
+    actualizar: 'actualizar'
   }
 
   region = helpers.region(user.region)
@@ -208,6 +220,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
           unificacion = await pool.query(sqlSelect, ['unificación', user.region])
 
+          vigente = await pool.query(sqlSelect, ['vigente', user.region])
+
           //objeto con status que se mandara a la vista
           motivos = {
             afore: afore.length,
@@ -219,7 +233,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             orden: orden.length,
             tramite: tramite.length,
             saldos: saldos.length,
-            unificacion: unificacion.length
+            unificacion: unificacion.length,
+            vigente: vigente.length
           }
 
           //objeto con titulos de status
@@ -234,7 +249,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             saldos: 'saldos',
             tramite: 'tramite',
             unificacion: 'unificacion',
-            actualizar: 'Actualizar'
+            vigente: 'vigente'
           }
 
           region = helpers.region(user.region)
@@ -280,6 +295,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
           unificacion = await pool.query(sqlSelect, 'unificación')
 
+          vigente = await pool.query(sqlSelect, 'vigente')
+
           //! Puede ser una consulta a la base
           //objeto con status que se mandara a la vista
           motivos = {
@@ -292,7 +309,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             orden: orden.length,
             tramite: tramite.length,
             saldos: saldos.length,
-            unificacion: unificacion.length
+            unificacion: unificacion.length,
+            vigente: vigente.length
           }
 
           //objeto con titulos de status
@@ -306,7 +324,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             orden: 'orden',
             saldos: 'saldos',
             tramite: 'tramite',
-            unificacion: 'unificacion'
+            unificacion: 'unificacion',
+            vigente: 'vigente'
           }
 
           //get zonas
@@ -354,6 +373,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         unificacion = await pool.query(sqlSelect, ['unificación', zona])
 
+        vigente = await pool.query(sqlSelect, ['vigente', zona])
+
         //objeto con status que se mandara a la vista
         motivos = {
           afore: afore.length,
@@ -365,7 +386,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
           orden: orden.length,
           tramite: tramite.length,
           saldos: saldos.length,
-          unificacion: unificacion.length
+          unificacion: unificacion.length,
+          vigente: vigente.length
         }
 
         //objeto con titulos de status
@@ -379,7 +401,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
           orden: 'orden',
           saldos: 'saldos',
           tramite: 'tramite',
-          unificacion: 'unificacion'
+          unificacion: 'unificacion',
+          vigente: 'vigente'
         }
 
         //get zonas
@@ -427,6 +450,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
       unificacion = await pool.query(sqlSelect, ['unificación', user.zona])
 
+      vigente = await pool.query(sqlSelect, ['vigente', user.zona])
+
       //objeto con status que se mandara a la vista
       motivos = {
         afore: afore.length,
@@ -438,7 +463,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         orden: orden.length,
         tramite: tramite.length,
         saldos: saldos.length,
-        unificacion: unificacion.length
+        unificacion: unificacion.length,
+        vigente: vigente.length
       }
 
       //objeto con titulos de status
@@ -452,7 +478,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         orden: 'orden',
         saldos: 'saldos',
         tramite: 'tramite',
-        unificacion: 'unificacion'
+        unificacion: 'unificacion',
+        vigente: 'vigente'
       }
 
       region = helpers.region(user.region)
@@ -478,7 +505,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
   const user = req.user
   const zona = req.query.zona
 
-  //*Consulta Administrador-Regional descendente
+  //*Consulta Administrador-Regional
   if (user.permiso === 'Regional' || user.permiso === 'Administrador') {
 
     //Si select zona none
@@ -517,7 +544,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
     }
   }
 
-  //*Consulta Encargado descendente
+  //*Consulta Encargado
   else {
     const sqlSelect = "SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite DESC"
     customer = await pool.query(sqlSelect, [user.zona, motivo])
@@ -539,7 +566,7 @@ router.post('/pendientes-zona/:status', isLoggedIn, async (req, res) => {
   //valida el status pendiente renderiza desgloce pendientes
   if (status === 'pendiente') {
     const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? AND zona = " + [zona]
-    //! Sustituir con la consulta
+
     afore = await pool.query(sqlSelect, 'afore')
 
     antigüedad = await pool.query(sqlSelect, 'antigüedad')
@@ -560,6 +587,8 @@ router.post('/pendientes-zona/:status', isLoggedIn, async (req, res) => {
 
     unificacion = await pool.query(sqlSelect, 'unificación')
 
+    vigente = await pool.query(sqlSelect, 'vigente')
+
     //objeto con status que se mandara a la vista
     motivos = {
       afore: afore.length,
@@ -571,7 +600,8 @@ router.post('/pendientes-zona/:status', isLoggedIn, async (req, res) => {
       orden: orden.length,
       tramite: tramite.length,
       saldos: saldos.length,
-      unificacion: unificacion.length
+      unificacion: unificacion.length,
+      vigente: vigente.length
     }
 
     //objeto con titulos de status
@@ -585,7 +615,8 @@ router.post('/pendientes-zona/:status', isLoggedIn, async (req, res) => {
       orden: 'orden',
       saldos: 'saldos',
       tramite: 'tramite',
-      unificacion: 'unificacion'
+      unificacion: 'unificacion',
+      vigente: 'vigente'
     }
 
     region = helpers.region(user.region)

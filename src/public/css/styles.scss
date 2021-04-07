@@ -206,6 +206,64 @@ select:-webkit-autofill:focus {
       }
     }
 
+    //views (m-pendientes, status, edit)
+    .form__edit {
+      width: 100%;
+      margin: auto;
+
+      h6 {
+        font-weight: bold;
+        // outline: 1px solid green;
+      }
+
+      p {
+        text-align: end;
+        color: $color-primary;
+        // outline: 1px solid yellow;
+      }
+
+      textarea {
+        margin-bottom: 2%;
+      }
+
+      .form__input {
+        .form__input-item {
+          position: relative;
+          margin-bottom: 24px;
+          padding: 0 1em;
+
+          select {
+            margin-top: 3px;
+          }
+
+          select,
+          input[type="date"] {
+            padding-right: 20px;
+            font-family: $font-family;
+            font-size: 16px;
+            color: $color-primary;
+            width: 75%;
+            outline: none;
+            background: none;
+            border: none;
+            border-bottom: $borde solid $color-light-primary;
+          }
+
+          label {
+            &.active {
+              position: absolute;
+              line-height: 16px;
+              margin-left: 16px;
+              top: -16px;
+              left: 0;
+              font-size: 12px;
+              line-height: 12px;
+            }
+          }
+        }
+      }
+    }
+
     .buttonFloat {
       font-size: 14px; /* Cambiar el tamaño de la tipografia */
       border-radius: 5px; /* Borde del boton */

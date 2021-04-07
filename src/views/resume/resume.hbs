@@ -40,9 +40,10 @@
 
   {{/if_equal}}
 
-
   <div class="container p-2">
+
     <div class="tarjeta">
+
       <h2 class="resume-title">
         {{user.puesto}}
       </h2>
@@ -124,12 +125,21 @@
           </a>
         </div>
 
+        <div class="tarjeta-status">
+          <a href="/resume/{{titulos.actualizar}}?zona={{zona}}">
+            <h6 class="tarjeta-title">Actualizar</h6>
+            <p class="tarjeta-text">{{status.actualizar}}</p>
+          </a>
+        </div>
+
       </div>
 
       <div class="buttons">
         <a href="/customer/" class="btn btn-info"><i class="fas fa-users mr-1"></i>Clientes</a>
         <a href="/profile" class="btn btn-info"><i class="fas fa-user-alt mr-1"></i>Perfil</a>
       </div>
+
     </div>
   </div>
+
 </div>

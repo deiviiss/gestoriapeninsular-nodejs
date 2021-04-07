@@ -27,8 +27,11 @@ helpers.formatterCustomers = (sinformato) => {
     for (var i = 0; i < sinformato.length; i++) {
 
       let montoPeso = (sinformato[i].monto)
-      let fechaFormat = (sinformato[i].fecha_tramite)
+      let fechaFormatTramite = (sinformato[i].fecha_tramite)
       let fechaFormatRetiro = (sinformato[i].fecha_ultimo_retiro)
+      let fechaFormatSolucion = (sinformato[i].fecha_solucion)
+      let fechaFormatStatus = (sinformato[i].fecha_status)
+
       let month = new Array(); //Array que contiene los meses
 
       month[0] = "Enero";
@@ -44,18 +47,36 @@ helpers.formatterCustomers = (sinformato) => {
       month[10] = "Noviembre";
       month[11] = "Diciembre";
 
-      dateTramite = new Date(fechaFormat) //new Date() Objeto de Js para manejo de fechas
+      dateTramite = new Date(fechaFormatTramite) //new Date() Objeto de Js para manejo de fechas
       dateRetiro = new Date(fechaFormatRetiro) //new Date() Objeto de Js para manejo de fechas
+      dateStatus = new Date(fechaFormatStatus)
+      dateSolucion = new Date(fechaFormatSolucion)
 
       sinformato[i].monto = helpers.formatterPeso.format(montoPeso)
       sinformato[i].fecha_tramite = dateTramite.getDate() + '/' + month[dateTramite.getMonth()] + '/' + dateTramite.getFullYear();
 
+      //condiciona las fechas null
       if (fechaFormatRetiro === null) {
         sinformato[i].fecha_ultimo_retiro = 'Sin retiro'
       }
       else {
         (sinformato[i].fecha_ultimo_retiro = dateRetiro.getDate() + '/' + month[dateRetiro.getMonth()] + '/' + dateRetiro.getFullYear());
       }
+
+      if (fechaFormatStatus === null) {
+        sinformato[i].fecha_status = 'En espera...'
+      }
+      else {
+        sinformato[i].fecha_status = dateStatus.getDate() + '/' + month[dateStatus.getMonth()] + '/' + dateStatus.getFullYear();
+      }
+
+      if (fechaFormatStatus === null) {
+        sinformato[i].fecha_solucion = 'En espera...'
+      }
+      else {
+        sinformato[i].fecha_solucion = dateSolucion.getDate() + '/' + month[dateSolucion.getMonth()] + '/' + dateSolucion.getFullYear();
+      }
+
     }
     return sinformato
   }

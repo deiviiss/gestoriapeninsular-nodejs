@@ -3,63 +3,60 @@
 <div class="container-box">
 
   <div class="container p-2">
-    <div class="row">
-      <div class="col-md-6 mt-2 mx-auto">
+    <div class="col-md-6 mt-2 mx-auto">
 
-        <form action="/customer/m-pendientes/{{customer.id}}" method="post" class="form__register"
-          name="formulario_cliente">
+      <form action="/customer/m-pendientes/{{customer.id}}" method="post" class="form__edit" name="formulario_cliente">
 
-          <div class="card border-info text-dark bg-light">
+        <div class="card border-info text-dark bg-light">
 
-            <div class="card_title">
-              <h5 class="card-header text-muted">{{customer.cliente}}</h5>
-              <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+          <div class="card_title">
+            <h5 class="card-header text-muted">{{customer.cliente}}</h5>
+            <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+          </div>
+
+          <div class="card-body">
+
+            <h6 class="card-title mb-4 text-center">Selecciona el motivo</h6>
+
+            <div class="text-center mb-4">
+              <div class="form__input">
+
+                <div class="form__input-item">
+                  {{!-- <label for="status" class='label active'>Motivo</label> --}}
+                  <select required name="motivo" id="motivo">
+                    <option value=""></option>
+                    <option value="Afore">Afore</option>
+                    <option value="Antigüedad">Antigüedad</option>
+                    <option value="Cita">Cita</option>
+                    <option value="Cobro">Cobro</option>
+                    <option value="Demanda">Demanda</option>
+                    <option value="Documentos">Documentos</option>
+                    <option value="Orden">Orden</option>
+                    <option value="Saldos">Saldos</option>
+                    <option value="Unificación">Unificación</option>
+                  </select>
+                </div>
+
+                <h6 class="card-title mb-4 text-center">Selecciona la fecha de solución</h6>
+
+                <div class="form__input-item">
+                  {{!-- <label for="fecha_solucion" class='label active'>Fecha de solución</label> --}}
+                  <input required name='fecha_solucion' type="date">
+                </div>
+
+              </div>
             </div>
 
-            <div class="card-body">
+            <div class="buttons">
 
-              <h6 class="card-title mb-4 text-center">Selecciona el motivo:</h6>
-
-              <div class="text-center mb-4">
-                <div class="form__input">
-
-                  <div class="form__input-item">
-                    <label for="status" class='label active'>Motivo</label>
-                    <select name="motivo" id="motivo">
-                      <option value=""></option>
-                      <option value="Afore">Afore</option>
-                      <option value="Antigüedad">Antigüedad</option>
-                      <option value="Cita">Cita</option>
-                      <option value="Cobro">Cobro</option>
-                      <option value="Demanda">Demanda</option>
-                      <option value="Documentos">Documentos</option>
-                      <option value="Orden">Orden</option>
-                      <option value="Saldos">Saldos</option>
-                      <option value="Unificación">Unificación</option>
-                    </select>
-                  </div>
-
-                  <br>
-
-                  <div class="form_input-item">
-                    <label for="status" class='label active'>Fecha de solución</label>
-                    <input name='fecha_solucion' type="date">
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="buttons">
-
-                <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
-
-              </div>
+              <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
 
             </div>
 
           </div>
-        </form>
-      </div>
+
+        </div>
+      </form>
     </div>
   </div>
 

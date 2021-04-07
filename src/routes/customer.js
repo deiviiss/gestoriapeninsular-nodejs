@@ -93,11 +93,10 @@ router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
   const { motivo, fecha_solucion } = req.body; //objeto del formulario
   const user = req.user
 
-  console.log(req.body);
-
   //objeto con la actualización del motivo
   updateCliente = {
-    pendiente: motivo
+    pendiente: motivo,
+    fecha_solucion: fecha_solucion
   };
 
   //actualizo motivo pendiente

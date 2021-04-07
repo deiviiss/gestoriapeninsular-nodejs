@@ -210,6 +210,57 @@ select:-webkit-autofill:focus {
       justify-self: center;
 }
 
+.main .container-box .form__edit {
+  width: 100%;
+  margin: auto;
+}
+
+.main .container-box .form__edit h6 {
+  font-weight: bold;
+}
+
+.main .container-box .form__edit p {
+  text-align: end;
+  color: #23273b;
+}
+
+.main .container-box .form__edit textarea {
+  margin-bottom: 2%;
+}
+
+.main .container-box .form__edit .form__input .form__input-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 0 1em;
+}
+
+.main .container-box .form__edit .form__input .form__input-item select {
+  margin-top: 3px;
+}
+
+.main .container-box .form__edit .form__input .form__input-item select,
+.main .container-box .form__edit .form__input .form__input-item input[type="date"] {
+  padding-right: 20px;
+  font-family: "Roboto", Arial;
+  font-size: 16px;
+  color: #23273b;
+  width: 75%;
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #0071b8;
+}
+
+.main .container-box .form__edit .form__input .form__input-item label.active {
+  position: absolute;
+  line-height: 16px;
+  margin-left: 16px;
+  top: -16px;
+  left: 0;
+  font-size: 12px;
+  line-height: 12px;
+}
+
 .main .container-box .buttonFloat {
   font-size: 14px;
   /* Cambiar el tamaño de la tipografia */
