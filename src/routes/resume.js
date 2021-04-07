@@ -233,7 +233,8 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
             orden: 'orden',
             saldos: 'saldos',
             tramite: 'tramite',
-            unificacion: 'unificacion'
+            unificacion: 'unificacion',
+            actualizar: 'Actualizar'
           }
 
           region = helpers.region(user.region)

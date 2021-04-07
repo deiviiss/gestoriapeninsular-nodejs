@@ -3,10 +3,8 @@
 //dependends
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
-
-const pool = require('../database');
+const pool = require('../database'); //conexión a la base de datos
 const { isLoggedIn } = require('../lib/auth');
-
 const helpers = require('../lib/handlebars')
 
 //routes
@@ -92,8 +90,10 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
 //recibe el formulario para actualizar motivo de pendiente
 router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
-  const { motivo } = req.body; //objeto del formulario
+  const { motivo, fecha_solucion } = req.body; //objeto del formulario
   const user = req.user
+
+  console.log(req.body);
 
   //objeto con la actualización del motivo
   updateCliente = {

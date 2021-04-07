@@ -4,46 +4,57 @@
 
     <h2 class="form__title">Datos del Cliente</h2>
 
-    <form action="/customer/add" method="post" class="form__register" name="formulario_cliente">
+    <form action="/add-customer" method="post" class="form__add-customer" name="formulario_cliente">
 
       <div class="form__input">
 
+        {{!-- name --}}
         <div class="form__input-item">
-          <input type="text" id="cliente" name="cliente">
-          <label for="cliente" class='label'>Nombre del cliente</label>
+          <input type="text" id="nombre" name="nombre">
+          <label for="nombre" class='label'>Nombre(s)</label>
         </div>
 
+        <div class="form__input-item">
+          <input type="text" id="apellido" name="apellido">
+          <label for="apellido" class='label'>Apellido(s)</label>
+        </div>
+
+        {{!-- curp --}}
         <div class="form__input-item">
           <input type="text" id="curp" name="curp">
           <label for="curp" class='label'>Curp</label>
         </div>
 
+        {{!-- nss --}}
         <div class="form__input-item">
           <input type="text" id="nss" name="nss">
           <label for="nss" class='label'>NSS</label>
         </div>
 
+        {{!-- afore --}}
         <div class="form__input-afore">
 
           <div class="form__input-item">
-            <select>
-              <option value=""></option>
-              <option value="Banamex">Banamex</option>
-              <option value="Coppel">Coppel</option>
-              <option value="Profuturo">Profuturo</option>
-              <option value="XXI Banorte">XXI Banorte</option>
-            </select>
-            {{!-- <input type="text" id="afore" name="afore" class="form__input-item--space"> --}}
+
             <label for="afore" class='label active'>Afore</label>
+
+            <select name="afore">
+              <option value="">---</option>
+              {{#each afores}}
+              <option value="{{afore}}">{{afore}}</option>
+              {{/each}}
+            </select>
+
           </div>
 
+          {{!-- monto --}}
           <div class="form__input-item">
-            <input type="text" id="monto" name="monto">
+            <input type="number" id="monto" name="monto">
             <label for="monto" class='label'>Monto a retirar</label>
           </div>
         </div>
 
-        <p>Servicios Operativos</p>
+        {{!-- <p>Servicios Operativos</p>
         <div class="form___input-porcent">
           <div class="form__input-item radio">
 
@@ -59,7 +70,7 @@
         <div class="form__input-item">
           <input type="text" id="honorarios" name="honorarios">
           <label for="honorarios" class='label'>Servicios administrativos</label>
-        </div>
+        </div> --}}
 
         <div class="form__input-semanas">
           <div class="form__input-item">
@@ -79,12 +90,29 @@
         </div>
 
         <div class="form__input-item">
-          <input type="tel" pattern='([0-9]{10})' id="telefono" name="tel">
+          <input type="tel" pattern='([0-9]{10})' id="telefono" name="telefono">
           <label for="tel" class='label'>Teléfono</label>
         </div>
 
-        <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Guardar">
-      </div>
+        <div class="form__input-item">
+
+          <label for="asesor" class='Label active'>Asesor</label>
+
+          <select name="asesor">
+            <option value="">---</option>
+            {{#each asesoresZona}}
+            <option value="{{asesor}}">{{asesor}}</option>
+            {{/each}}
+          </select>
+
+        </div>
+
+        <div class="form__input-item">
+
+          <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit"
+            value="Guardar">
+        </div>
+
     </form>
   </div>
 </div>

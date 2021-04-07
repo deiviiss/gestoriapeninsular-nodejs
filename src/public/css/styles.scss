@@ -90,20 +90,11 @@ select:-webkit-autofill:focus {
   }
 }
 
-// .header__nav {
-//   position: relative;
-// }
-
 // Para ver el message flash
 .content {
   // border: $test;
   padding-top: 9em;
 }
-
-// .float {
-//   border: $test;
-//   position: relative;
-// }
 
 /*Estilos main*/
 .main {
@@ -117,8 +108,6 @@ select:-webkit-autofill:focus {
   margin: 0 auto;
   flex: 1 0 auto;
   padding: 0.3%;
-
-  // padding-top: 30%;
 
   // contenedor principal
   .container-box {
@@ -249,6 +238,14 @@ select:-webkit-autofill:focus {
       margin-bottom: 10px;
     }
 
+    h5 {
+      text-transform: lowercase;
+    }
+
+    h5::first-line {
+      text-transform: capitalize;
+    }
+
     //estilos del resumen
     .tarjeta {
       margin-top: 10px;
@@ -347,10 +344,59 @@ select:-webkit-autofill:focus {
       }
     }
 
+    /*Estilos buscador*/
+    .search {
+      width: 80%;
+
+      form {
+        display: flex;
+        align-items: baseline;
+      }
+
+      input {
+        margin: 1%;
+      }
+    }
+
+    /*Estilos index*/
+    .index {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid #ffffff;
+      border-radius: 20px;
+      margin: 5px;
+      padding: 25px;
+      width: 90%;
+      max-width: 450px;
+      min-height: 300px;
+      font-size: 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      color: $color-primary;
+      h1 {
+        text-align: center;
+        margin-bottom: 20%;
+        font-size: 24px;
+      }
+      table {
+        text-align: center;
+        width: 100%;
+        // border: $borde solid red;
+        th,
+        td {
+          width: 10%;
+        }
+      }
+    }
+
+    // Estilos formularios
     .form {
       background: rgba(255, 255, 255, 0.9);
       border: 2px solid #ffffff;
-      border-radius: 20px;
+      border-radius: 10px;
       color: #ffffff;
       // padding: 60px 68px 40px;
       margin: 5%;
@@ -372,94 +418,15 @@ select:-webkit-autofill:focus {
         font-weight: 500;
       }
 
-      .form__cotizar {
-        width: 100%;
-        margin: auto;
-
-        .form__input {
-          .form__input-item {
-            position: relative;
-            margin-bottom: 24px;
-
-            input[type="number"] {
-              padding-right: 20px;
-              padding-top: 12px;
-              font-family: $font-family;
-              font-size: 16px;
-              color: $color-primary;
-              width: 100%;
-              outline: none;
-              background: none;
-              border: none;
-              border-bottom: $borde solid $color-light-primary;
-              text-align: center;
-              &:focus,
-              &:active {
-                outline: none;
-                border-bottom: $borde solid $color-primary;
-              }
-            }
-
-            label {
-              color: $color-primary;
-              &.label {
-                position: absolute;
-                top: 0px;
-                left: 0;
-                line-height: 16px;
-                margin-left: 16px;
-                transition: all 0.3s ease;
-              }
-              &.active {
-                top: -16px;
-                font-size: 12px;
-                line-height: 12px;
-              }
-            }
-          }
-        }
-      }
-
       .form__register {
         width: 100%;
         margin: auto;
 
         .form__input {
-          .form__input-semanas,
-          .form__input-afore {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
-            #scotizadas,
-            #sdescontadas,
-            #monto {
-              text-align: center;
-            }
-
-            #monto,
-            #sdescontadas {
-              margin-left: 2px;
-            }
-          }
-
-          .form___input-porcent {
-            display: flex;
-            justify-content: center;
-          }
-
-          p {
-            color: $color-primary;
-            margin-left: 16px;
-          }
-
           .form__input-item {
             position: relative;
             margin-bottom: 24px;
-
-            #honorarios {
-              text-align: center;
-            }
+            padding: 0 1em;
 
             select {
               margin-top: 3px;
@@ -468,7 +435,8 @@ select:-webkit-autofill:focus {
             select,
             input[type="text"],
             [type="tel"],
-            [type="password"] {
+            [type="password"],
+            [type="number"] {
               padding-right: 20px;
               font-family: $font-family;
               font-size: 16px;
@@ -569,55 +537,235 @@ select:-webkit-autofill:focus {
               }
             }
           }
+
+          .form__input-semanas,
+          .form__input-afore {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            #scotizadas,
+            #sdescontadas,
+            #monto {
+              text-align: center;
+            }
+
+            #monto,
+            #sdescontadas {
+              margin-left: 2px;
+            }
+          }
+
+          p {
+            color: $color-primary;
+            margin-left: 16px;
+          }
         }
       }
-    }
 
-    /*Estilos buscador*/
-
-    .search {
-      width: 80%;
-
-      form {
-        display: flex;
-        align-items: baseline;
-      }
-
-      input {
-        margin: 1%;
-      }
-    }
-
-    /*Estilos index*/
-    .index {
-      background: rgba(255, 255, 255, 0.8);
-      border: 2px solid #ffffff;
-      border-radius: 20px;
-      margin: 5px;
-      padding: 25px;
-      width: 90%;
-      max-width: 450px;
-      min-height: 300px;
-      font-size: 10px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-
-      color: $color-primary;
-      h1 {
-        text-align: center;
-        margin-bottom: 20%;
-        font-size: 24px;
-      }
-      table {
-        text-align: center;
+      .form__cotizar {
         width: 100%;
-        // border: $borde solid red;
-        th,
-        td {
-          width: 10%;
+        margin: auto;
+
+        .form__input {
+          .form__input-item {
+            position: relative;
+            margin-bottom: 24px;
+
+            input[type="number"] {
+              padding-right: 20px;
+              padding-top: 12px;
+              font-family: $font-family;
+              font-size: 16px;
+              color: $color-primary;
+              width: 100%;
+              outline: none;
+              background: none;
+              border: none;
+              border-bottom: $borde solid $color-light-primary;
+              text-align: center;
+              &:focus,
+              &:active {
+                outline: none;
+                border-bottom: $borde solid $color-primary;
+              }
+            }
+
+            label {
+              color: $color-primary;
+              &.label {
+                position: absolute;
+                top: 0px;
+                left: 0;
+                line-height: 16px;
+                margin-left: 16px;
+                transition: all 0.3s ease;
+              }
+              &.active {
+                top: -16px;
+                font-size: 12px;
+                line-height: 12px;
+              }
+            }
+          }
+        }
+      }
+
+      .form__add-customer {
+        width: 100%;
+        margin: auto;
+
+        .form__input {
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+          .form__input-item {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 0 1em;
+
+            #honorarios {
+              text-align: center;
+            }
+
+            select {
+              margin-top: 3px;
+            }
+
+            select,
+            input[type="text"],
+            [type="tel"],
+            [type="password"],
+            [type="number"] {
+              padding-right: 20px;
+              font-family: $font-family;
+              font-size: 16px;
+              color: $color-primary;
+              width: 100%;
+              outline: none;
+              background: none;
+              border: none;
+              border-bottom: $borde solid $color-light-primary;
+              &:focus,
+              &:active {
+                outline: none;
+                border-bottom: $borde solid $color-primary;
+              }
+              &.error {
+                outline: none;
+                border-bottom: $borde solid $color-red;
+                + label {
+                  color: $color-red;
+                }
+              }
+            }
+
+            i {
+              font-size: 0.8em;
+            }
+
+            label {
+              color: $color-primary;
+              &.label {
+                position: absolute;
+                top: 0px;
+                left: 0;
+                // font-size: 16px;
+                line-height: 16px;
+                margin-left: 16px;
+                transition: all 0.3s ease;
+              }
+              &.active {
+                top: -16px;
+                font-size: 12px;
+                line-height: 12px;
+                // color: $color-divider;
+              }
+            }
+
+            &.radio label {
+              display: inline-block;
+              cursor: pointer;
+              color: $color-primary;
+              position: relative;
+              padding: 5px 15px 5px 51px;
+              font-size: 1em;
+              border-radius: 3px;
+              transition: all 0.3s ease;
+              &:hover {
+                background: rgba($color-primary, 1);
+                color: white;
+              }
+              &:before {
+                content: "";
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                left: 25px;
+                top: 7px;
+                border-radius: 50%;
+                background: none;
+                border: $borde solid $color-primary;
+              }
+            }
+
+            &.error {
+              label {
+                color: $color-red;
+                &:hover {
+                  background: rgba($color-red, 2);
+                }
+                &:before {
+                  border: $borde solid $color-red;
+                }
+              }
+            }
+
+            &.radio {
+              input[type="radio"] {
+                display: none;
+                &:checked + label:before {
+                  display: none;
+                }
+                &:checked + label {
+                  padding: 5px 15px;
+                  background: $color-primary;
+                  border-radius: $borde;
+                  color: white;
+                }
+              }
+            }
+          }
+
+          .form__input-semanas,
+          .form__input-afore {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            #scotizadas,
+            #sdescontadas,
+            #monto {
+              text-align: center;
+            }
+
+            #monto,
+            #sdescontadas {
+              margin-left: 2px;
+            }
+          }
+
+          .form___input-porcent {
+            display: flex;
+            justify-content: center;
+          }
+
+          p {
+            color: $color-primary;
+            margin-left: 16px;
+          }
         }
       }
     }

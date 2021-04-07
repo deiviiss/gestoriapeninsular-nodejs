@@ -1,13 +1,13 @@
 var form = document.formulario_cliente;
 var elementos = form.elements;
 
-console.log(elementos);
+// console.log(elementos);
 
 //funciones
 
 var validarInputs = function () {
   for (var i = 0; i < elementos.length; i++) {
-    if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel' || elementos[i].type == 'select-one') {
+    if (elementos[i].type == 'text' || elementos[i].type == 'tel' || elementos[i].type == 'select-one') {
       if (elementos[i].value == 0) {
         console.log('El campo ' + elementos[i].name + ' esta incompleto');
         elementos[i].className = elementos[i].className + ' error';
@@ -23,7 +23,7 @@ var validarInputs = function () {
 var validarRadios = function () {
   var opciones = document.getElementsByName('service');
   var resultado = false;
-  console.log(opciones);
+  // console.log(opciones);
 
   //recorre buscando radio
   for (var i = 0; i < elementos.length; i++) {
@@ -50,10 +50,7 @@ var validarRadios = function () {
 };
 
 var enviar = function (e) {
-  if (!validarRadios()) {
-    console.log('Falto validar los Radio')
-    e.preventDefault();
-  } else if (!validarInputs()) {
+  if (!validarInputs()) {
     console.log('Falto validar los Input')
     e.preventDefault();
   } else {
@@ -79,7 +76,7 @@ var blurInput = function () {
 form.addEventListener('submit', enviar);
 
 for (var i = 0; i < elementos.length; i++) {
-  if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel' || elementos[i].type == 'select-one') {
+  if (elementos[i].type == 'text' || elementos[i].type == 'radio' || elementos[i].type == 'tel' || elementos[i].type == 'select-one' || elementos[i].type == 'number') {
     elementos[i].addEventListener('focus', focusInput);
     elementos[i].addEventListener('blur', blurInput)
   }
