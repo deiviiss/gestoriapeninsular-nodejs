@@ -36,8 +36,12 @@
               <p class="card-text m-1">{{customer.telefono}}</p>
               <h6 class="card-title m-1">Status:</h6>
               <p class="card-text m-1">{{customer.status}}</p>
+
+              {{#if_equal customer.status "Pendiente"}}
               <h6 class="card-title m-1">Motivo:</h6>
               <p class="card-text m-1">{{customer.motivo}}</p>
+              {{/if_equal}}
+
               <h6 class="card-title m-1">Zona:</h6>
               <p class="card-text m-1">{{customer.zona}}</p>
               <h6 class="card-title m-1">Fecha actualización:</h6>
@@ -45,13 +49,13 @@
               <h6 class="card-title m-1">Fecha solución:</h6>
               <p class="card-text m-1">{{customer.fecha_solucion}}</p>
 
-              {{#if_equal customer.status "Finalizado"}}
-
               <h6 class="card-title m-1">Observaciones:</h6>
               <p class="card-title m1">
                 <label for="observaciones">{{customer.observaciones}}</label>
               </p>
 
+              {{#if_equal customer.status "!Finalizado"}}
+              <h1>ere</h1>
               {{/if_equal}}
 
             </div>
