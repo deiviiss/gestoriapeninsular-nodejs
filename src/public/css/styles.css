@@ -524,6 +524,10 @@ select:-webkit-autofill:focus {
   padding: 0 1em;
 }
 
+.main .container-box .form .form__register .form__input .form__input-item p {
+  margin-left: 8rem;
+}
+
 .main .container-box .form .form__register .form__input .form__input-item select {
   margin-top: 3px;
 }
