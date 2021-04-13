@@ -156,7 +156,7 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   //objeto con el status y observaciones con fecha y usuario
   const updateCliente = {
     status,
-    pendiente: '',
+    motivo: '',
     observaciones: observaciones + " (" + user.fullname + ' ' + helpers.fecha(fechaActual) + ").",
     fecha_status: fechaActual
   };
