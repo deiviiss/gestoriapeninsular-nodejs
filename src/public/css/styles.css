@@ -220,12 +220,12 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box .form__edit p {
-  text-align: end;
   color: #23273b;
 }
 
 .main .container-box .form__edit textarea {
-  margin-bottom: 2%;
+  margin-bottom: 4%;
+  width: 100%;
 }
 
 .main .container-box .form__edit .form__input .form__input-item {
@@ -261,6 +261,11 @@ select:-webkit-autofill:focus {
   line-height: 12px;
 }
 
+.main .container-box .grid__edit {
+  display: -ms-grid;
+  display: grid;
+}
+
 .main .container-box .buttonFloat {
   font-size: 14px;
   /* Cambiar el tamaño de la tipografia */
@@ -283,7 +288,6 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box p {
-  text-align: end;
   color: #23273b;
 }
 
@@ -973,6 +977,10 @@ select:-webkit-autofill:focus {
     -ms-grid-columns: 130px 1fr 130px 1fr 130px 110px;
         grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
+  .grid__edit {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
   .buttonFloat {
     bottom: 7%;
     right: 15%;
@@ -1048,6 +1056,13 @@ select:-webkit-autofill:focus {
 @media (max-width: 402px) {
   .content {
     padding-top: 7.2em;
+  }
+  .form__edit p {
+    text-align: end;
+  }
+  .grid__edit {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
   }
   .buttonFloat {
     bottom: 2%;

@@ -64,14 +64,14 @@ helpers.formatterCustomers = (sinformato) => {
       }
 
       if (fechaFormatStatus === null) {
-        sinformato[i].fecha_status = 'En espera...'
+        sinformato[i].fecha_status = 'En espera'
       }
       else {
         sinformato[i].fecha_status = dateStatus.getDate() + '/' + month[dateStatus.getMonth()] + '/' + dateStatus.getFullYear();
       }
 
-      if (fechaFormatStatus === null) {
-        sinformato[i].fecha_solucion = 'En espera...'
+      if (fechaFormatSolucion === null) {
+        sinformato[i].fecha_solucion = 'En espera'
       }
       else {
         sinformato[i].fecha_solucion = dateSolucion.getDate() + '/' + month[dateSolucion.getMonth()] + '/' + dateSolucion.getFullYear();
@@ -329,6 +329,7 @@ helpers.region = (region) => {
       { zona: 'Tizimín' }
     ]
   }
+
   else {
     return regiones = [
       { zona: 'Campeche' },

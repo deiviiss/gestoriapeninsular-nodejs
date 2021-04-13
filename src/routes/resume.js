@@ -198,7 +198,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         //valida el status pendiente
         if (status === 'pendiente') {
-          const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? AND region = ?"
+          const sqlSelect = "SELECT * FROM tramites WHERE motivo = ? AND region = ?"
 
           afore = await pool.query(sqlSelect, ['afore', user.region])
 
@@ -259,6 +259,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         else {
           const sqlSelect = "SELECT * FROM tramites WHERE region = ? AND  status = ? ORDER BY fecha_tramite DESC"
+
           customer = await pool.query(sqlSelect, [user.region, status])
 
           //helper que cambia el formato de fecha y moneda
@@ -273,7 +274,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         //valida el status pendiente
         if (status === 'pendiente') {
-          sqlSelect = "SELECT * FROM tramites WHERE pendiente = ?"
+          sqlSelect = "SELECT * FROM tramites WHERE motivo = ?"
 
           afore = await pool.query(sqlSelect, 'afore')
 
@@ -297,7 +298,6 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
           vigente = await pool.query(sqlSelect, 'vigente')
 
-          //! Puede ser una consulta a la base
           //objeto con status que se mandara a la vista
           motivos = {
             afore: afore.length,
@@ -351,7 +351,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
       //valida el status pendiente
       if (status === 'pendiente') {
-        const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? AND zona = ?"
+        const sqlSelect = "SELECT * FROM tramites WHERE motivo = ? AND zona = ?"
 
         afore = await pool.query(sqlSelect, ['afore', zona])
 
@@ -428,7 +428,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
     //valida el status pendiente
     if (status === 'pendiente') {
-      const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? AND zona = ?"
+      const sqlSelect = "SELECT * FROM tramites WHERE motivo = ? AND zona = ?"
 
       afore = await pool.query(sqlSelect, ['afore', user.zona])
 
@@ -512,7 +512,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
     if (zona === "") {
 
       if (user.permiso === 'Regional') {
-        const sqlSelect = "SELECT * FROM tramites WHERE region = ? AND  pendiente = ? order by fecha_tramite DESC"
+        const sqlSelect = "SELECT * FROM tramites WHERE region = ? AND  motivo = ? order by fecha_tramite DESC"
         customer = await pool.query(sqlSelect, [user.region, motivo])
 
         //helper que cambia el formato de fecha y moneda
@@ -522,7 +522,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
       }
 
       else {
-        const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? order by fecha_tramite DESC"
+        const sqlSelect = "SELECT * FROM tramites WHERE motivo = ? order by fecha_tramite DESC"
         customer = await pool.query(sqlSelect, [motivo])
 
         //helper que cambia el formato de fecha y moneda
@@ -534,7 +534,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
     //Si select zona
     else {
-      const sqlSelect = "SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite DESC"
+      const sqlSelect = "SELECT * FROM tramites WHERE zona = ?" + " AND  motivo = ? order by fecha_tramite DESC"
       customer = await pool.query(sqlSelect, [zona, motivo])
 
       //helper que cambia el formato de fecha y moneda
@@ -546,7 +546,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
   //*Consulta Encargado
   else {
-    const sqlSelect = "SELECT * FROM tramites WHERE zona = ?" + " AND  pendiente = ? order by fecha_tramite DESC"
+    const sqlSelect = "SELECT * FROM tramites WHERE zona = ?" + " AND  motivo = ? order by fecha_tramite DESC"
     customer = await pool.query(sqlSelect, [user.zona, motivo])
 
     //helper que cambia el formato de fecha y moneda
@@ -565,7 +565,7 @@ router.post('/pendientes-zona/:status', isLoggedIn, async (req, res) => {
 
   //valida el status pendiente renderiza desgloce pendientes
   if (status === 'pendiente') {
-    const sqlSelect = "SELECT * FROM tramites WHERE pendiente = ? AND zona = " + [zona]
+    const sqlSelect = "SELECT * FROM tramites WHERE motivo = ? AND zona = " + [zona]
 
     afore = await pool.query(sqlSelect, 'afore')
 

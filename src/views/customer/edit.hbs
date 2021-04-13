@@ -16,46 +16,85 @@
 
           <div class="card-body">
 
-            <h6 class="card-title m-1">Fecha de trámite:</h6>
-            <p class="card-text m-1">{{customer.fecha_tramite}}</p>
-            <h6 class="card-title m-1">Cantidad a retirar:</h6>
-            <p class="card-text m-1">{{customer.monto}}</p>
-            <h6 class="card-title m-1">Curp:</h6>
-            <p class="card-text m-1">{{customer.curp}}</p>
-            <h6 class="card-title m-1">NSS:</h6>
-            <p class="card-text m-1">{{customer.nss}}</p>
-            <h6 class="card-title m-1">Afore:</h6>
-            <p class="card-text m-1">{{customer.afore}}</p>
-            <h6 class="card-title m-1">Semanas cotizadas:</h6>
-            <p class="card-text m-1">{{customer.scotizadas}}</p>
-            <h6 class="card-title m-1">Semanas descontadas:</h6>
-            <p class="card-text m-1">{{customer.sdescontadas}}</p>
-            <h6 class="card-title m-1">Dirección:</h6>
-            <p class="card-text m-1">{{customer.direccion}}</p>
-            <h6 class="card-title m-1">Teléfono:</h6>
-            <p class="card-text m-1">{{customer.telefono}}</p>
-            <h6 class="card-title m-1">Status:</h6>
-            <p class="card-text m-1">{{customer.status}}</p>
-            <h6 class="card-title m-1">Motivo:</h6>
-            <p class="card-text m-1">{{customer.pendiente}}</p>
-            <h6 class="card-title m-1">Zona:</h6>
-            <p class="card-text m-1">{{customer.zona}}</p>
-            <h6 class="card-title m-1">Fecha actualización:</h6>
-            <p class="card-text m-1">{{customer.fecha_status}}</p>
-            <h6 class="card-title m-1">Fecha solución:</h6>
-            <p class="card-text m-1">{{customer.fecha_solucion}}</p>
+            <div class="grid__edit">
+              <h6 class="card-title m-1">Fecha de trámite:</h6>
+              <p class="card-text m-1">{{customer.fecha_tramite}}</p>
+              <h6 class="card-title m-1">Cantidad a retirar:</h6>
+              <p class="card-text m-1">{{customer.monto}}</p>
+              <h6 class="card-title m-1">Curp:</h6>
+              <p class="card-text m-1">{{customer.curp}}</p>
+              <h6 class="card-title m-1">NSS:</h6>
+              <p class="card-text m-1">{{customer.nss}}</p>
 
-            <h6 class="card-title m-1 text-center">Observaciones:</h6>
+              <h6 class="card-title m-1">Semanas cotizadas:</h6>
+              <p class="card-text m-1">{{customer.scotizadas}}</p>
+              <h6 class="card-title m-1">Semanas descontadas:</h6>
+              <p class="card-text m-1">{{customer.sdescontadas}}</p>
+              <h6 class="card-title m-1">Dirección:</h6>
+              <p class="card-text m-1">{{customer.direccion}}</p>
+              <h6 class="card-title m-1">Teléfono:</h6>
+              <p class="card-text m-1">{{customer.telefono}}</p>
+              <h6 class="card-title m-1">Status:</h6>
+              <p class="card-text m-1">{{customer.status}}</p>
+              <h6 class="card-title m-1">Motivo:</h6>
+              <p class="card-text m-1">{{customer.motivo}}</p>
+              <h6 class="card-title m-1">Zona:</h6>
+              <p class="card-text m-1">{{customer.zona}}</p>
+              <h6 class="card-title m-1">Fecha actualización:</h6>
+              <p class="card-text m-1">{{customer.fecha_status}}</p>
+              <h6 class="card-title m-1">Fecha solución:</h6>
+              <p class="card-text m-1">{{customer.fecha_solucion}}</p>
 
-            <p class="card-title m1 text-center">
-              <label for="observaciones">{{customer.observaciones}}</label>
-            </p>
+              {{#if_equal customer.status "Finalizado"}}
+
+              <h6 class="card-title m-1">Observaciones:</h6>
+              <p class="card-title m1">
+                <label for="observaciones">{{customer.observaciones}}</label>
+              </p>
+
+              {{/if_equal}}
+
+            </div>
 
             {{!-- Determina si es pendiente --}}
             {{#if_equal customer.status "Pendiente"}}
 
+            <h6 class="card-title mt-4 text-center">Selecciona el motivo</h6>
+
+            <div class="text-center mb-4">
+              <div class="form__input">
+
+                <div class="form__input-item">
+                  {{!-- <label for="status" class='label active'>Motivo</label> --}}
+                  <select required name="motivo" id="motivo">
+                    <option value=""></option>
+                    <option value="Afore">Afore</option>
+                    <option value="Antigüedad">Antigüedad</option>
+                    <option value="Cita">Cita</option>
+                    <option value="Cobro">Cobro</option>
+                    <option value="Demanda">Demanda</option>
+                    <option value="Documentos">Documentos</option>
+                    <option value="Orden">Orden</option>
+                    <option value="Saldos">Saldos</option>
+                    <option value="Unificación">Unificación</option>
+                  </select>
+                </div>
+
+                <h6 class="card-title mb-4 text-center">Selecciona la fecha de solución</h6>
+
+                <div class="form__input-item">
+                  {{!-- <label for="fecha_solucion" class='label active'>Fecha de solución</label> --}}
+                  <input required name='fecha_solucion' type="date">
+                </div>
+
+              </div>
+            </div>
+
+            <h6 class="card-title m-2 text-center">Observaciones:</h6>
+
             <div class="text-center">
-              <textarea required name="observaciones" id="observaciones" cols="30" rows="5"></textarea>
+              <textarea required name="observaciones" id="observaciones" cols="30"
+                rows="5">{{customer.observaciones}}</textarea>
             </div>
 
             <div class="text-center">
@@ -109,9 +148,7 @@
               {{/if_equal}}
 
             </div>
-
           </div>
-
         </div>
       </form>
     </div>

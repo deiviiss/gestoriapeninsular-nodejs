@@ -63,14 +63,18 @@ router.get('/edit/:id', isLoggedIn, async (req, res) => {
 //recibe el formulario para actualizar observaciones
 router.post('/edit/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
-  const { observaciones } = req.body; //objeto del formulario
+  const { observaciones, fecha_solucion, motivo } = req.body; //objeto del formulario
   const user = req.user
   const fechaActual = new Date() //new Date() Objeto de Js para manejo de fechas
 
+  console.log(req.body);
+
   //objeto con las observaciones y usuario fecha
   const updateCliente = {
-    observaciones: observaciones + ' (' + user.fullname + ' ' + helpers.fecha(fechaActual) + ').',
-    fecha_status: fechaActual
+    motivo: motivo,
+    observaciones: observaciones + '(' + user.fullname + ')',
+    fecha_status: fechaActual,
+    fecha_solucion: fecha_solucion
   };
 
   //actualizo observaciones
@@ -84,34 +88,35 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
 
-  res.render('customer/m-pendientes', { customer: customer[0] });
+  res.render('customer/edit', { customer: customer[0], user: user });
+  // res.render('customer/m-pendientes', { customer: customer[0] });
 })
 
 //recibe el formulario para actualizar motivo de pendiente
-router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
-  const { id } = req.params
-  const { motivo, fecha_solucion } = req.body; //objeto del formulario
-  const user = req.user
+// router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
+//   const { id } = req.params
+//   const { motivo, fecha_solucion } = req.body; //objeto del formulario
+//   const user = req.user
 
-  //objeto con la actualización del motivo
-  updateCliente = {
-    pendiente: motivo,
-    fecha_solucion: fecha_solucion
-  };
+//   //objeto con la actualización del motivo
+//   updateCliente = {
+//     pendiente: motivo,
+//     fecha_solucion: fecha_solucion
+//   };
 
-  //actualizo motivo pendiente
-  const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
-  await pool.query(sqlUpdate, [updateCliente, id])
+//   //actualizo motivo pendiente
+//   const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
+//   await pool.query(sqlUpdate, [updateCliente, id])
 
-  //consulto el cliente
-  const sqlSelect = 'SELECT * FROM tramites WHERE id =?';
-  customer = await pool.query(sqlSelect, [id])
+//   //consulto el cliente
+//   const sqlSelect = 'SELECT * FROM tramites WHERE id =?';
+//   customer = await pool.query(sqlSelect, [id])
 
-  //helper que cambia el formato de fecha y moneda
-  helpers.formatterCustomers(customer)
+//   //helper que cambia el formato de fecha y moneda
+//   helpers.formatterCustomers(customer)
 
-  res.render('customer/edit', { customer: customer[0], user: user });
-})
+//   res.render('customer/edit', { customer: customer[0], user: user });
+// })
 
 //================= movimiento de status clientes (REGIONAL)
 

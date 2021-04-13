@@ -123,7 +123,6 @@ select:-webkit-autofill:focus {
       width: 90%;
 
       .wrapper {
-        // border: $test;
         background: #ffffff;
 
         border: 1px solid #797979;
@@ -217,13 +216,12 @@ select:-webkit-autofill:focus {
       }
 
       p {
-        text-align: end;
         color: $color-primary;
-        // outline: 1px solid yellow;
       }
 
       textarea {
-        margin-bottom: 2%;
+        margin-bottom: 4%;
+        width: 100%;
       }
 
       .form__input {
@@ -264,6 +262,10 @@ select:-webkit-autofill:focus {
       }
     }
 
+    .grid__edit {
+      display: grid;
+    }
+
     .buttonFloat {
       font-size: 14px; /* Cambiar el tamaño de la tipografia */
       border-radius: 5px; /* Borde del boton */
@@ -283,7 +285,7 @@ select:-webkit-autofill:focus {
     }
 
     p {
-      text-align: end;
+      // text-align: end;
       color: $color-primary;
     }
 
@@ -868,6 +870,10 @@ select:-webkit-autofill:focus {
     grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
 
+  .grid__edit {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .buttonFloat {
     bottom: 7%;
     right: 15%;
@@ -941,6 +947,14 @@ select:-webkit-autofill:focus {
 @media (max-width: 402px) {
   .content {
     padding-top: 7.2em;
+  }
+
+  .form__edit p {
+    text-align: end;
+  }
+
+  .grid__edit {
+    grid-template-columns: 1fr;
   }
 
   .buttonFloat {
