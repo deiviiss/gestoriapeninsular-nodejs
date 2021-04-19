@@ -41,9 +41,12 @@ router.post('/query', isLoggedIn, async (req, res) => {
   }
 
   else {
-    const sqlSelect = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
+    const sqlBuscar = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
 
-    customer = await pool.query(sqlSelect, [user.zona])
+    console.log(sqlBuscar);
+    console.log('this is ' + [user.zona]);
+    customer = await pool.query(sqlBuscar, [user.zona])
+    console.log(customer);
   }
 
   //helper que cambia el formato de fecha y moneda
