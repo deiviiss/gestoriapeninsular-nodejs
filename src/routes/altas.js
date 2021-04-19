@@ -1,15 +1,12 @@
 //Ingresar clientes por tablas
 
 //dependends
-// const { response } = require('express');
 const express = require('express');
-// const { render } = require('timeago.js');
-const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
+const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas
+const helpers = require('../lib/handlebars');
 
 const db = require('../database');
 const { isLoggedIn } = require('../lib/auth');
-
-const helpers = require('../lib/handlebars')
 
 //* Agregar cliente
 
@@ -20,7 +17,7 @@ router.get('/add-customer', isLoggedIn, async (req, res) => {
   const sqlAsesor = "SELECT a.asesor, r.region, z.zona FROM regiones AS r JOIN asesores AS a ON r.asesores_id_asesor = a.id_asesor JOIN zonas AS z ON r.zonas_id_zona = z.id_zona WHERE z.zona = ?"
   const asesoresZona = await db.query(sqlAsesor, zona)
 
-  //Consulta asesores
+  //Consulta afores
   const sqlAfore = "SELECT * FROM afores"
   const afores = await db.query(sqlAfore)
 
@@ -34,7 +31,9 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
   const { nombre, apellido, curp, nss, afore, direccion, telefono, scotizadas, sdescontadas, asesor, monto, observaciones, fecha_ultimo_retiro
   } = req.body; //objeto del formulario
 
-  console.log(req.body.monto);
+  console.log(req.body);
+
+  console.log('hey ' + helpers.semanaISO(fecha_ultimo_retiro));
 
   //? Get valores de tablas (asesores, pendientes, zonas, outsourcings)
   const sqlAsesor = "SELECT asesor, id_asesor FROM asesores WHERE asesor = ?;"
@@ -81,9 +80,10 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
   const sqlClient = "INSERT INTO altas set ?"
   const rowClient = await db.query(sqlClient, [newCliente])
 
-  // console.log("rowClient");
-  // console.log(newCliente);
-  res.send(newCliente)
+
+  console.log(newCliente);
+  console.log(rowClient);
+  // res.send(newCliente)
 })
 
 module.exports = router;

@@ -9,8 +9,8 @@ const session = require('express-session'); //crea la sesión para flash
 const passport = require('passport'); //para utiliar sus metodos
 const flash = require('connect-flash'); //mostrar mensajes
 const MySQLStore = require('express-mysql-session')(session);//para guardar la sesión en la base de datos
-const bodyParser = require('body-parser');
-const cors = require('cors'); // http header
+// const bodyParser = require('body-parser');
+// const cors = require('cors'); // http header
 
 const { database } = require('./keys');//solicita la conexión a la bd
 
@@ -28,14 +28,13 @@ const app = express();
 require('./lib/passport');
 
 //settings
-
 app.set('port', process.env.PORT || 3000); //server port
 app.set('views', path.join(__dirname, 'views')) //ruta para las vistas mediante path.join(_dirname), le dice a node donde están las vistas
 
 app.engine('.hbs', exphbs({ // configuración motor de plantillas
-  defaultLayout: 'main', //nombre de la plantilla pricipal
-  layoutsDir: path.join(app.get('views'), 'layouts'), //une con el metodo join para unir views con layout
-  partialsDir: path.join(app.get('views'), 'partials'), //une con el metodo join para unir views con partials
+  defaultLayout: 'main', //nombre de la plantilla principal
+  layoutsDir: path.join(app.get('views'), 'layouts'), //une con el método join para unir views con layout
+  partialsDir: path.join(app.get('views'), 'partials'), //une con el método join para unir views con partials
   extname: '.hbs', //nombre de la extensión
   helpers: require('./lib/handlebars'), // ruta de los helpers
   helpers: { if_equal: isEqualHelperHandlerbar } // usar funcion en vistas
@@ -43,10 +42,10 @@ app.engine('.hbs', exphbs({ // configuración motor de plantillas
 app.set('view engine', '.hbs'); // llama motor de plantillas
 
 //middlewares (peticiones)
-app.use(cors()); //http header
+// app.use(cors()); //http header
 app.use(morgan('dev')); //mensajes de servidor
-app.use(bodyParser.urlencoded({ extended: false })); //metodo de bodyParser que permite entender los datos.
-app.use(bodyParser.json()); //metodo de bodyParser que permite entender archivos json.
+app.use(express.urlencoded({ extended: false })); //metodo de express que permite entender los datos.
+app.use(express.json()); //metodo de bodyParser que permite entender archivos json.
 
 app.use(session({ //configuración de sesión para usar conect-flash
   secret: 'gestoriamysqlsession', //como guarda la sesión
@@ -74,7 +73,6 @@ app.use('/customer', require('./routes/customer.js')); //ruta de customer con pr
 app.use(require('./routes/directory.js')); //ruta directorio users
 app.use(require('./routes/resume.js')); //ruta resume
 app.use(require('./routes/altas.js')); //ruta altas
-// app.use(require('./routes/list-customer.js'));// react route
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos

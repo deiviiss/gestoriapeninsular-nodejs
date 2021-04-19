@@ -8,12 +8,13 @@
 
       <div class="form__input">
 
-        {{!-- name --}}
+        {{!-- nombre --}}
         <div class="form__input-item">
           <input type="text" id="nombre" name="nombre">
           <label for="nombre" class='label'>Nombre(s)</label>
         </div>
 
+        {{!-- apellido --}}
         <div class="form__input-item">
           <input type="text" id="apellido" name="apellido">
           <label for="apellido" class='label'>Apellido(s)</label>
@@ -31,7 +32,7 @@
           <label for="nss" class='label'>NSS</label>
         </div>
 
-        {{!-- afore --}}
+        {{!-- afore & monto--}}
         <div class="form__input-afore">
 
           <div class="form__input-item">
@@ -47,34 +48,17 @@
 
           </div>
 
-          {{!-- monto --}}
           <div class="form__input-item">
             <input type="number" id="monto" name="monto">
-            <label for="monto" class='label'>Monto a retirar</label>
+            <label for="monto" class='label'>Monto</label>
           </div>
         </div>
 
-        {{!-- <p>Servicios Operativos</p>
-        <div class="form___input-porcent">
-          <div class="form__input-item radio">
-
-            <input type="radio" id="service20" name="service" value="service20">
-            <label for="service20">20%</label>
-            <input type="radio" id="service25" name="service" value="service25">
-            <label for="service25">25%</label>
-            <input type="radio" id="service30" name="service" value="service30">
-            <label for="service30">30%</label>
-          </div>
-        </div>
-
-        <div class="form__input-item">
-          <input type="text" id="honorarios" name="honorarios">
-          <label for="honorarios" class='label'>Servicios administrativos</label>
-        </div> --}}
-
+        {{!-- semanas --}}
         <div class="form__input-semanas">
+
           <div class="form__input-item">
-            <input type="text" id="scotizadas" name="scotizadas">
+            <input type="text" name="scotizadas">
             <label for="scotizadas" class='label'>Semanas Cotizadas</label>
           </div>
 
@@ -82,18 +66,22 @@
             <input type="text" id="sdescontadas" name="sdescontadas">
             <label for="sdescontadas" class='label'>Semanas Descontadas</label>
           </div>
+
         </div>
 
+        {{!-- dirección --}}
         <div class="form__input-item">
           <input type="text" id="direccion" name="direccion">
           <label for="direccion" class='label'>Dirección</label>
         </div>
 
+        {{!-- teléfono --}}
         <div class="form__input-item">
           <input type="tel" pattern='([0-9]{10})' id="telefono" name="telefono">
           <label for="tel" class='label'>Teléfono</label>
         </div>
 
+        {{!-- asesor --}}
         <div class="form__input-item">
 
           <label for="asesor" class='Label active'>Asesor</label>
@@ -107,13 +95,20 @@
 
         </div>
 
+        {{!-- fecha último retiro --}}
         <div class="form__input-item">
-
-          <input class="btn btn-success btn-block" type="submit" name="btn-submit" id="form__btn-submit"
-            value="Guardar">
+          <input type="date" id="fecha_ultimo_retiro" name="fecha_ultimo_retiro">
         </div>
 
+        {{!-- guardar --}}
+        <div class="form__input-item">
+          <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Guardar">
+        </div>
+
+      </div>
+
     </form>
+
   </div>
 </div>
 

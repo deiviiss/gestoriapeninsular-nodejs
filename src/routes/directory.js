@@ -7,7 +7,7 @@ const router = express.Router(); //metodo de express que devuelve un objeto para
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
-const helpers = require('../lib/handlebars')
+// const helpers = require('../lib/handlebars')
 
 //routes
 

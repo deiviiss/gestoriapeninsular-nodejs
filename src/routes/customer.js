@@ -20,11 +20,18 @@ router.post('/query', isLoggedIn, async (req, res) => {
   const user = req.user
   const { busqueda } = req.body
 
+  console.log(busqueda);
+
   // condición para elegir el método de busqueda
   if (user.permiso === "Regional") {
     const sqlBuscar = "SELECT * FROM tramites WHERE region = ? AND  cliente like '%" + [busqueda] + "%'"
 
+    console.log(sqlBuscar);
+
+    console.log(user.region);
+
     customer = await pool.query(sqlBuscar, user.region)
+    console.log(customer);
   }
 
   else if (user.permiso === 'Administrador') {
@@ -67,8 +74,6 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   const user = req.user
   const fechaActual = new Date() //new Date() Objeto de Js para manejo de fechas
 
-  console.log(req.body);
-
   //objeto con las observaciones y usuario fecha
   const updateCliente = {
     motivo: motivo,
@@ -91,32 +96,6 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   res.render('customer/edit', { customer: customer[0], user: user });
   // res.render('customer/m-pendientes', { customer: customer[0] });
 })
-
-//recibe el formulario para actualizar motivo de pendiente
-// router.post('/m-pendientes/:id', isLoggedIn, async (req, res) => {
-//   const { id } = req.params
-//   const { motivo, fecha_solucion } = req.body; //objeto del formulario
-//   const user = req.user
-
-//   //objeto con la actualización del motivo
-//   updateCliente = {
-//     pendiente: motivo,
-//     fecha_solucion: fecha_solucion
-//   };
-
-//   //actualizo motivo pendiente
-//   const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
-//   await pool.query(sqlUpdate, [updateCliente, id])
-
-//   //consulto el cliente
-//   const sqlSelect = 'SELECT * FROM tramites WHERE id =?';
-//   customer = await pool.query(sqlSelect, [id])
-
-//   //helper que cambia el formato de fecha y moneda
-//   helpers.formatterCustomers(customer)
-
-//   res.render('customer/edit', { customer: customer[0], user: user });
-// })
 
 //================= movimiento de status clientes (REGIONAL)
 

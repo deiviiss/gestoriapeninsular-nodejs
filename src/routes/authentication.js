@@ -8,22 +8,20 @@ const pool = require('../database');
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
 const cifrator = require('../lib/cifrator');
 
-//restore password
+//============== restore password
 
+//envía formulario
 router.get('/restore-pass/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const user = await pool.query('SELECT * FROM users WHERE id =?', [id])
 
-  // console.log(user[0])
-
   res.render('authentic/restore-pass', { user: user[0] })
 })
 
+//recibe el formulario
 router.post('/restore-pass/:id', isLoggedIn, async (req, res) => {
   const { id } = req.params
   const { password } = req.body //objeto del formulario
-
-  // console.log(password)
 
   const updatePassword = {
     password
@@ -37,9 +35,9 @@ router.post('/restore-pass/:id', isLoggedIn, async (req, res) => {
   res.redirect('/profile');
 })
 
-//login de usuario
+//============== login de usuario
 
-// envía formulario
+//envía formulario
 router.get('/login', isNotLoggedIn, (req, res) => {
   res.render('authentic/login.hbs')
 });
@@ -53,9 +51,9 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next);
 });
 
-//registro de usuario
+//============== registro de usuario
 
-//  envía formulario 
+//envía formulario 
 router.get('/register', isLoggedIn, (req, res) => {
   const user = req.user
 
@@ -70,14 +68,14 @@ router.get('/register', isLoggedIn, (req, res) => {
 
 });
 
-// recibe el formulario
+//recibe el formulario
 router.post('/register', isLoggedIn, passport.authenticate('local.register', { //metodo que toma el nombre de la autenticación creada en passport.js
   successRedirect: '/profile',//donde lo envia cuando esta ok
   failureRedirect: '/register',//donde lo envia cuando falla
   failureFlash: true
 }));
 
-//perfil
+//============== perfil
 router.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile')
 });

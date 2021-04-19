@@ -4,7 +4,6 @@ const bcryptjs = require('bcryptjs');
 
 const cifrator = {};
 
-
 //metodos del objeto
 
 //encripta contraseña

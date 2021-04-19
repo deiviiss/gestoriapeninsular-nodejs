@@ -16,9 +16,6 @@ passport.use(
       passReqToCallback: true
     },
     async (req, username, password, done) => {
-      // console.log(req.body)
-      // console.log(username)
-      // console.log('La contraseña', password)
 
       const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
 
@@ -53,7 +50,7 @@ passport.use(
         movil,
         oficina,
         direccion } = req.body; //obtiene los datos de req.body
-      // const { zona } = req.body;
+
       let newUser = { //objeto con un nuevo usuario que guarda los datos
         username, //username: username
         password,
@@ -69,9 +66,7 @@ passport.use(
       newUser.password = await cifrator.encryptaPassword(password); //crea la contraseña encriptada
 
       const result = await pool.query('INSERT INTO users SET ?', newUser); //guarda en database
-      // console.log(result)
       newUser.id = result.insertId; //usa la propiedad del objeto devuelto por la consulta sql
-      // console.log(newUser)
       req.flash('success', 'Bienvenid@ ' + newUser.username)
       return done(null, newUser); //lo almacena en una sesión
     }
