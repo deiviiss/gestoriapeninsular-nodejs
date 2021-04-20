@@ -20,18 +20,11 @@ router.post('/query', isLoggedIn, async (req, res) => {
   const user = req.user
   const { busqueda } = req.body
 
-  console.log(busqueda);
-
   // condición para elegir el método de busqueda
   if (user.permiso === "Regional") {
     const sqlBuscar = "SELECT * FROM tramites WHERE region = ? AND  cliente like '%" + [busqueda] + "%'"
 
-    console.log(sqlBuscar);
-
-    console.log(user.region);
-
     customer = await pool.query(sqlBuscar, user.region)
-    console.log(customer);
   }
 
   else if (user.permiso === 'Administrador') {
@@ -43,10 +36,7 @@ router.post('/query', isLoggedIn, async (req, res) => {
   else {
     const sqlBuscar = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
 
-    console.log(sqlBuscar);
-    console.log('this is ' + [user.zona]);
     customer = await pool.query(sqlBuscar, [user.zona])
-    console.log(customer);
   }
 
   //helper que cambia el formato de fecha y moneda
@@ -97,7 +87,6 @@ router.post('/edit/:id', isLoggedIn, async (req, res) => {
   helpers.formatterCustomers(customer)
 
   res.render('customer/edit', { customer: customer[0], user: user });
-  // res.render('customer/m-pendientes', { customer: customer[0] });
 })
 
 //================= movimiento de status clientes (REGIONAL)
