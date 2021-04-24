@@ -40,108 +40,144 @@
 
   {{/if_equal}}
 
-  <div class="container p-2">
+  <div class="tarjeta">
 
-    <div class="tarjeta">
+    {{#if zona}}
+    <h2 class="resume-status">
+      {{zona}}
+    </h2>
+    {{else}}
+    <h2 class="resume-status">
+      {{user.zona}}
+    </h2>
+    {{/if}}
 
-      <h2 class="resume-title">
-        {{user.puesto}}
-      </h2>
 
-      {{#if zona}}
-      <h6 class="resume-status">
-        {{zona}}
-      </h6>
-      {{else}}
-      <h6 class="resume-status">{{user.zona}}</h6>
-      {{/if}}
+    <h6 class="resume-title">
+      {{user.fullname}}
+    </h6>
 
-      <h6 class="resume-status">
-        Status
-      </h6>
+    <h6 class="resume-status">
+      Status
+    </h6>
 
-      <div class="grid">
+    <div class="grid">
 
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.espera}}?zona={{zona}}">
-            <h6 class="tarjeta-title">En espera</h6>
-            <p class="tarjeta-text">{{status.espera}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.pendiente}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Pendientes</h6>
-            <p class="tarjeta-text">{{status.pendientes}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.finalizado}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Finalizados</h6>
-            <p class="tarjeta-text">{{status.finalizados}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.fallido}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Fallidos</h6>
-            <p class="tarjeta-text">{{status.fallidos}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.asegurado}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Asegurados</h6>
-            <p class="tarjeta-text">{{status.asegurados}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.baja}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Bajas</h6>
-            <p class="tarjeta-text">{{status.bajas}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.juridico}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Jurídico</h6>
-            <p class="tarjeta-text">{{status.juridico}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Aclaración</h6>
-            <p class="tarjeta-text">{{status.aclaraciones}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Liquidar</h6>
-            <p class="tarjeta-text">{{status.liquidar}}</p>
-          </a>
-        </div>
-
-        <div class="tarjeta-status">
-          <a href="/resume/{{titulos.actualizar}}?zona={{zona}}">
-            <h6 class="tarjeta-title">Actualizar</h6>
-            <p class="tarjeta-text">{{status.actualizar}}</p>
-          </a>
-        </div>
-
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.espera}}?zona={{zona}}">
+          <h6 class="tarjeta-title">En espera</h6>
+          <p class="tarjeta-text">{{status.espera}}</p>
+        </a>
       </div>
 
-      <div class="buttons">
-        <a href="/customer/" class="btn btn-info"><i class="fas fa-users mr-1"></i>Clientes</a>
-        {{!-- <a href="/profile" class="btn btn-info"><i class="fas fa-user-alt mr-1"></i>Perfil</a> --}}
-        <a href="/resume/" class="btn btn-info"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.pendiente}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Pendientes</h6>
+          <p class="tarjeta-text">{{status.pendientes}}</p>
+        </a>
+      </div>
 
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.finalizado}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Finalizados</h6>
+          <p class="tarjeta-text">{{status.finalizados}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.fallido}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Fallidos</h6>
+          <p class="tarjeta-text">{{status.fallidos}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.asegurado}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Asegurados</h6>
+          <p class="tarjeta-text">{{status.asegurados}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.baja}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Bajas</h6>
+          <p class="tarjeta-text">{{status.bajas}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.juridico}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Jurídico</h6>
+          <p class="tarjeta-text">{{status.juridico}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Aclaración</h6>
+          <p class="tarjeta-text">{{status.aclaraciones}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Liquidar</h6>
+          <p class="tarjeta-text">{{status.liquidar}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-status">
+        <a href="/resume/{{titulos.actualizar}}?zona={{zona}}">
+          <h6 class="tarjeta-title">Actualizar</h6>
+          <p class="tarjeta-text">{{status.actualizar}}</p>
+        </a>
       </div>
 
     </div>
+
+    <h6 class="resume-status">
+      Pendientes por fecha trámite
+    </h6>
+
+    <div class="grid">
+
+      <div class="tarjeta-fecha week">
+        <a href="/pendientes/week?zona={{zona}}">
+          <h6 class="tarjeta-title">2 semanas</h6>
+          <p class="tarjeta-text">{{cantidadPendientes.pendientesWeek}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-fecha thirty-days">
+        <a href="/pendientes/30days?zona={{zona}}">
+          <h6 class="tarjeta-title">30 días</h6>
+          <p class="tarjeta-text">{{cantidadPendientes.pendientes30Days}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-fecha sixty-days">
+        <a href="/pendientes/60days?zona={{zona}}">
+          <h6 class="tarjeta-title">60 días</h6>
+          <p class="tarjeta-text">{{cantidadPendientes.pendientes60Days}}</p>
+        </a>
+      </div>
+
+      <div class="tarjeta-fecha more-days">
+        <a href="/pendientes/more60days?zona={{zona}}">
+          <h6 class="tarjeta-title">+ 60 días</h6>
+          <p class="tarjeta-text">{{cantidadPendientes.pendientesMore60Days}}</p>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <a href="/customer/" class="btn btn-info"><i class="fas fa-users mr-1"></i>Clientes</a>
+      {{!-- <a href="/profile" class="btn btn-info"><i class="fas fa-user-alt mr-1"></i>Perfil</a> --}}
+      <a href="/resume/" class="btn btn-info"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+
+    </div>
+
   </div>
 
 </div>

@@ -134,6 +134,7 @@ select:-webkit-autofill:focus {
 
 .main .container-box h6 {
   font-weight: bold;
+  margin-top: 5px;
 }
 
 .main .container-box p {
@@ -422,6 +423,7 @@ select:-webkit-autofill:focus {
 }
 
 .main .container-box .tarjeta {
+  width: 100%;
   margin-top: 10px;
   background: #ffffff;
   border: 1px solid #797979;
@@ -431,51 +433,137 @@ select:-webkit-autofill:focus {
   padding: 20px;
 }
 
-.main .container-box .tarjeta .form__input {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.main .container-box .tarjeta .resume-title {
+  text-align: center;
+}
+
+.main .container-box .tarjeta .resume-status {
+  text-align: center;
+}
+
+.main .container-box .tarjeta .grid {
+  display: -ms-grid;
+  display: grid;
+  text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.main .container-box .tarjeta .form__input .form__input-item label {
-  margin: 0;
-}
-
-.main .container-box .tarjeta .form__input button {
-  margin-left: 10px;
-}
-
-.main .container-box .resume-title {
-  text-align: center;
-  padding-bottom: 15px;
-}
-
-.main .container-box .resume-status {
-  text-align: center;
+  justify-items: center;
+  margin-bottom: 20px;
   padding-bottom: 20px;
+  border-bottom: 1px solid #23273b;
+  letter-spacing: 1px;
 }
 
-.main .container-box .tarjeta-status p {
-  text-align: center;
+.main .container-box .tarjeta .grid .tarjeta-status {
+  border: 2px solid #138496;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+  width: 95%;
+  height: 80%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
 }
 
-.main .container-box .tarjeta-status a {
+.main .container-box .tarjeta .grid .tarjeta-status a {
   text-decoration: none;
   cursor: pointer;
   color: #23273b;
 }
 
-.main .container-box .grid {
-  display: -ms-grid;
-  display: grid;
-  text-align: center;
-  margin-bottom: 20px;
+.main .container-box .tarjeta .grid .tarjeta-status:hover {
+  background: #138496;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-status:hover a {
+  color: white;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-status:hover a h6 {
+  font-weight: 400;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-status:hover a p {
+  color: white;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha {
+  border: 2px solid transparent;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+  width: 95%;
+  height: 75%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha a {
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha a h6 {
+  font-weight: 400;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha a p {
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha:hover a {
+  color: #23273b;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha:hover a h6 {
+  font-weight: bold;
+}
+
+.main .container-box .tarjeta .grid .tarjeta-fecha:hover a p {
+  color: #23273b;
+}
+
+.main .container-box .tarjeta .grid .week {
+  background: #138496;
+}
+
+.main .container-box .tarjeta .grid .week:hover {
+  background: none;
+  border: 2px solid #138496;
+}
+
+.main .container-box .tarjeta .grid .thirty-days {
+  background: #dac41c;
+}
+
+.main .container-box .tarjeta .grid .thirty-days:hover {
+  background: none;
+  border: 2px solid #dac41c;
+}
+
+.main .container-box .tarjeta .grid .sixty-days {
+  background: #e36d24;
+}
+
+.main .container-box .tarjeta .grid .sixty-days:hover {
+  background: none;
+  border: 2px solid #e36d24;
+}
+
+.main .container-box .tarjeta .grid .more-days {
+  background: #cd0000;
+}
+
+.main .container-box .tarjeta .grid .more-days:hover {
+  background: none;
+  border: 2px solid #cd0000;
 }
 
 .main .container-box .btn-edit {

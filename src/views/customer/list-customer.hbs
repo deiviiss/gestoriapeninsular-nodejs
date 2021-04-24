@@ -15,17 +15,19 @@
   <section class="list-customers">
     <div class="wrapper">
 
-      <h3>{{user.fullname}}</h3>
+      {{#if zona}}
+
+      <h3>{{zona}}</h3>
+
+      {{else}}
+
+      <h3>{{user.zona}}</h3>
+
+      {{/if}}
+
       <div class="list-title">
 
-        {{#if_equal user.permiso "Administrador"}}
-
-        <h5>{{zona}}</h5>
-
-        {{else}}
-        <h5>{{user.zona}}</h5>
-
-        {{/if_equal}}
+        <h5>{{user.fullname}}</h5>
 
         <div class="buttons btn-list">
           <a href="/resume/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>

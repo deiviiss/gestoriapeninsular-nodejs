@@ -133,6 +133,7 @@ select:-webkit-autofill:focus {
 
     h6 {
       font-weight: bold;
+      margin-top: 5px;
     }
 
     p {
@@ -399,6 +400,7 @@ select:-webkit-autofill:focus {
 
     //estilos del resumen
     .tarjeta {
+      width: 100%;
       margin-top: 10px;
       background: #ffffff;
 
@@ -408,51 +410,156 @@ select:-webkit-autofill:focus {
 
       padding: 20px;
 
-      .form__input {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      // .form__input {
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
 
-        .form__input-item {
-          label {
-            margin: 0;
+      //   .form__input-item {
+      //     label {
+      //       margin: 0;
+      //     }
+      //   }
+
+      //   button {
+      //     margin-left: 10px;
+      //   }
+      // }
+
+      .resume-title {
+        text-align: center;
+        // padding-bottom: 10px;
+      }
+
+      .resume-status {
+        text-align: center;
+        // padding-top: 15px;
+        // padding-bottom: 20px;
+      }
+
+      //grid resumen - status
+      .grid {
+        display: grid;
+        text-align: center;
+        align-items: center;
+        justify-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $color-primary;
+        letter-spacing: 1px;
+
+        //status
+        .tarjeta-status {
+          border: 2px solid #138496;
+          box-sizing: border-box;
+          border-radius: 5px;
+          width: 95%;
+          height: 80%;
+          align-items: center;
+          justify-items: center;
+
+          a {
+            text-decoration: none;
+            cursor: pointer;
+            color: $color-primary;
           }
         }
 
-        button {
-          margin-left: 10px;
+        .tarjeta-status:hover {
+          background: #138496;
+          a {
+            color: white;
+
+            h6 {
+              font-weight: 400;
+            }
+
+            p {
+              color: white;
+            }
+          }
+        }
+
+        //fecha
+        .tarjeta-fecha {
+          border: 2px solid transparent;
+          box-sizing: border-box;
+          border-radius: 5px;
+          width: 95%;
+          height: 75%;
+          align-items: center;
+          justify-items: center;
+
+          a {
+            text-decoration: none;
+            cursor: pointer;
+            color: white;
+
+            h6 {
+              font-weight: 400;
+            }
+
+            p {
+              color: white;
+              margin-bottom: 1.5rem;
+            }
+          }
+        }
+
+        .tarjeta-fecha:hover {
+          a {
+            color: $color-primary;
+
+            h6 {
+              font-weight: bold;
+            }
+
+            p {
+              color: $color-primary;
+            }
+          }
+        }
+
+        //2 semanas
+        .week {
+          background: #138496;
+        }
+
+        .week:hover {
+          background: none;
+          border: 2px solid #138496;
+        }
+
+        //30 días
+        .thirty-days {
+          background: #dac41c;
+        }
+
+        .thirty-days:hover {
+          background: none;
+          border: 2px solid #dac41c;
+        }
+
+        //60 días
+        .sixty-days {
+          background: #e36d24;
+        }
+
+        .sixty-days:hover {
+          background: none;
+          border: 2px solid #e36d24;
+        }
+
+        //+60 días
+        .more-days {
+          background: #cd0000;
+        }
+
+        .more-days:hover {
+          background: none;
+          border: 2px solid #cd0000;
         }
       }
-    }
-
-    .resume-title {
-      text-align: center;
-      padding-bottom: 15px;
-    }
-
-    .resume-status {
-      text-align: center;
-      // padding-top: 15px;
-      padding-bottom: 20px;
-    }
-
-    .tarjeta-status {
-      p {
-        text-align: center;
-      }
-
-      a {
-        text-decoration: none;
-        cursor: pointer;
-        color: $color-primary;
-      }
-    }
-
-    //grid resumen
-    .grid {
-      display: grid;
-      text-align: center;
-      margin-bottom: 20px;
     }
 
     .btn-edit {
