@@ -184,6 +184,51 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         pendientes30Days = await pool.query(sql30Days + "AND zona = ? AND region= ?", [zona, user.region])
         pendientes60Days = await pool.query(sql60Days + "AND zona = ? AND region= ?", [zona, user.region])
         pendientesMore60Days = await pool.query(sqlMore60Days + "AND zona = ? AND region= ?", [zona, user.region])
+
+        //objeto con cantidad de pendientes que se mandara a la vista
+        cantidadPendientes = {
+          pendientesWeek: pendientesWeek.length,
+          pendientes30Days: pendientes30Days.length,
+          pendientes60Days: pendientes60Days.length,
+          pendientesMore60Days: pendientesMore60Days.length
+        }
+
+        //objeto con status que se mandara a la vista
+        motivos = {
+          afore: afore.length,
+          antigüedad: antigüedad.length,
+          cobro: cobro.length,
+          cita: cita.length,
+          demanda: demanda.length,
+          documentos: documentos.length,
+          orden: orden.length,
+          tramite: tramite.length,
+          saldos: saldos.length,
+          unificacion: unificacion.length,
+          vigente: vigente.length,
+          salud: salud.length
+        }
+
+        //objeto con titulos de status
+        titulos = {
+          afore: 'afore',
+          antigüedad: 'antigüedad',
+          cobro: 'cobro',
+          cita: 'cita',
+          demanda: 'demanda',
+          documentos: 'documentos',
+          orden: 'orden',
+          saldos: 'saldos',
+          tramite: 'tramite',
+          unificacion: 'unificacion',
+          vigente: 'vigente',
+          salud: 'salud'
+        }
+
+        //get zonas
+        region = helpers.region(user.region)
+
+        res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
       }
       else {
         const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND region = ? order by fecha_tramite DESC"
@@ -217,6 +262,51 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         pendientes30Days = await pool.query(sql30Days + "AND zona = ?", zona)
         pendientes60Days = await pool.query(sql60Days + "AND zona = ?", zona)
         pendientesMore60Days = await pool.query(sqlMore60Days + "AND zona = ?", zona)
+
+        //objeto con cantidad de pendientes que se mandara a la vista
+        cantidadPendientes = {
+          pendientesWeek: pendientesWeek.length,
+          pendientes30Days: pendientes30Days.length,
+          pendientes60Days: pendientes60Days.length,
+          pendientesMore60Days: pendientesMore60Days.length
+        }
+
+        //objeto con status que se mandara a la vista
+        motivos = {
+          afore: afore.length,
+          antigüedad: antigüedad.length,
+          cobro: cobro.length,
+          cita: cita.length,
+          demanda: demanda.length,
+          documentos: documentos.length,
+          orden: orden.length,
+          tramite: tramite.length,
+          saldos: saldos.length,
+          unificacion: unificacion.length,
+          vigente: vigente.length,
+          salud: salud.length
+        }
+
+        //objeto con titulos de status
+        titulos = {
+          afore: 'afore',
+          antigüedad: 'antigüedad',
+          cobro: 'cobro',
+          cita: 'cita',
+          demanda: 'demanda',
+          documentos: 'documentos',
+          orden: 'orden',
+          saldos: 'saldos',
+          tramite: 'tramite',
+          unificacion: 'unificacion',
+          vigente: 'vigente',
+          salud: 'salud'
+        }
+
+        //get zonas
+        region = helpers.region(user.region)
+
+        res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
       }
       else {
         const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? order by fecha_tramite DESC"
@@ -224,7 +314,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
 
         //helper que cambia el formato de fecha y moneda
         customer = helpers.formatterCustomers(customer)
-
+        console.log(sqlStatus);
         res.render('customer/list-customer.hbs', { customer, zona })
       }
     }
@@ -259,6 +349,51 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         pendientes30Days = await pool.query(sql30Days + "AND region= ?", user.region)
         pendientes60Days = await pool.query(sql60Days + "AND region= ?", user.region)
         pendientesMore60Days = await pool.query(sqlMore60Days + "AND region= ?", user.region)
+
+        //objeto con cantidad de pendientes que se mandara a la vista
+        cantidadPendientes = {
+          pendientesWeek: pendientesWeek.length,
+          pendientes30Days: pendientes30Days.length,
+          pendientes60Days: pendientes60Days.length,
+          pendientesMore60Days: pendientesMore60Days.length
+        }
+
+        //objeto con status que se mandara a la vista
+        motivos = {
+          afore: afore.length,
+          antigüedad: antigüedad.length,
+          cobro: cobro.length,
+          cita: cita.length,
+          demanda: demanda.length,
+          documentos: documentos.length,
+          orden: orden.length,
+          tramite: tramite.length,
+          saldos: saldos.length,
+          unificacion: unificacion.length,
+          vigente: vigente.length,
+          salud: salud.length
+        }
+
+        //objeto con titulos de status
+        titulos = {
+          afore: 'afore',
+          antigüedad: 'antigüedad',
+          cobro: 'cobro',
+          cita: 'cita',
+          demanda: 'demanda',
+          documentos: 'documentos',
+          orden: 'orden',
+          saldos: 'saldos',
+          tramite: 'tramite',
+          unificacion: 'unificacion',
+          vigente: 'vigente',
+          salud: 'salud'
+        }
+
+        //get zonas
+        region = helpers.region(user.region)
+
+        res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
       }
 
       else {
@@ -294,6 +429,51 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         pendientes30Days = await pool.query(sql30Days)
         pendientes60Days = await pool.query(sql60Days)
         pendientesMore60Days = await pool.query(sqlMore60Days)
+
+        //objeto con cantidad de pendientes que se mandara a la vista
+        cantidadPendientes = {
+          pendientesWeek: pendientesWeek.length,
+          pendientes30Days: pendientes30Days.length,
+          pendientes60Days: pendientes60Days.length,
+          pendientesMore60Days: pendientesMore60Days.length
+        }
+
+        //objeto con status que se mandara a la vista
+        motivos = {
+          afore: afore.length,
+          antigüedad: antigüedad.length,
+          cobro: cobro.length,
+          cita: cita.length,
+          demanda: demanda.length,
+          documentos: documentos.length,
+          orden: orden.length,
+          tramite: tramite.length,
+          saldos: saldos.length,
+          unificacion: unificacion.length,
+          vigente: vigente.length,
+          salud: salud.length
+        }
+
+        //objeto con titulos de status
+        titulos = {
+          afore: 'afore',
+          antigüedad: 'antigüedad',
+          cobro: 'cobro',
+          cita: 'cita',
+          demanda: 'demanda',
+          documentos: 'documentos',
+          orden: 'orden',
+          saldos: 'saldos',
+          tramite: 'tramite',
+          unificacion: 'unificacion',
+          vigente: 'vigente',
+          salud: 'salud'
+        }
+
+        //get zonas
+        region = helpers.region(user.region)
+
+        res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
       }
 
       else {
@@ -329,6 +509,51 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         pendientes30Days = await pool.query(sql30Days + "AND zona = ?", user.zona)
         pendientes60Days = await pool.query(sql60Days + "AND zona = ?", user.zona)
         pendientesMore60Days = await pool.query(sqlMore60Days + "AND zona = ?", user.zona)
+
+        //objeto con cantidad de pendientes que se mandara a la vista
+        cantidadPendientes = {
+          pendientesWeek: pendientesWeek.length,
+          pendientes30Days: pendientes30Days.length,
+          pendientes60Days: pendientes60Days.length,
+          pendientesMore60Days: pendientesMore60Days.length
+        }
+
+        //objeto con status que se mandara a la vista
+        motivos = {
+          afore: afore.length,
+          antigüedad: antigüedad.length,
+          cobro: cobro.length,
+          cita: cita.length,
+          demanda: demanda.length,
+          documentos: documentos.length,
+          orden: orden.length,
+          tramite: tramite.length,
+          saldos: saldos.length,
+          unificacion: unificacion.length,
+          vigente: vigente.length,
+          salud: salud.length
+        }
+
+        //objeto con titulos de status
+        titulos = {
+          afore: 'afore',
+          antigüedad: 'antigüedad',
+          cobro: 'cobro',
+          cita: 'cita',
+          demanda: 'demanda',
+          documentos: 'documentos',
+          orden: 'orden',
+          saldos: 'saldos',
+          tramite: 'tramite',
+          unificacion: 'unificacion',
+          vigente: 'vigente',
+          salud: 'salud'
+        }
+
+        //get zonas
+        region = helpers.region(user.region)
+
+        res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
       }
 
       else {
@@ -342,51 +567,6 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
       }
     }
   }
-
-  //objeto con cantidad de pendientes que se mandara a la vista
-  cantidadPendientes = {
-    pendientesWeek: pendientesWeek.length,
-    pendientes30Days: pendientes30Days.length,
-    pendientes60Days: pendientes60Days.length,
-    pendientesMore60Days: pendientesMore60Days.length
-  }
-
-  //objeto con status que se mandara a la vista
-  motivos = {
-    afore: afore.length,
-    antigüedad: antigüedad.length,
-    cobro: cobro.length,
-    cita: cita.length,
-    demanda: demanda.length,
-    documentos: documentos.length,
-    orden: orden.length,
-    tramite: tramite.length,
-    saldos: saldos.length,
-    unificacion: unificacion.length,
-    vigente: vigente.length,
-    salud: salud.length
-  }
-
-  //objeto con titulos de status
-  titulos = {
-    afore: 'afore',
-    antigüedad: 'antigüedad',
-    cobro: 'cobro',
-    cita: 'cita',
-    demanda: 'demanda',
-    documentos: 'documentos',
-    orden: 'orden',
-    saldos: 'saldos',
-    tramite: 'tramite',
-    unificacion: 'unificacion',
-    vigente: 'vigente',
-    salud: 'salud'
-  }
-
-  //get zonas
-  region = helpers.region(user.region)
-
-  res.render('resume/desgloce-pendientes.hbs', { motivos, user, titulos, zona, region, cantidadPendientes })
 });
 
 //?========= renderiza list-customer (pendientes por semana, 30 & 60 days)
@@ -626,7 +806,6 @@ router.get('/pendientes/:group', isLoggedIn, async (req, res) => {
     }
   }
 })
-
 
 //?========= renderiza list-customer (motivos)
 router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
