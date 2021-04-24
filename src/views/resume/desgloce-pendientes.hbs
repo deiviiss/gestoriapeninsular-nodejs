@@ -137,6 +137,42 @@
         </div>
       </div>
 
+      <h6 class="resume-status">
+        Pendientes por fecha trámite
+      </h6>
+
+      <div class="grid">
+
+        <div class="tarjeta-fecha week">
+          <a href="/pendientes/week?zona={{zona}}">
+            <h6 class="tarjeta-title">2 semanas</h6>
+            <p class="tarjeta-text">{{cantidadPendientes.pendientesWeek}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-fecha thirty-days">
+          <a href="/pendientes/30days?zona={{zona}}">
+            <h6 class="tarjeta-title">30 días</h6>
+            <p class="tarjeta-text">{{cantidadPendientes.pendientes30Days}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-fecha sixty-days">
+          <a href="/pendientes/60days?zona={{zona}}">
+            <h6 class="tarjeta-title">60 días</h6>
+            <p class="tarjeta-text">{{cantidadPendientes.pendientes60Days}}</p>
+          </a>
+        </div>
+
+        <div class="tarjeta-fecha more-days">
+          <a href="/pendientes/more60days?zona={{zona}}">
+            <h6 class="tarjeta-title">+ 60 días</h6>
+            <p class="tarjeta-text">{{cantidadPendientes.pendientesMore60Days}}</p>
+          </a>
+        </div>
+
+      </div>
+
       <div class="buttons">
         <a href="/customer/" class="btn btn-info btn-edit"><i class="fas fa-users mr-1"></i>Clientes</a>
         <a href="/resume/" class="btn btn-info btn-edit"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
