@@ -722,7 +722,7 @@ router.get('/pendientes/:group', isLoggedIn, async (req, res) => {
 
           case "week":
 
-            customer = await pool.query(sqlWeek, +"AND zona = ?", zona)
+            customer = await pool.query(sqlWeek + "AND zona = ?", zona)
 
             customer = helpers.formatterCustomers(customer)
 
@@ -731,7 +731,7 @@ router.get('/pendientes/:group', isLoggedIn, async (req, res) => {
 
           case "30days":
 
-            customer = await pool.query(sql30Days, +"AND zona = ?", zona)
+            customer = await pool.query(sql30Days + "AND zona = ?", zona)
 
             customer = helpers.formatterCustomers(customer)
 
