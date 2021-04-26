@@ -73,6 +73,7 @@ app.use('/customer', require('./routes/customer.js')); //ruta de customer con pr
 app.use(require('./routes/directory.js')); //ruta directorio users
 app.use(require('./routes/resume.js')); //ruta resume
 app.use(require('./routes/altas.js')); //ruta altas
+app.use(require('./routes/404.js'))
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos
