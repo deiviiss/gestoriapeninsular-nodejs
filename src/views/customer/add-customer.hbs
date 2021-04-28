@@ -81,23 +81,36 @@
           <label for="tel" class='label'>Teléfono</label>
         </div>
 
-        {{!-- asesor --}}
-        <div class="form__input-item">
 
-          <label for="asesor" class='Label active'>Asesor</label>
+        {{!-- asesor & retiro--}}
+        <div class="form__input-asesor">
+          {{!-- asesor --}}
+          <div class="form__input-item">
 
-          <select name="asesor">
-            <option value="">---</option>
-            {{#each asesoresZona}}
-            <option value="{{asesor}}">{{asesor}}</option>
-            {{/each}}
-          </select>
+            <label for="asesor" class='Label active'>Asesor</label>
+
+            <select name="asesor">
+              <option value="">---</option>
+              {{#each asesoresZona}}
+              <option value="{{asesor}}">{{asesor}}</option>
+              {{/each}}
+            </select>
+
+          </div>
+
+          {{!-- fecha último retiro --}}
+          <div class="form__input-item">
+            <input type="date" id="fecha_ultimo_retiro" name="fecha_ultimo_retiro">
+            <label for="fecha_ultimo_retiro" class='label active'>Fecha último retiro</label>
+          </div>
 
         </div>
 
-        {{!-- fecha último retiro --}}
-        <div class="form__input-item">
-          <input type="date" id="fecha_ultimo_retiro" name="fecha_ultimo_retiro">
+        <h6 class="card-title m-2 text-center">Observaciones:</h6>
+
+        <div class="text-center mb-3">
+          <textarea required name="observaciones" id="observaciones" cols="30"
+            rows="5">{{customer.observaciones}}</textarea>
         </div>
 
         {{!-- guardar --}}

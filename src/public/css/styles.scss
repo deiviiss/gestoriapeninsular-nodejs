@@ -298,6 +298,10 @@ select:-webkit-autofill:focus {
       width: 100%;
       margin: auto;
 
+      h6 {
+        color: $color-primary;
+      }
+
       .form__input {
         display: grid;
         grid-template-columns: 1fr;
@@ -316,7 +320,8 @@ select:-webkit-autofill:focus {
           input[type="text"],
           [type="tel"],
           [type="password"],
-          [type="number"] {
+          [type="number"],
+          [type="date"] {
             padding-right: 20px;
             font-family: $font-family;
             font-size: 16px;
@@ -380,6 +385,15 @@ select:-webkit-autofill:focus {
         .form__input-afore {
           display: flex;
           justify-content: space-around;
+        }
+
+        .form__input-asesor {
+          display: flex;
+          justify-content: space-around;
+
+          .form__input-item:nth-child(2) {
+            margin-top: 23px;
+          }
         }
       }
     }
@@ -954,7 +968,8 @@ select:-webkit-autofill:focus {
     right: 2%;
   }
   .form__input-semanas,
-  .form__input-afore {
+  .form__input-afore,
+  .form__input-asesor {
     flex-direction: column;
   }
 }

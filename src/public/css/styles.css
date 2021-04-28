@@ -297,6 +297,10 @@ select:-webkit-autofill:focus {
   margin: auto;
 }
 
+.main .container-box .form__add-customer h6 {
+  color: #23273b;
+}
+
 .main .container-box .form__add-customer .form__input {
   display: -ms-grid;
   display: grid;
@@ -318,7 +322,8 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"],
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"],
 .main .container-box .form__add-customer .form__input .form__input-item [type="password"],
-.main .container-box .form__add-customer .form__input .form__input-item [type="number"] {
+.main .container-box .form__add-customer .form__input .form__input-item [type="number"],
+.main .container-box .form__add-customer .form__input .form__input-item [type="date"] {
   padding-right: 20px;
   font-family: "Roboto", Arial;
   font-size: 16px;
@@ -338,7 +343,9 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item [type="password"]:focus,
 .main .container-box .form__add-customer .form__input .form__input-item [type="password"]:active,
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"]:focus,
-.main .container-box .form__add-customer .form__input .form__input-item [type="number"]:active {
+.main .container-box .form__add-customer .form__input .form__input-item [type="number"]:active,
+.main .container-box .form__add-customer .form__input .form__input-item [type="date"]:focus,
+.main .container-box .form__add-customer .form__input .form__input-item [type="date"]:active {
   outline: none;
   border-bottom: 2px solid #23273b;
 }
@@ -347,7 +354,8 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"].error,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"].error,
 .main .container-box .form__add-customer .form__input .form__input-item [type="password"].error,
-.main .container-box .form__add-customer .form__input .form__input-item [type="number"].error {
+.main .container-box .form__add-customer .form__input .form__input-item [type="number"].error,
+.main .container-box .form__add-customer .form__input .form__input-item [type="date"].error {
   outline: none;
   border-bottom: 2px solid #d32f2f;
 }
@@ -356,7 +364,8 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"].error + label,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"].error + label,
 .main .container-box .form__add-customer .form__input .form__input-item [type="password"].error + label,
-.main .container-box .form__add-customer .form__input .form__input-item [type="number"].error + label {
+.main .container-box .form__add-customer .form__input .form__input-item [type="number"].error + label,
+.main .container-box .form__add-customer .form__input .form__input-item [type="date"].error + label {
   color: #d32f2f;
 }
 
@@ -403,6 +412,18 @@ select:-webkit-autofill:focus {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-asesor {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-asesor .form__input-item:nth-child(2) {
+  margin-top: 23px;
 }
 
 .main .container-box .buttonFloat {
@@ -1027,7 +1048,8 @@ select:-webkit-autofill:focus {
     right: 2%;
   }
   .form__input-semanas,
-  .form__input-afore {
+  .form__input-afore,
+  .form__input-asesor {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
