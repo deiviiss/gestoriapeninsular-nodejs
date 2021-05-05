@@ -53,6 +53,17 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/* remove arrows de atibute step */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /*Estilos navigation*/
 .header {
   background-color: #f2f2f2;
@@ -292,6 +303,13 @@ select:-webkit-autofill:focus {
   display: grid;
 }
 
+.main .container-box .grid-altas {
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
 .main .container-box .form__add-customer {
   width: 100%;
   margin: auto;
@@ -299,6 +317,7 @@ select:-webkit-autofill:focus {
 
 .main .container-box .form__add-customer h6 {
   color: #23273b;
+  font-size: 14px;
 }
 
 .main .container-box .form__add-customer .form__input {
@@ -316,15 +335,14 @@ select:-webkit-autofill:focus {
 
 .main .container-box .form__add-customer .form__input .form__input-item select {
   margin-top: 3px;
+  margin-right: 4.5rem;
 }
 
 .main .container-box .form__add-customer .form__input .form__input-item select,
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"],
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"],
-.main .container-box .form__add-customer .form__input .form__input-item [type="password"],
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"],
 .main .container-box .form__add-customer .form__input .form__input-item [type="date"] {
-  padding-right: 20px;
   font-family: "Roboto", Arial;
   font-size: 16px;
   color: #23273b;
@@ -340,8 +358,6 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"]:active,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"]:focus,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"]:active,
-.main .container-box .form__add-customer .form__input .form__input-item [type="password"]:focus,
-.main .container-box .form__add-customer .form__input .form__input-item [type="password"]:active,
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"]:focus,
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"]:active,
 .main .container-box .form__add-customer .form__input .form__input-item [type="date"]:focus,
@@ -353,7 +369,6 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item select.error,
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"].error,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"].error,
-.main .container-box .form__add-customer .form__input .form__input-item [type="password"].error,
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"].error,
 .main .container-box .form__add-customer .form__input .form__input-item [type="date"].error {
   outline: none;
@@ -363,7 +378,6 @@ select:-webkit-autofill:focus {
 .main .container-box .form__add-customer .form__input .form__input-item select.error + label,
 .main .container-box .form__add-customer .form__input .form__input-item input[type="text"].error + label,
 .main .container-box .form__add-customer .form__input .form__input-item [type="tel"].error + label,
-.main .container-box .form__add-customer .form__input .form__input-item [type="password"].error + label,
 .main .container-box .form__add-customer .form__input .form__input-item [type="number"].error + label,
 .main .container-box .form__add-customer .form__input .form__input-item [type="date"].error + label {
   color: #d32f2f;
@@ -445,7 +459,7 @@ select:-webkit-autofill:focus {
 
 .main .container-box .tarjeta {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
   background: #ffffff;
   border: 1px solid #797979;
   -webkit-box-sizing: border-box;
@@ -709,10 +723,10 @@ select:-webkit-autofill:focus {
   border: 2px solid #ffffff;
   border-radius: 10px;
   color: #ffffff;
-  margin: 5%;
+  margin: 20px;
   padding: 25px;
   width: 90%;
-  max-width: 450px;
+  max-width: 480px;
   min-height: 300px;
   font-size: 14px;
   display: -webkit-box;
@@ -1010,6 +1024,10 @@ select:-webkit-autofill:focus {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
   }
+  .grid-altas {
+    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
   .buttonFloat {
     bottom: 7%;
     right: 15%;
@@ -1036,6 +1054,10 @@ select:-webkit-autofill:focus {
     -ms-grid-columns: 1fr 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+  .grid-altas {
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   .buttonFloat {
     bottom: 6%;
     right: 9%;
@@ -1054,6 +1076,10 @@ select:-webkit-autofill:focus {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+  .grid-altas {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
   }
 }
 

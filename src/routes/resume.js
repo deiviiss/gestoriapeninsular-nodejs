@@ -96,8 +96,8 @@ router.get('/resume', isLoggedIn, async (req, res) => {
 
 //?========= renderiza resume (status administrador regional por zona 'busqueda zona')
 router.post('/resume-zona/', isLoggedIn, async (req, res) => {
-  const user = req.user
-  const { zona } = req.body
+  const user = req.user;
+  const { zona } = req.body;
 
   const sqlSelect = "SELECT * FROM tramites WHERE status= ? AND zona = ?"
 

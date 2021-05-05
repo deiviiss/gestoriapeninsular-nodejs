@@ -1,0 +1,160 @@
+<div class="container-box">
+
+  <div class="form">
+
+    <h2 class="form__title">Datos del Cliente</h2>
+
+    <form action="/add-customer" method="post" class="form__add-customer" name="formulario_cliente">
+
+      <div class="form__input">
+
+        {{!-- nombre --}}
+        <div class="form__input-item">
+          <input type="text" id="nombre" name="nombre" autocomplete="off">
+          <label for="nombre" class='label'>Nombre(s)</label>
+        </div>
+
+        {{!-- apellido paterno & apellido materno --}}
+        <div class="form__input-afore">
+          {{!-- apellido paterno --}}
+          <div class="form__input-item">
+            <input type="text" id="apellidoPaterno" name="apellidoPaterno" autocomplete="off">
+            <label for="apellidoPaterno" class='label'>Apellido Paterno</label>
+          </div>
+          {{!-- apellido materno--}}
+          <div class="form__input-item">
+            <input type="text" id="apellidoMaterno" name="apellidoMaterno" autocomplete="off">
+            <label for="apellidoMaterno" class='label'>Apellido Materno</label>
+          </div>
+        </div>
+
+        {{!-- curp & nss--}}
+        <div class="form__input-afore">
+          {{!-- curp --}}
+          <div class="form__input-item">
+            <input type="text" id="curp" name="curp" autocomplete="off">
+            <label for="curp" class='label'>Curp</label>
+          </div>
+          {{!-- nss --}}
+          <div class="form__input-item">
+            <input type="number" id="nss" name="nss" autocomplete="off">
+            <label for="nss" class='label'>NSS</label>
+          </div>
+        </div>
+
+        {{!-- rfc & umf --}}
+        <div class="form__input-afore">
+          {{!-- rfc --}}
+          <div class="form__input-item">
+            <input type="text" id="rfc" name="rfc" autocomplete="off">
+            <label for="rfc" class='label'>RFC</label>
+          </div>
+          {{!-- umf --}}
+          <div class="form__input-item">
+            <input type="number" id="umf" name="umf" autocomplete="off">
+            <label for="umf" class='label'>UMF</label>
+          </div>
+        </div>
+
+        {{!-- semanas --}}
+        <div class="form__input-semanas">
+          <div class="form__input-item">
+            {{!-- cotizadas --}}
+            <input type="number" name="scotizadas" autocomplete="off">
+            <label for="scotizadas" class='label'>Semanas Cotizadas</label>
+          </div>
+          {{!-- descontadas --}}
+          <div class="form__input-item">
+            <input type="number" id="sdescontadas" name="sdescontadas" autocomplete="off">
+            <label for="sdescontadas" class='label'>Semanas Descontadas</label>
+          </div>
+        </div>
+
+        {{!-- asesor & fecha_retiro--}}
+        <div class="form__input-asesor">
+          {{!-- asesor --}}
+          <div class="form__input-item">
+            <label for="asesor" class='active'>Asesor</label>
+            <select name="asesor">
+              <option value="">---</option>
+              {{#each asesoresZona}}
+              <option value="{{asesor}}">{{asesor}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          {{!-- fecha último retiro --}}
+          <div class="form__input-item">
+            <input type="date" id="fecha_ultimo_retiro" name="fecha_ultimo_retiro">
+            <label for="fecha_ultimo_retiro" class='label active'>Fecha último retiro</label>
+          </div>
+        </div>
+
+        {{!-- afore & monto--}}
+        <div class="form__input-afore">
+          {{!-- afore --}}
+          <div class="form__input-item">
+            <label for="afore" class='label active'>Afore</label>
+            <select name="afore">
+              <option value="">---</option>
+              {{#each afores}}
+              <option value="{{afore}}">{{afore}}</option>
+              {{/each}}
+            </select>
+          </div>
+          {{!-- monto --}}
+          <div class="form__input-item">
+            <input type="number" id="monto" name="monto">
+            <label for="monto" class='label'>Monto</label>
+          </div>
+        </div>
+
+        {{!-- dirección --}}
+        <div class="form__input-item">
+          <input type="text" id="direccion" name="direccion" autocomplete="off">
+          <label for="direccion" class='label'>Dirección</label>
+        </div>
+
+        {{!-- lugar de nacimiento & telefono --}}
+        <div class="form__input-afore">
+          {{!-- lugar de nacimiento --}}
+          <div class="form__input-item">
+            <input type="text" id="lugar" name="lugar" autocomplete="off">
+            <label for="lugar" class='label'>Lugar de Nacimiento</label>
+          </div>
+          {{!-- teléfono --}}
+          <div class="form__input-item">
+            <input type="tel" pattern='([0-9]{10})' id="telefono" name="telefono" autocomplete="off">
+            <label for="tel" class='label'>Teléfono</label>
+          </div>
+        </div>
+
+        {{!-- sexo --}}
+        <div class="form__input-item">
+          <label for="sexo" class='Label active'>Sexo</label>
+          <select name="sexo">
+            <option value="">---</option>
+            <option value="H">Hombre</option>
+            <option value="M">Mujer</option>
+          </select>
+        </div>
+
+        {{!-- observaciones --}}
+        <h6 class="card-title m-2 text-center">Observaciones:</h6>
+
+        <div class="text-center mb-3">
+          <textarea class="form-control" name="observaciones" id="observaciones" cols="30"
+            rows="3">{{customer.observaciones}}</textarea>
+        </div>
+
+        {{!-- guardar --}}
+        <div class="form__input-item">
+          <input class="btn btn-info btn-block" type="submit" name="btn-submit" id="form__btn-submit" value="Guardar">
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/clientRegister.js"></script>

@@ -61,6 +61,16 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/* remove arrows de atibute step */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /*Estilos navigation*/
 .header {
   // display: none;
@@ -293,6 +303,13 @@ select:-webkit-autofill:focus {
       display: grid;
     }
 
+    //estilos resumen altas
+    .grid-altas {
+      display: grid;
+      justify-items: center;
+      margin-bottom: 10px;
+    }
+
     //view (add-customer)
     .form__add-customer {
       width: 100%;
@@ -300,6 +317,7 @@ select:-webkit-autofill:focus {
 
       h6 {
         color: $color-primary;
+        font-size: 14px;
       }
 
       .form__input {
@@ -314,15 +332,15 @@ select:-webkit-autofill:focus {
 
           select {
             margin-top: 3px;
+            margin-right: 4.5rem;
           }
 
           select,
           input[type="text"],
           [type="tel"],
-          [type="password"],
           [type="number"],
           [type="date"] {
-            padding-right: 20px;
+            // padding-right: 20px;
             font-family: $font-family;
             font-size: 16px;
             color: $color-primary;
@@ -415,7 +433,7 @@ select:-webkit-autofill:focus {
     //estilos del resumen
     .tarjeta {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 20px;
       background: #ffffff;
 
       border: 1px solid #797979;
@@ -671,10 +689,10 @@ select:-webkit-autofill:focus {
       border-radius: 10px;
       color: #ffffff;
       // padding: 60px 68px 40px;
-      margin: 5%;
+      margin: 20px;
       padding: 25px;
       width: 90%;
-      max-width: 450px;
+      max-width: 480px;
       min-height: 300px;
       font-size: 14px;
       display: flex;
@@ -932,6 +950,10 @@ select:-webkit-autofill:focus {
     grid-template-columns: 1fr 1fr;
   }
 
+  .grid-altas {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
   .buttonFloat {
     bottom: 7%;
     right: 15%;
@@ -956,6 +978,10 @@ select:-webkit-autofill:focus {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
+  .grid-altas {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
   .buttonFloat {
     bottom: 6%;
     right: 9%;
@@ -971,6 +997,10 @@ select:-webkit-autofill:focus {
   .form__input-afore,
   .form__input-asesor {
     flex-direction: column;
+  }
+
+  .grid-altas {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
