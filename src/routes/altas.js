@@ -268,6 +268,15 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   res.redirect('/list-altas')
 });
 
+//*Borrar altas
+router.get('/altas/delete-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
+  const { id_pre_altas } = req.params
+
+  await db.query('DELETE FROM pre_altas WHERE id_pre_altas= ?', [id_pre_altas])
+  req.flash('fail', 'Cliente borrado correctamente')
+  res.redirect('/list-altas')
+});
+
 //*Resume altas
 router.get('/resume-altas', isLoggedIn, async (req, res) => {
   const user = req.user;
@@ -321,11 +330,3 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
 
 module.exports = router;
 
-//borrar clientes
-// router.get('/delete/:idtramites', isLoggedIn, async (req, res) => {
-//   const { idtramites } = req.params
-//   console.log(idtramites)
-//   await pool.query('DELETE FROM tramites WHERE idtramites= ?', [idtramites])
-//   req.flash('fail', 'Cliente borrado correctamente')
-//   res.redirect('/customer')
-// })
