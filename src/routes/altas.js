@@ -271,8 +271,10 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
 //*Borrar altas
 router.get('/altas/delete-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   const { id_pre_altas } = req.params
+  const user = req.user
 
   await db.query('DELETE FROM pre_altas WHERE id_pre_altas= ?', [id_pre_altas])
+  console.log('Elimino el usuario ' + user.fullname);
   req.flash('fail', 'Cliente borrado correctamente')
   res.redirect('/list-altas')
 });
