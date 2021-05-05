@@ -128,7 +128,7 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   const updateCliente = {
     status,
     motivo: '',
-    observaciones: observaciones + " (" + user.fullname + ' ' + helpers.fecha(fechaActual) + ").",
+    observaciones: observaciones + " (" + user.fullname + ' ' + helpers.formatterFecha(fechaActual) + ").",
     fecha_status: fechaActual
   };
 
