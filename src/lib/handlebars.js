@@ -147,7 +147,7 @@ helpers.region = (region) => {
     return region = [
       { zona: 'Campeche3' },
       { zona: 'Carmen' },
-      { zona: 'Champoton' },
+      { zona: 'Champotón' },
       { zona: 'Coatzacoalcos' },
       { zona: 'Palenque' },
       { zona: 'Villahermosa' }
@@ -179,7 +179,7 @@ helpers.region = (region) => {
       { zona: 'Cancun2' },
       { zona: 'Candelaria' },
       { zona: 'Carmen' },
-      { zona: 'Champoton' },
+      { zona: 'Champotón' },
       { zona: 'Chetumal' },
       { zona: 'Coatzacoalcos' },
       { zona: 'Cozumel' },
@@ -231,7 +231,7 @@ helpers.zona = (zona) => {
       return 3
     case "Carmen":
       return 3
-    case "Champoton":
+    case "Champotón":
       return 3
     case "Coatzacoalcos":
       return 3
