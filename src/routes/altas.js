@@ -278,14 +278,20 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
 
     const resume = await db.query(sqlAltas)
 
-    //?suma los totales de altas
-    let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
+    if (resume.length !== 0) {
 
-    //? número de semana con base a la primera captura
-    const sqlWeek = "SELECT WEEK(?) AS total"
-    week = await db.query(sqlWeek, resume[0].fecha_captura)
+      //?suma los totales de altas
+      let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
-    res.render('altas/resume-altas.hbs', { resume, week, totalResume })
+      //? número de semana con base a la primera captura
+      const sqlWeek = "SELECT WEEK(?) AS total"
+      week = await db.query(sqlWeek, resume[0].fecha_captura)
+      res.render('altas/resume-altas.hbs', { resume, week, totalResume })
+    }
+    else {
+      res.redirect('/list-altas')
+    }
+
   }
   //*Resumen Regional
   else if (user.permiso === "Regional") {
@@ -293,14 +299,19 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
 
     const resume = await db.query(sqlAltas, user.region)
 
-    //?suma los totales de altas
-    let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
+    if (resume.length !== 0) {
 
-    //? número de semana con base a la primera captura
-    const sqlWeek = "SELECT WEEK(?) AS total"
-    week = await db.query(sqlWeek, resume[0].fecha_captura)
+      //?suma los totales de altas
+      let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
-    res.render('altas/resume-altas.hbs', { resume, week, totalResume })
+      //? número de semana con base a la primera captura
+      const sqlWeek = "SELECT WEEK(?) AS total"
+      week = await db.query(sqlWeek, resume[0].fecha_captura)
+      res.render('altas/resume-altas.hbs', { resume, week, totalResume })
+    }
+    else {
+      res.redirect('/list-altas')
+    }
   }
 
   else {
