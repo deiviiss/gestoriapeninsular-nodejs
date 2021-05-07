@@ -180,6 +180,7 @@ helpers.region = (region) => {
       { zona: 'Cancun2' },
       { zona: 'Candelaria' },
       { zona: 'Carmen' },
+      { zona: 'Carmen2' },
       { zona: 'Champotón' },
       { zona: 'Chetumal' },
       { zona: 'Coatzacoalcos' },
