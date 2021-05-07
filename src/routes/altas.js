@@ -104,7 +104,7 @@ router.get('/add-customer', isLoggedIn, async (req, res) => {
   const { zona } = req.user
 
   // Consulta asesores
-  const sqlAsesor = "SELECT a.asesor, a.status, r.region, z.zona FROM regiones AS r JOIN asesores AS a ON r.asesores_id_asesor = a.id_asesor JOIN zonas AS z ON r.zonas_id_zona = z.id_zona WHERE z.zona = ? AND a.status = 'Activo'"
+  const sqlAsesor = "SELECT a.asesor, a.status, r.region, z.zona FROM regiones AS r JOIN asesores AS a ON r.asesores_id_asesor = a.id_asesor JOIN zonas AS z ON r.zonas_id_zona = z.id_zona WHERE z.zona = ? AND a.status = 'Activo' ORDER BY a.asesor"
   const asesoresZona = await db.query(sqlAsesor, zona)
 
   //Consulta afores
@@ -198,7 +198,7 @@ router.get('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   const afores = await db.query(sqlAfore)
 
   // Consulta asesores
-  const sqlAsesor = "SELECT a.asesor, r.region, z.zona FROM regiones AS r JOIN asesores AS a ON r.asesores_id_asesor = a.id_asesor JOIN zonas AS z ON r.zonas_id_zona = z.id_zona WHERE z.zona = ?"
+  const sqlAsesor = "SELECT a.asesor, r.region, z.zona FROM regiones AS r JOIN asesores AS a ON r.asesores_id_asesor = a.id_asesor JOIN zonas AS z ON r.zonas_id_zona = z.id_zona WHERE z.zona = ? ORDER BY a.asesor"
   const asesoresZona = await db.query(sqlAsesor, customer[0].zona)
 
   //formato a customer (fecha)
