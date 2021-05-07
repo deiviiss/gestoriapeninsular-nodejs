@@ -147,6 +147,7 @@ helpers.region = (region) => {
     return region = [
       { zona: 'Campeche3' },
       { zona: 'Carmen' },
+      { zona: 'Carmen2' },
       { zona: 'Champotón' },
       { zona: 'Coatzacoalcos' },
       { zona: 'Palenque' },
@@ -230,6 +231,8 @@ helpers.zona = (zona) => {
     case "Campeche3":
       return 3
     case "Carmen":
+      return 3
+    case "Carmen2":
       return 3
     case "Champotón":
       return 3
