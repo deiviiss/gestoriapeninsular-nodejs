@@ -193,7 +193,7 @@ helpers.region = (region) => {
       { zona: 'Mérida' },
       { zona: 'Palenque' },
       { zona: 'Playa del Carmen' },
-      { zona: 'Tizimin' },
+      { zona: 'Tizimín' },
       { zona: 'Valladolid' },
       { zona: 'Villahermosa' }
     ]
@@ -254,11 +254,11 @@ helpers.zona = (zona) => {
 
     //region 5
     case "Escarcega":
-      return 4
+      return 5
     case "Valladolid":
-      return 4
+      return 5
     case "Tizimín":
-      return 4
+      return 5
   }
 }
 
