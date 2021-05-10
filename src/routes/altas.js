@@ -225,9 +225,9 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   const rowAfore = await db.query(sqlAfore, afore)
   const afore_id = rowAfore[0].id_afore
 
-  const sqlZona = "SELECT zona, id_zona FROM zonas WHERE zona = ?;"
-  const rowZona = await db.query(sqlZona, user.zona)
-  const zona_id = rowZona[0].id_zona
+  // const sqlZona = "SELECT zona, id_zona FROM zonas WHERE zona = ?;"
+  // const rowZona = await db.query(sqlZona, user.zona)
+  // const zona_id = rowZona[0].id_zona
 
   if (sdescontadas == 0) {
     fecha_ultimo_retiro = null
@@ -252,7 +252,7 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
     telefono,
     sexo,
     observaciones,
-    id_zona: zona_id,
+    // id_zona: zona_id,
     fecha_captura: fechaActual,
     capturado: user.fullname,
 
@@ -328,6 +328,21 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
   else {
     res.redirect('/list-altas')
   }
+});
+
+router.get('/dev', async (re, res) => {
+
+  const sqlAltas = "SELECT a.asesor, CONCAT(p.nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) AS cliente, p.curp, p.nss, af.afore, p.monto, (p.monto/30) AS sueldo, p.direccion, p.telefono, p.observaciones, z.zona, p.scotizadas, p.sdescontadas, p.fecha_ultimo_retiro, p.region FROM pre_altas as p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN zonas as z ON p.id_zona = z.id_zona JOIN afores as af ON p.id_afore = af.id_afore;"
+
+  const altas = await db.query(sqlAltas)
+
+  console.log(sqlAltas);
+
+  console.log(altas);
+
+  res.send({ altas: json })
+
+
 });
 
 module.exports = router;
