@@ -4,7 +4,11 @@
     <div class="col-md-8 mt-2 mx-auto">
       <div class="card border-info text-dark bg-light">
 
-        <h5 class="card-header">Cotización GP</h5>
+        <div class="d-flex justify-content-between card-header">
+          <h5>Cotización</h5>
+          <h5>{{user.zona}}</h5>
+
+        </div>
 
         <div class="card-body">
 
@@ -18,10 +22,15 @@
           <p class="card-text m-1">{{retiro.cobroClientePesos}}</p>
           <h6 class="card-title m-1">Cliente:</h6>
           <p class="card-text m-1">{{retiro.libreClientePesos}}</p>
-          <br>
-          <a href="/calcular" class="btn btn-info btn-block" id="btnCalcular">Nueva consulta</a>
+          <br />
+          <a
+            href="/calcular"
+            class="btn btn-info btn-block"
+            id="btnCalcular"
+          >Nueva consulta</a>
 
         </div>
+
       </div>
     </div>
   </div>

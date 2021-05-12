@@ -262,7 +262,8 @@ helpers.zona = (zona) => {
   }
 }
 
-//funciones costos
+//*funciones costos
+//Campeche, Campeche2 Campoeche3 
 helpers.costoLocal = (cantidad) => {
   let cobro
   let aseguramiento
@@ -317,6 +318,7 @@ helpers.costoLocal = (cantidad) => {
   return (retiro)
 }
 
+//Cancun, Cancun2, Carmen, Carmen2, Chetumal, Coatzacoalcos, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Tizimín, Valladolid, Villahermosa
 helpers.costoforaneo1 = (cantidad) => {
   let cobro
   let aseguramiento
@@ -335,7 +337,6 @@ helpers.costoforaneo1 = (cantidad) => {
     cobroCliente = cobro + aseguramiento
     libreCliente = cantidad - cobroCliente
   }
-
   else if (cantidad > 14999) {
     cobro = cantidad * .25
     aseguramiento = 1700
@@ -372,26 +373,22 @@ helpers.costoforaneo1 = (cantidad) => {
   return (retiro)
 }
 
+//Escarcega, Palenque, Champotón, Candelaria
 helpers.costoforaneo2 = (cantidad) => {
   let cobro
-  let aseguramiento
+  // let aseguramiento
   let cobroCliente
   let libreCliente
 
   cobro = cantidad * .30
-  aseguramiento = 'Incluido'
+  // aseguramiento = 'Incluido'
   cobroCliente = cobro
   libreCliente = cantidad - cobro
 
   //  formato moneda
   montoPesos = helpers.formatterPeso.format(cantidad)
   cobroPesos = helpers.formatterPeso.format(cobro)
-  if (aseguramiento === 'Incluido') {
-    aseguramientoPesos = 'Incluido'
-  }
-  else {
-    aseguramientoPesos = helpers.formatterPeso.format(aseguramiento)
-  }
+  aseguramientoPesos = 'Incluido'
   cobroClientePesos = helpers.formatterPeso.format(cobroCliente)
   libreClientePesos = helpers.formatterPeso.format(libreCliente)
 
@@ -409,31 +406,31 @@ helpers.costoforaneo2 = (cantidad) => {
 //valida la sucursal
 helpers.cotizacion = (cantidad, sucursal) => {
 
-  if (sucursal == "Campeche" || "Campeche2" || "Campeche3") {
+  if (sucursal == "Campeche" || sucursal == "Campeche2" || sucursal == "Campeche3") {
     helpers.costoLocal(cantidad)
   }
+  else if (sucursal == "Cancun" || sucursal == "Cancun2" || sucursal == "Carmen" || sucursal == "Carmen2" || sucursal == "Chetumal" || sucursal == "Coatzacoalcos" || sucursal == "Cozumel" || sucursal == "Cuautitlán" || sucursal == "Cuernavaca" || sucursal == "Cuernavaca2" || sucursal == "Ixtapaluca" || sucursal == "Mérida" || sucursal == "Playa del Carmen" || sucursal == "Tizimín" || sucursal == "Valladolid" || sucursal == "Villahermosa") {
 
-  else if (sucursal == "Cancun" || "Cancun2" || "Carmen" || "Chetumal" || "Cozumel" || "Cuautitlan" || "Cuernavaca" || "Cuernavaca2" || "Ixtapaluca" || "Merida" || "Palenque" || "Playa del Carmen" || "Tizimin" || "Valladolid" || "Villahermosa") {
     helpers.costoforaneo1(cantidad)
   }
-  else if (sucursal == "Champoton" || "Candelaria" || "Escarcega") {
+  else if (sucursal == "Champotón" || sucursal == "Candelaria" || sucursal == "Escarcega" || sucursal == "Palenque") {
     helpers.costoforaneo2(cantidad)
   }
 
 }
 
 //Valida el usuario para validar si usa body o user
-helpers.calculaCosto = (permiso, body, user) => {
-  if (permiso === "Administrador") {
+helpers.calculaCosto = (body, user) => {
+
+  if (user.permiso === "Encargado" || user.permiso === "Temporal") {
     let cantidad = body.montoRetiro
-    let sucursal = body.zona
+    let sucursal = user.zona
 
     helpers.cotizacion(cantidad, sucursal)
   }
   else {
     let cantidad = body.montoRetiro
-    let sucursal = user.zona
-
+    let sucursal = body.zona
     helpers.cotizacion(cantidad, sucursal)
   }
 }

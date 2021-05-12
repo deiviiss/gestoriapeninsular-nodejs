@@ -8,25 +8,30 @@
 
     <h6 class="resume-title">
       {{#each week}}
-      Semana - {{total}}
+        Semana -
+        {{total}}
       {{/each}}
     </h6>
     <h6 class="resume-title">
-      Total - {{totalResume}}
+      Total -
+      {{totalResume}}
     </h6>
 
     <div class="grid-altas">
       {{#each resume}}
 
-      <h6 class="tarjeta-title">{{zona}}</h6>
-      <p class="tarjeta-text">{{total}}</p>
+        <h6 class="tarjeta-title">{{zona}}</h6>
+        <p class="tarjeta-text">{{total}}</p>
 
       {{/each}}
     </div>
 
     <div class="buttons">
-      <a href="/list-altas/" class="btn btn-info"> <i class="far fa-list-alt mr-1"></i>Altas</a>
-      <a href="/resume/" class="btn btn-info"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
+      <a href="/list-altas/" class="btn btn-info">
+        <i class="far fa-list-alt mr-1"></i>Altas</a>
+      <a href="/resume/" class="btn btn-info"><i
+          class="fas fa-chart-line mr-1"
+        ></i>Resumen</a>
 
     </div>
 

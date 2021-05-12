@@ -11,18 +11,19 @@ const helpers = require('../lib/handlebars')
 router.get('/calcular', (req, res) => {
   const user = req.user
 
-  res.render('calculate/calcular.hbs', { user: user })
+  region = helpers.region(user.region)
+
+  res.render('calculate/calcular.hbs', { user, region })
 })
 
 //recibe la cantidad a calcular
-router.post('/calcular/:permiso', async (req, res) => {
-  const body = req.body
-  const { permiso } = req.params
+router.post('/calcular', async (req, res) => {
   const user = req.user
+  const body = req.body
 
-  helpers.calculaCosto(permiso, body, user)
+  helpers.calculaCosto(body, user)
 
-  res.render('calculate/result.hbs', { retiro })
+  res.render('calculate/result.hbs', { retiro, user })
 })
 
 module.exports = router;
