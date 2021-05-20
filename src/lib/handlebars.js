@@ -52,6 +52,15 @@ helpers.formatterCustomers = (customer) => {
       let fechaSolucion = (customer[i].fecha_solucion)
       let fechaStatus = (customer[i].fecha_status)
       let fechaCaptura = (customer[i].fecha_captura)
+      let infonavit = customer[i].infonavit
+
+      //infonavit
+      if (infonavit === 1) {
+        customer[i].infonavit = 'Sí'
+      }
+      else {
+        customer[i].infonavit = 'No'
+      }
 
       //monto
       customer[i].monto = helpers.formatterPeso.format(montoPeso)
@@ -119,148 +128,6 @@ helpers.formatterEditAlta = (customer) => {
 
   return customer
 };
-
-// Arreglo con las zona por region
-//! pudiera convertirse en una consulta
-helpers.region = (region) => {
-  if (region === 1) {
-    return region = [
-      { zona: 'Campeche' },
-      { zona: 'Campeche2' },
-      { zona: 'Cuernavaca' },
-      { zona: 'Mérida' }
-    ]
-  }
-
-  else if (region === 2) {
-    return region = [
-      { zona: 'Cancun' },
-      { zona: 'Cancun2' },
-      { zona: 'Candelaria' },
-      { zona: 'Chetumal' },
-      { zona: 'Cozumel' },
-      { zona: 'Playa del Carmen' },
-    ]
-  }
-
-  else if (region === 3) {
-    return region = [
-      { zona: 'Campeche3' },
-      { zona: 'Carmen' },
-      { zona: 'Carmen2' },
-      { zona: 'Champotón' },
-      { zona: 'Coatzacoalcos' },
-      { zona: 'Palenque' },
-      { zona: 'Villahermosa' }
-    ]
-  }
-
-  else if (region === 4) {
-    return region = [
-      { zona: 'Cuautitlán' },
-      { zona: 'Cuernavaca2' },
-      { zona: 'Ixtapaluca' }
-    ]
-  }
-
-  else if (region === 5) {
-    return region = [
-      { zona: 'Escarcega' },
-      { zona: 'Valladolid' },
-      { zona: 'Tizimín' }
-    ]
-  }
-
-  else {
-    return regiones = [
-      { zona: 'Campeche' },
-      { zona: 'Campeche2' },
-      { zona: 'Campeche3' },
-      { zona: 'Cancun' },
-      { zona: 'Cancun2' },
-      { zona: 'Candelaria' },
-      { zona: 'Carmen' },
-      { zona: 'Carmen2' },
-      { zona: 'Champotón' },
-      { zona: 'Chetumal' },
-      { zona: 'Coatzacoalcos' },
-      { zona: 'Cozumel' },
-      { zona: 'Cuautitlán' },
-      { zona: 'Cuernavaca' },
-      { zona: 'Cuernavaca2' },
-      { zona: 'Escarcega' },
-      { zona: 'Ixtapaluca' },
-      { zona: 'Mérida' },
-      { zona: 'Palenque' },
-      { zona: 'Playa del Carmen' },
-      { zona: 'Tizimín' },
-      { zona: 'Valladolid' },
-      { zona: 'Villahermosa' }
-    ]
-  }
-}
-
-//Retorna la region por zona
-helpers.zona = (zona) => {
-  switch (zona) {
-
-    // region 1
-    case "Campeche":
-      return 1
-    case "Campeche2":
-      return 1
-    case "Curnavaca":
-      return 1
-    case "Mérida":
-      return 1
-
-    // region 2
-    case "Cancun":
-      return 2
-    case "Cancun2":
-      return 2
-    case "Candelaria":
-      return 2
-    case "Chetumal":
-      return 2
-    case "Cozumel":
-      return 2
-    case "Playa del Carmen":
-      return 2
-
-    //region 3
-    case "Campeche3":
-      return 3
-    case "Carmen":
-      return 3
-    case "Carmen2":
-      return 3
-    case "Champotón":
-      return 3
-    case "Coatzacoalcos":
-      return 3
-    case "Palenque":
-      return 3
-    case "Villahermosa":
-      return 3
-
-    //region 4
-    case "Cuernavaca2":
-      return 4
-    case "Cuautitlán":
-      return 4
-    case "Ixtapaluca":
-      return 4
-
-    //region 5
-    case "Escarcega":
-      return 5
-    case "Valladolid":
-      return 5
-    case "Tizimín":
-      return 5
-  }
-}
 
 //*funciones costos
 //Campeche, Campeche2 Campoeche3 

@@ -2,56 +2,61 @@
 
   {{#if_equal user.permiso "Administrador"}}
 
-  <div class="search">
-    <form action="/resume-zona" method="POST">
-      {{!-- <label for="status" class='label active'>Zona</label> --}}
+    <div class="search">
+      <form action="/resume-zona" method="POST">
 
-      <select name="zona" id="zona" class="form-control">
-        <option value="">Elige una zona</option>
-        {{#each region}}
-        <option value="{{zona}}">{{zona}}</option>
-        {{/each}}
-      </select>
+        <select name="zona" id="zona" class="form-control">
+          <option value="">Elige una zona</option>
+          {{#each zonas}}
+            <option value="{{zona}}">{{zona}}</option>
+          {{/each}}
+        </select>
 
-      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+        <button
+          type="submit"
+          class="btn btn-primary fas fa-search ml-2"
+          style="height: 2rem;"
+        ></button>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
   {{/if_equal}}
 
   {{#if_equal user.permiso "Regional"}}
 
-  <div class="search">
-    <form action="/resume-zona" method="POST">
-      {{!-- <label for="status" class='label active'>Zona</label> --}}
+    <div class="search">
+      <form action="/resume-zona" method="POST">
 
-      <select name="zona" id="zona" class="form-control">
-        <option value="">Elige una zona</option>
-        {{#each region}}
-        <option value="{{zona}}">{{zona}}</option>
-        {{/each}}
-      </select>
+        <select name="zona" id="zona" class="form-control">
+          <option value="">Elige una zona</option>
+          {{#each zonas}}
+            <option value="{{zona}}">{{zona}}</option>
+          {{/each}}
+        </select>
 
-      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+        <button
+          type="submit"
+          class="btn btn-primary fas fa-search ml-2"
+          style="height: 2rem;"
+        ></button>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
   {{/if_equal}}
 
   <div class="tarjeta">
 
     {{#if zona}}
-    <h2 class="resume-status">
-      {{zona}}
-    </h2>
+      <h2 class="resume-status">
+        {{zona}}
+      </h2>
     {{else}}
-    <h2 class="resume-status">
-      {{user.zona}}
-    </h2>
+      <h2 class="resume-status">
+        {{user.zona}}
+      </h2>
     {{/if}}
-
 
     <h6 class="resume-title">
       {{user.fullname}}
@@ -62,82 +67,22 @@
     </h6>
 
     <div class="grid">
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.espera}}?zona={{zona}}">
-          <h6 class="tarjeta-title">En espera</h6>
-          <p class="tarjeta-text">{{status.espera}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.pendiente}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Pendientes</h6>
-          <p class="tarjeta-text">{{status.pendientes}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.finalizado}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Finalizados</h6>
-          <p class="tarjeta-text">{{status.finalizados}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.fallido}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Fallidos</h6>
-          <p class="tarjeta-text">{{status.fallidos}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.asegurado}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Asegurados</h6>
-          <p class="tarjeta-text">{{status.asegurados}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.baja}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Bajas</h6>
-          <p class="tarjeta-text">{{status.bajas}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.juridico}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Jurídico</h6>
-          <p class="tarjeta-text">{{status.juridico}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Aclaración</h6>
-          <p class="tarjeta-text">{{status.aclaraciones}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.aclaracion}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Liquidar</h6>
-          <p class="tarjeta-text">{{status.liquidar}}</p>
-        </a>
-      </div>
-
-      <div class="tarjeta-status">
-        <a href="/resume/{{titulos.actualizar}}?zona={{zona}}">
-          <h6 class="tarjeta-title">Actualizar</h6>
-          <p class="tarjeta-text">{{status.actualizar}}</p>
-        </a>
-      </div>
-
+      {{#each status}}
+        <div class="tarjeta-status">
+          <a href="/resume/{{status}}?zona={{zona}}">
+            <h6 class="tarjeta-title">{{status}}</h6>
+            <p class="tarjeta-text">{{total}}</p>
+          </a>
+        </div>
+      {{/each}}
     </div>
 
     <div class="buttons">
-      <a href="/customer/" class="btn btn-info"><i class="fas fa-users mr-1"></i>Clientes</a>
-      <a href="/list-altas/" class="btn btn-info"> <i class="far fa-list-alt mr-1"></i>Altas</a>
+      <a href="/customer/" class="btn btn-info"><i
+          class="fas fa-users mr-1"
+        ></i>Clientes</a>
+      <a href="/list-altas/" class="btn btn-info">
+        <i class="far fa-list-alt mr-1"></i>Altas</a>
 
     </div>
 

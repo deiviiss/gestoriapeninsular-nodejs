@@ -64,18 +64,11 @@
               <div class="form__input">
 
                 <div class="form__input-item">
-                  {{!-- <label for="status" class='label active'>Motivo</label> --}}
                   <select required name="motivo" id="motivo">
                     <option value=""></option>
-                    <option value="Afore">Afore</option>
-                    <option value="Antigüedad">Antigüedad</option>
-                    <option value="Cita">Cita</option>
-                    <option value="Cobro">Cobro</option>
-                    <option value="Demanda">Demanda</option>
-                    <option value="Documentos">Documentos</option>
-                    <option value="Orden">Orden</option>
-                    <option value="Saldos">Saldos</option>
-                    <option value="Unificación">Unificación</option>
+                    {{#each motivos}}
+                    <option value="{{motivo}}">{{motivo}}</option>
+                    {{/each}}
                   </select>
                 </div>
 

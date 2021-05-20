@@ -407,6 +407,40 @@ input[type="number"] {
   line-height: 12px;
 }
 
+.main .container-box .form__add-customer .form__input .form__input-item p {
+  margin-bottom: 0;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio label {
+  display: inline-block;
+  cursor: pointer;
+  color: #23273b;
+  position: relative;
+  padding: 5px 15px 5px 51px;
+  font-size: 1em;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio label:hover {
+  background: #23273b;
+  color: white;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio label:before {
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  left: 25px;
+  top: 7px;
+  border-radius: 50%;
+  background: none;
+  border: 2px solid #23273b;
+}
+
 .main .container-box .form__add-customer .form__input .form__input-item.error label {
   color: #d32f2f;
 }
@@ -417,6 +451,21 @@ input[type="number"] {
 
 .main .container-box .form__add-customer .form__input .form__input-item.error label:before {
   border: 2px solid #d32f2f;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio input[type="radio"] {
+  display: none;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio input[type="radio"]:checked + label:before {
+  display: none;
+}
+
+.main .container-box .form__add-customer .form__input .form__input-item.radio input[type="radio"]:checked + label {
+  padding: 5px 15px;
+  background: #23273b;
+  border-radius: 2px;
+  color: white;
 }
 
 .main .container-box .form__add-customer .form__input .form__input-semanas,

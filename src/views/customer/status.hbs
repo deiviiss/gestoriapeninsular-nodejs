@@ -1,17 +1,24 @@
-{{!-- Formulario agregar status --}}
+{{! Formulario agregar status }}
 
 <div class="container-box">
 
   <div class="container p-2">
     <div class="col-md-6 mt-2 mx-auto">
 
-      <form action="/customer/status/{{customer.id}}" method="post" class="form__edit" name="formulario_cliente">
+      <form
+        action="/customer/status/{{customer.id}}"
+        method="post"
+        class="form__edit"
+        name="formulario_cliente"
+      >
 
         <div class="card border-info text-dark bg-light">
 
           <div class="card_title">
             <h5 class="card-header text-muted">{{customer.cliente}}</h5>
-            <a onclick="window.history.back()"><i class="fas fa-arrow-left text-muted"></i></a>
+            <a onclick="window.history.back()"><i
+                class="fas fa-arrow-left text-muted"
+              ></i></a>
           </div>
 
           <div class="card-body">
@@ -21,16 +28,11 @@
             <div class="text-center mb-4">
               <div class="form__input">
                 <div class="form__input-item">
-                  {{!-- <label for="status" class='label active'>Status</label> --}}
                   <select required name="status" id="status">
                     <option value=""></option>
-                    <option value="Finalizado">Finalizado</option>
-                    <option value="Baja">Baja</option>
-                    <option value="Fallido">Fallido</option>
-                    <option value="Jurídico">Jurídico</option>
-                    <option value="Aclaración">Aclaración</option>
-                    <option value="Asegurado">Asegurado</option>
-                    <option value="Pendiente">Pendiente</option>
+                    {{#each status}}
+                      <option value="{{status}}">{{status}}</option>
+                    {{/each}}
                   </select>
                 </div>
               </div>
@@ -44,12 +46,25 @@
 
             <div class="text-center">
 
-              <textarea required class="border-" name="observaciones" id="observaciones" cols="30" rows="2"></textarea>
+              <textarea
+                required
+                class="border-"
+                name="observaciones"
+                id="observaciones"
+                cols="30"
+                rows="2"
+              ></textarea>
             </div>
 
             <div class="buttons">
 
-              <input class="btn btn-info" type="submit" name="btn-submit" id="form__btn-submit" value="Actualizar">
+              <input
+                class="btn btn-info"
+                type="submit"
+                name="btn-submit"
+                id="form__btn-submit"
+                value="Actualizar"
+              />
 
             </div>
 

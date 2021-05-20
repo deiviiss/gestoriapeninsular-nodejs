@@ -7,8 +7,6 @@ let nss = document.getElementById("nss");
 let rfc = document.getElementById("rfc");
 let umf = document.getElementById("umf");
 
-
-
 //funciones
 
 var validarInputs = function () {
@@ -56,7 +54,7 @@ var validarInputs = function () {
   // Ciclo que valida campos vacios
   for (var i = 0; i < elementos.length; i++) {
 
-    if (elementos[i].type == 'text' || elementos[i].type == 'tel' || elementos[i].type == 'select-one' || elementos[i].type == 'number') {
+    if (elementos[i].type == 'text' || elementos[i].type == 'tel' || elementos[i].type == 'select-one' || elementos[i].type == 'number' || elementos[i].type == 'radio') {
       if (elementos[i].value == "") {
         console.log('El campo ' + elementos[i].name + ' esta incompleto');
         elementos[i].className = elementos[i].className + ' error';
@@ -72,11 +70,44 @@ var validarInputs = function () {
 
 };
 
+var validarRadios = function () {
+  var opciones = document.getElementsByName('infonavit');
+  var resultado = false;
+
+  //recorre buscando radio
+  for (var i = 0; i < elementos.length; i++) {
+    if (elementos[i].type == 'radio' && elementos[i].name == 'infonavit') {
+
+      //recorre los radio buscando checked
+      for (var o = 0; o < opciones.length; o++) {
+        if (opciones[o].checked) {
+          resultado = true;
+          break;
+        }
+      }
+      console.log('Las opciones ', opciones);
+      if (resultado == false) {
+        elementos[i].parentNode.className = elementos[i].parentNode.className + ' error';
+        console.log('El campo infonavit no está completo')
+        return false;
+      } else {
+        elementos[i].parentNode.className = elementos[i].parentNode.className.replace('error', '');
+        return true;
+      }
+    }
+  }
+};
+
 var enviar = function (e) {
   if (!validarInputs()) {
     console.log('Falto validar los Input')
     e.preventDefault();
-  } else {
+  }
+  else if (!validarRadios()) {
+    console.log('Falto validar los radio');
+    e.preventDefault();
+  }
+  else {
     console.log('Envia los datos')
     // e.preventDefault();
   }
@@ -101,7 +132,7 @@ form.addEventListener('submit', enviar);
 
 // ciclo para el evento a cada elemento
 for (var i = 0; i < elementos.length; i++) {
-  if (elementos[i].type == 'text' || elementos[i].type == 'tel' || elementos[i].type == 'select-one' || elementos[i].type == 'number') {
+  if (elementos[i].type == 'text' || elementos[i].type == 'tel' || elementos[i].type == 'select-one' || elementos[i].type == 'number' || elementos[i].type == 'radio') {
     elementos[i].addEventListener('focus', focusInput);
     elementos[i].addEventListener('blur', blurInput)
   }

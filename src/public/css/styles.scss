@@ -386,6 +386,37 @@ input[type="number"] {
             }
           }
 
+          p {
+            margin-bottom: 0;
+          }
+
+          &.radio label {
+            display: inline-block;
+            cursor: pointer;
+            color: $color-primary;
+            position: relative;
+            padding: 5px 15px 5px 51px;
+            font-size: 1em;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            &:hover {
+              background: rgba($color-primary, 1);
+              color: white;
+            }
+            &:before {
+              content: "";
+              display: inline-block;
+              width: 17px;
+              height: 17px;
+              position: absolute;
+              left: 25px;
+              top: 7px;
+              border-radius: 50%;
+              background: none;
+              border: $borde solid $color-primary;
+            }
+          }
+
           &.error {
             label {
               color: $color-red;
@@ -394,6 +425,21 @@ input[type="number"] {
               }
               &:before {
                 border: $borde solid $color-red;
+              }
+            }
+          }
+
+          &.radio {
+            input[type="radio"] {
+              display: none;
+              &:checked + label:before {
+                display: none;
+              }
+              &:checked + label {
+                padding: 5px 15px;
+                background: $color-primary;
+                border-radius: $borde;
+                color: white;
               }
             }
           }

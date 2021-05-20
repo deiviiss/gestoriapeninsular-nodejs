@@ -2,41 +2,49 @@
 
   {{#if_equal user.permiso "Administrador"}}
 
-  <div class="search">
-    <form action="/list-altas" method="POST">
-      {{!-- <label for="status" class='label active'>Zona</label> --}}
+    <div class="search">
+      <form action="/list-altas" method="POST">
+        {{! <label for="status" class='label active'>Zona</label> }}
 
-      <select name="zona" id="zona" class="form-control">
-        <option value="">Elige una zona</option>
-        {{#each region}}
-        <option value="{{zona}}">{{zona}}</option>
-        {{/each}}
-      </select>
+        <select name="zona" id="zona" class="form-control">
+          <option value="">Elige una zona</option>
+          {{#each zonas}}
+            <option value="{{zona}}">{{zona}}</option>
+          {{/each}}
+        </select>
 
-      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+        <button
+          type="submit"
+          class="btn btn-primary fas fa-search ml-2"
+          style="height: 2rem;"
+        ></button>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
   {{/if_equal}}
 
   {{#if_equal user.permiso "Regional"}}
 
-  <div class="search">
-    <form action="/list-altas" method="POST">
-      {{!-- <label for="status" class='label active'>Zona</label> --}}
+    <div class="search">
+      <form action="/list-altas" method="POST">
+        {{! <label for="status" class='label active'>Zona</label> }}
 
-      <select name="zona" id="zona" class="form-control">
-        <option value="">Elige una zona</option>
-        {{#each region}}
-        <option value="{{zona}}">{{zona}}</option>
-        {{/each}}
-      </select>
+        <select name="zona" id="zona" class="form-control">
+          <option value="">Elige una zona</option>
+          {{#each zonas}}
+            <option value="{{zona}}">{{zona}}</option>
+          {{/each}}
+        </select>
 
-      <button type="submit" class="btn btn-primary fas fa-search ml-2" style="height: 2rem;"></button>
+        <button
+          type="submit"
+          class="btn btn-primary fas fa-search ml-2"
+          style="height: 2rem;"
+        ></button>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
   {{/if_equal}}
 
@@ -50,88 +58,103 @@
         <h5>{{user.fullname}}</h5>
 
         {{#if_equal user.permiso "Administrador"}}
-        <div class="buttons btn-list">
-          <a href="/resume-altas/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
-        </div>
+          <div class="buttons btn-list">
+            <a href="/resume-altas/" class="btn btn-info btn-space"><i
+                class="fas fa-chart-line mr-1"
+              ></i>Resumen</a>
+          </div>
 
         {{/if_equal}}
 
         {{#if_equal user.permiso "Regional"}}
-        <div class="buttons btn-list">
-          <a href="/resume-altas/" class="btn btn-info btn-space"><i class="fas fa-chart-line mr-1"></i>Resumen</a>
-        </div>
+          <div class="buttons btn-list">
+            <a href="/resume-altas/" class="btn btn-info btn-space"><i
+                class="fas fa-chart-line mr-1"
+              ></i>Resumen</a>
+          </div>
         {{/if_equal}}
 
         {{#if_equal user.permiso "Encargado"}}
 
-        <h6 class="resume-title">
-          Total - {{totalResume}}
-        </h6>
+          <h6 class="resume-title">
+            Total -
+            {{totalResume}}
+          </h6>
 
         {{/if_equal}}
 
         {{#if_equal user.permiso "Temporal"}}
 
-        <h6 class="resume-title">
-          Total - {{totalResume}}
-        </h6>
+          <h6 class="resume-title">
+            Total -
+            {{totalResume}}
+          </h6>
 
         {{/if_equal}}
 
-
       </div>
       {{#each customer}}
-      <div class="customer">
-        <div class="grid-list">
+        <div class="customer">
+          <div class="grid-list">
 
-          <h6>Cliente</h6>
-          <p>{{nombre}} {{apellidoPaterno}} {{apellidoMaterno}}</p>
-          <h6>Curp</h6>
-          <p>{{curp}}</p>
-          <h6>NSS</h6>
-          <p>{{nss}}</p>
+            <h6>Cliente</h6>
+            <p>{{nombre}} {{apellidoPaterno}} {{apellidoMaterno}}</p>
+            <h6>Curp</h6>
+            <p>{{curp}}</p>
+            <h6>NSS</h6>
+            <p>{{nss}}</p>
 
-          <h6>RFC</h6>
-          <p>{{rfc}}</p>
-          <h6>UMF</h6>
-          <p>{{umf}}</p>
-          <h6>Semanas Cotizadas</h6>
-          <p>{{scotizadas}}</p>
+            <h6>RFC</h6>
+            <p>{{rfc}}</p>
+            <h6>UMF</h6>
+            <p>{{umf}}</p>
+            <h6>Semanas Cotizadas</h6>
+            <p>{{scotizadas}}</p>
 
-          <h6>Semanas Descontadas</h6>
-          <p>{{sdescontadas}}</p>
-          <h6>Afore</h6>
-          <p>{{afore}}</p>
-          <h6>Monto</h6>
-          <p>{{monto}}</p>
+            <h6>Semanas Descontadas</h6>
+            <p>{{sdescontadas}}</p>
+            <h6>Afore</h6>
+            <p>{{afore}}</p>
+            <h6>Monto</h6>
+            <p>{{monto}}</p>
 
+            <h6>Fecha último retiro</h6>
+            <p>{{fecha_ultimo_retiro}}</p>
+            <h6>Sexo</h6>
+            <p>{{sexo}}</p>
+            <h6>Asesor</h6>
+            <p>{{asesor}}</p>
 
-          <h6>Fecha último retiro</h6>
-          <p>{{fecha_ultimo_retiro}}</p>
-          <h6>Sexo</h6>
-          <p>{{sexo}}</p>
-          <h6>Asesor</h6>
-          <p>{{asesor}}</p>
+            <h6>Capturo - Fecha</h6>
+            <p>{{capturado}} {{fecha_captura}}</p>
+            <h6>Infonavit</h6>
+            <p>{{infonavit}}</p>
+            <h6>Zona</h6>
+            <p>{{zona}}</p>
 
-          <h6>Capturo - Fecha</h6>
-          <p>{{capturado}} {{fecha_captura}}</p>
-          <h6>{{zona}}</h6>
-          <p></p>
+            <h6></h6>
+            <p></p>
+            <h6></h6>
+            <p></p>
 
-          <a href="/altas/delete-altas/{{id_pre_altas}}" class="btn btn-danger">Eliminar</a>
-          <a href="/altas/edit-altas/{{id_pre_altas}}" class="btn btn-info">Editar</a>
+            <a
+              href="/altas/delete-altas/{{id_pre_altas}}"
+              class="btn btn-danger"
+            >Eliminar</a>
+            <a
+              href="/altas/edit-altas/{{id_pre_altas}}"
+              class="btn btn-info"
+            >Editar</a>
 
+          </div>
         </div>
-      </div>
 
       {{else}}
-      <div class="card card-body text-center mt-2">
-        <p class="text-center">No se han realizado capturas está semana.</p>
-        <a href="/profile">Ir a perfil!</a>
-      </div>
+        <div class="card card-body text-center mt-2">
+          <p class="text-center">No se han realizado capturas está semana.</p>
+          <a href="/profile">Ir a perfil!</a>
+        </div>
       {{/each}}
-
-
 
     </div>
 

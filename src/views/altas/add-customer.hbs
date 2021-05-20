@@ -166,10 +166,10 @@
         </div>
 
         {{! sexo & Infonavit }}
-        <div class="form_input-afore">
+        <div class="form__input-afore">
           {{! sexo }}
           <div class="form__input-item">
-            <label for="sexo" class="Label active">Sexo</label>
+            <label for="sexo" class="active">Sexo</label>
             <select name="sexo">
               <option value="">---</option>
               <option value="H">Hombre</option>
@@ -177,9 +177,12 @@
             </select>
           </div>
           {{! Infonavit }}
-          <div class="form__input-item">
-            <input type="checkbox" id="infonavit" name="infonavit" />
-            <label for="infonavit" class="label">Infonavit</label>
+          <div class="form__input-item radio">
+            <p class="label active">Infonavit</p>
+            <input type="radio" id="infonavitSi" name="infonavit" value="si" />
+            <label for="infonavitSi">Sí</label>
+            <input type="radio" id="infonavitNo" name="infonavit" value="no" />
+            <label for="infonavitNo">No</label>
           </div>
         </div>
 
@@ -209,6 +212,7 @@
 
       </div>
     </form>
+
   </div>
 </div>
 

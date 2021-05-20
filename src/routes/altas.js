@@ -15,37 +15,39 @@ router.get('/list-altas', isLoggedIn, async (req, res) => {
 
   if (user.permiso === "Administrador") {
 
-    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona ORDER BY p.fecha_captura ASC;'
+    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado, p.infonavit FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona ORDER BY p.fecha_captura ASC;'
 
     const customer = await db.query(sqlCustomer)
 
     //helper que cambia el formato de fecha y moneda
     helpers.formatterCustomers(customer)
 
-    //Para input de busqueda por zona
-    region = helpers.region(user.region)
+    //Para input de busqueda por zona (get zonas)
+    const sqlZonas = 'SELECT zona FROM zonas ORDER BY zona;'
+    const zonas = await db.query(sqlZonas)
 
-    res.render('altas/list-altas.hbs', { customer, user, region })
+    res.render('altas/list-altas.hbs', { customer, user, zonas })
   }
 
   else if (user.permiso === "Regional") {
-    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE p.region = ? ORDER BY p.fecha_captura ASC;'
+    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado, p.infonavit FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE p.region = ? ORDER BY p.fecha_captura ASC;'
 
     const customer = await db.query(sqlCustomer, user.region)
 
-    //Para input de busqueda por zona
-    region = helpers.region(user.region)
+    //Para input de busqueda por zona (get zonas)
+    const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
+    const zonas = await db.query(sqlZonas, user.region)
 
     //helper que cambia el formato de fecha y moneda
     helpers.formatterCustomers(customer)
 
-    res.render('altas/list-altas.hbs', { customer, user, region })
+    res.render('altas/list-altas.hbs', { customer, user, zonas })
   }
 
   //*Encargado
   else {
 
-    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE z.zona = ? ORDER BY p.fecha_captura ASC;'
+    const sqlCustomer = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado, p.infonavit FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE z.zona = ? ORDER BY p.fecha_captura ASC;'
 
     const customer = await db.query(sqlCustomer, user.zona)
 
@@ -75,12 +77,13 @@ router.post('/list-altas', isLoggedIn, async (req, res) => {
     const customer = await db.query(sqlCustomer, zona)
 
     //Para input de busqueda por zona
-    region = helpers.region(user.region)
+    const sqlZonas = 'SELECT zona FROM zonas ORDER BY zona;'
+    const zonas = await db.query(sqlZonas)
 
     //helper que cambia el formato de fecha y moneda
     helpers.formatterCustomers(customer)
 
-    res.render('altas/list-altas.hbs', { customer, user, region })
+    res.render('altas/list-altas.hbs', { customer, user, zonas })
   }
 
   else {
@@ -88,13 +91,14 @@ router.post('/list-altas', isLoggedIn, async (req, res) => {
 
     const customer = await db.query(sqlCustomer, [user.region, zona])
 
-    //Para input de busqueda por zona
-    region = helpers.region(user.region)
+    //Para input de busqueda por zona (get zonas)
+    const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
+    const zonas = await db.query(sqlZonas, user.region)
 
     //helper que cambia el formato de fecha y moneda
     helpers.formatterCustomers(customer)
 
-    res.render('altas/list-altas.hbs', { customer, user, region })
+    res.render('altas/list-altas.hbs', { customer, user, zonas })
   }
 });
 
@@ -118,10 +122,13 @@ router.get('/add-customer', isLoggedIn, async (req, res) => {
 router.post('/add-customer', isLoggedIn, async (req, res) => {
   const user = req.user
   const fechaActual = new Date()
-  const region = helpers.zona(user.zona)
+
+  const sqlRegion = 'SELECT region FROM zonas WHERE zona = ? ORDER BY zona;'
+  const regionDb = await db.query(sqlRegion, user.zona)
+  const region = regionDb[0].region
 
   // Objeto del formulario
-  let { nombre, apellidoPaterno, apellidoMaterno, curp, nss, rfc, umf, scotizadas, sdescontadas, asesor, fecha_ultimo_retiro, afore, monto, direccion, lugar, telefono, sexo, observaciones } = req.body;
+  let { nombre, apellidoPaterno, apellidoMaterno, curp, nss, rfc, umf, scotizadas, sdescontadas, asesor, fecha_ultimo_retiro, afore, monto, direccion, lugar, telefono, sexo, infonavit, observaciones } = req.body;
 
   //? Get valores de tablas (asesores, afores, zonas)
   const sqlAsesor = "SELECT asesor, id_asesor FROM asesores WHERE asesor = ?;"
@@ -143,6 +150,12 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
   // const sqlOutsourcing = "SELECT outsourcing, id_outsourcing FROM outsourcing WHERE outsourcing = 'Homero';"
   // const rowOutsourcing = await db.query(sqlOutsourcing)
   // const outsourcing_id = rowOutsourcing[0].id_outsourcing
+  if (infonavit === 'si') {
+    infonavit = true
+  }
+  else {
+    infonavit = false
+  }
 
   if (sdescontadas == 0) {
     fecha_ultimo_retiro = null
@@ -170,7 +183,8 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
     id_zona: zona_id,
     fecha_captura: fechaActual,
     capturado: user.fullname,
-    region: region
+    region,
+    infonavit
 
     // sueldo_base: monto / 30,
     // outsourcing_id_outsourcing: outsourcing_id,
@@ -189,7 +203,7 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
 router.get('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   const { id_pre_altas } = req.params
 
-  const sqlAlta = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE p.id_pre_altas = ?; '
+  const sqlAlta = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado, p.infonavit FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE p.id_pre_altas = ?; '
 
   customer = await db.query(sqlAlta, [id_pre_altas])
 
@@ -204,7 +218,16 @@ router.get('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   //formato a customer (fecha)
   helpers.formatterEditAlta(customer)
 
-  res.render('altas/edit-alta', { customer: customer[0], asesoresZona, afores })
+  let infonavitDb = customer[0].infonavit
+
+  if (infonavitDb === 1) {
+    customer.push({ infonavitSi: 'checked', infonavitNo: '' })
+  }
+  else {
+    customer.push({ infonavitNo: 'checked', infonavitSi: '' })
+  }
+
+  res.render('altas/edit-alta', { customer: customer[0], asesoresZona, afores, infonavit: customer[1] })
 });
 
 //recibe formulario editado
@@ -214,7 +237,7 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   const user = req.user;
 
   // Objeto del formulario
-  let { nombre, apellidoPaterno, apellidoMaterno, curp, nss, rfc, umf, scotizadas, sdescontadas, asesor, fecha_ultimo_retiro, afore, monto, direccion, lugar, telefono, sexo, observaciones } = req.body;
+  let { nombre, apellidoPaterno, apellidoMaterno, curp, nss, rfc, umf, scotizadas, sdescontadas, asesor, fecha_ultimo_retiro, afore, monto, direccion, lugar, telefono, sexo, infonavit, observaciones } = req.body;
 
   //? Get valores de tablas (asesores, afores, zonas)
   const sqlAsesor = "SELECT asesor, id_asesor FROM asesores WHERE asesor = ?;"
@@ -228,6 +251,13 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   // const sqlZona = "SELECT zona, id_zona FROM zonas WHERE zona = ?;"
   // const rowZona = await db.query(sqlZona, user.zona)
   // const zona_id = rowZona[0].id_zona
+
+  if (infonavit === 'si') {
+    infonavit = true
+  }
+  else {
+    infonavit = false
+  }
 
   if (sdescontadas == 0) {
     fecha_ultimo_retiro = null
@@ -255,6 +285,7 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
     // id_zona: zona_id,
     fecha_captura: fechaActual,
     capturado: user.fullname,
+    infonavit
 
     // sueldo_base: monto / 30,
     // outsourcing_id_outsourcing: outsourcing_id,
@@ -330,20 +361,20 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
   }
 });
 
-router.get('/dev', async (re, res) => {
+// router.get('/dev', async (re, res) => {
 
-  const sqlAltas = "SELECT a.asesor, CONCAT(p.nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) AS cliente, p.curp, p.nss, af.afore, p.monto, (p.monto/30) AS sueldo, p.direccion, p.telefono, p.observaciones, z.zona, p.scotizadas, p.sdescontadas, p.fecha_ultimo_retiro, p.region FROM pre_altas as p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN zonas as z ON p.id_zona = z.id_zona JOIN afores as af ON p.id_afore = af.id_afore;"
+//   const sqlAltas = "SELECT a.asesor, CONCAT(p.nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) AS cliente, p.curp, p.nss, af.afore, p.monto, (p.monto/30) AS sueldo, p.direccion, p.telefono, p.observaciones, z.zona, p.scotizadas, p.sdescontadas, p.fecha_ultimo_retiro, p.region FROM pre_altas as p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN zonas as z ON p.id_zona = z.id_zona JOIN afores as af ON p.id_afore = af.id_afore;"
 
-  const altas = await db.query(sqlAltas)
+//   const altas = await db.query(sqlAltas)
 
-  console.log(sqlAltas);
+//   console.log(sqlAltas);
 
-  console.log(altas);
+//   console.log(altas);
 
-  res.send({ altas: json })
+//   res.send({ altas: json })
 
 
-});
+// });
 
 module.exports = router;
 
