@@ -337,7 +337,7 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
   }
   //*Resumen Regional
   else if (user.permiso === "Regional") {
-    const sqlAltas = 'SELECT altas.fecha_captura, zonas.zona, count(zona) AS total FROM pre_altas AS altas JOIN zonas as zonas ON zonas.id_zona = altas.id_zona WHERE region = ? GROUP BY zona;'
+    const sqlAltas = 'SELECT altas.fecha_captura, zonas.zona, count(zona) AS total FROM pre_altas AS altas JOIN zonas as zonas ON zonas.id_zona = altas.id_zona WHERE zonas.region = ? GROUP BY zona;'
 
     const resume = await db.query(sqlAltas, user.region)
 
@@ -377,4 +377,3 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
 // });
 
 module.exports = router;
-
