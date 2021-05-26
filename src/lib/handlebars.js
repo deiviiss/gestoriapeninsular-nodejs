@@ -302,4 +302,11 @@ helpers.calculaCosto = (body, user) => {
   }
 }
 
+helpers.numAleatorio = (max, min) => {
+  let numPosibilidaes = max * min;
+  let aleatorio = Math.random() * (numPosibilidaes + 1);
+  aleatorio = Math.floor(aleatorio);
+  return min + aleatorio
+}
+
 module.exports = helpers;

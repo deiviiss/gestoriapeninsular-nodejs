@@ -58,12 +58,30 @@
       </h2>
     {{/if}}
 
-    <h6 class="resume-title">
-      {{user.fullname}}
+    <h6 class="resume-status">
+      Trámites de la semana
+      {{#each week}}
+        {{total}}
+      {{/each}}
     </h6>
 
     <h6 class="resume-status">
-      Status
+      {{totalStatus}}
+    </h6>
+
+    <div class="grid">
+      {{#each statusWeek}}
+        <div class="tarjeta-status">
+          <a href="/status-week/{{status}}?zona={{zona}}">
+            <h6 class="tarjeta-title">{{status}}</h6>
+            <p class="tarjeta-text">{{total}}</p>
+          </a>
+        </div>
+      {{/each}}
+    </div>
+
+    <h6 class="resume-status">
+      Trámites totales
     </h6>
 
     <div class="grid">

@@ -1,21 +1,26 @@
-//muestra la relación de trámites
-
-//dependends
-const express = require('express');
-const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 
 const db = require('../database');
-const { isLoggedIn } = require('../lib/auth');
-const helpers = require('../lib/handlebars')
+const helpers = require('../lib/handlebars');
 
-//routes
+controller = {};
 
 //?========= renderiza resumen (status)
-router.get('/resume', isLoggedIn, async (req, res) => {
+controller.getResume = async (req, res) => {
   const user = req.user
+
+  const sqlNumWeek = 'SELECT WEEK(CURDATE()) AS total;'
+  week = await db.query(sqlNumWeek)
 
   //*============ Consulta Regional
   if (user.permiso === 'Regional') {
+
+    //consulta status de semana
+    const sqlStatusWeek = 'SELECT status, COUNT(status) AS total FROM tramites WHERE region = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;'
+
+    const statusWeek = await db.query(sqlStatusWeek, user.region)
+
+    //?suma los totales de altas
+    let totalStatus = statusWeek.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
     //consulta status
     const sqlStatus = 'SELECT status, COUNT(status) AS total FROM tramites WHERE region = ? GROUP BY status ORDER BY status;'
@@ -26,11 +31,19 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
     const zonas = await db.query(sqlZonas, user.region)
 
-    res.render('resume/resume.hbs', { status, user, zonas })
+    res.render('resume/resume.hbs', { status, user, zonas, week, statusWeek, totalStatus })
   }
 
   //*============ Consulta Administrador
   else if (user.permiso === 'Administrador') {
+
+    //consulta status de semana
+    const sqlStatusWeek = 'SELECT status, COUNT(status) AS total FROM tramites WHERE WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;'
+
+    const statusWeek = await db.query(sqlStatusWeek)
+
+    //?suma los totales de altas
+    let totalStatus = statusWeek.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
     //consulta status
     const sqlStatus = 'SELECT status, COUNT(status) AS total FROM tramites GROUP BY status ORDER BY status;'
@@ -41,26 +54,45 @@ router.get('/resume', isLoggedIn, async (req, res) => {
     const sqlZonas = 'SELECT zona FROM zonas ORDER BY zona;'
     const zonas = await db.query(sqlZonas)
 
-    res.render('resume/resume.hbs', { status, user, zonas })
+    res.render('resume/resume.hbs', { status, user, zonas, week, statusWeek, totalStatus })
   }
 
   //*============ Consulta encargado
   else {
+
+    //consulta status de semana
+    const sqlStatusWeek = 'SELECT status, COUNT(status) AS total FROM tramites WHERE zona = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;'
+
+    const statusWeek = await db.query(sqlStatusWeek)
+
+    //?suma los totales de altas
+    let totalStatus = statusWeek.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
     //consulta status
     const sqlStatus = 'SELECT status, COUNT(status) AS total FROM tramites WHERE zona = ? GROUP BY status ORDER BY status;'
 
     const status = await db.query(sqlStatus, user.zona)
 
-    res.render('resume/resume.hbs', { status, user })
+    res.render('resume/resume.hbs', { status, user, week, statusWeek, totalStatus })
   }
 
-});
+};
 
 //?========= renderiza resume (status administrador regional por zona 'busqueda zona')
-router.post('/resume-zona/', isLoggedIn, async (req, res) => {
+controller.postResume = async (req, res) => {
   const user = req.user;
   const { zona } = req.body;
+
+  const sqlNumWeek = 'SELECT WEEK(CURDATE()) AS total;'
+  week = await db.query(sqlNumWeek)
+
+  //*============ consulta de status week (administrador regional)
+  const sqlStatusWeek = 'SELECT status, zona, COUNT(status) AS total FROM tramites WHERE zona = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;'
+
+  const statusWeek = await db.query(sqlStatusWeek, zona)
+
+  //?suma los totales de altas
+  let totalStatus = statusWeek.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
   //*============ consulta de status (administrador regional)
   //consulta status
@@ -73,7 +105,7 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
     const sqlZonas = 'SELECT zona FROM zonas ORDER BY zona;'
     const zonas = await db.query(sqlZonas)
 
-    res.render('resume/resume.hbs', { status, user, zonas })
+    res.render('resume/resume.hbs', { status, user, zonas, zona, week, totalStatus, statusWeek })
   }
 
   else {
@@ -81,12 +113,12 @@ router.post('/resume-zona/', isLoggedIn, async (req, res) => {
     const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
     const zonas = await db.query(sqlZonas, user.region)
 
-    res.render('resume/resume.hbs', { status, user, zonas })
+    res.render('resume/resume.hbs', { status, user, zonas, zona, week, totalStatus, statusWeek })
   }
-});
+};
 
 //?========= renderiza list-customer (status except 'pendiente')
-router.get('/resume/:status', isLoggedIn, async (req, res) => {
+controller.getStatus = async (req, res) => {
   const user = req.user
   const { status } = req.params
   const zona = req.query.zona
@@ -127,7 +159,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
         const zonas = await db.query(sqlZonas, user.region)
 
-        res.render('resume/desgloce-pendientes.hbs', { motivos, user, zona, zonas, cantidadPendientes })
+        res.render('resume/motivos.hbs', { motivos, user, zona, zonas, cantidadPendientes })
       }
       else {
         const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND region = ? ORDER BY fecha_tramite DESC"
@@ -168,7 +200,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         const sqlZonas = 'SELECT zona FROM zonas ORDER BY zona;'
         const zonas = await db.query(sqlZonas)
 
-        res.render('resume/desgloce-pendientes.hbs', { motivos, user, zona, zonas, cantidadPendientes })
+        res.render('resume/motivos.hbs', { motivos, user, zona, zonas, cantidadPendientes })
       }
 
       else {
@@ -218,7 +250,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         const sqlZonas = 'SELECT zona FROM zonas WHERE region = ? ORDER BY zona;'
         const zonas = await db.query(sqlZonas, user.region)
 
-        res.render('resume/desgloce-pendientes.hbs', { motivos, user, zona, zonas, cantidadPendientes })
+        res.render('resume/motivos.hbs', { motivos, user, zona, zonas, cantidadPendientes })
       }
 
       else {
@@ -260,7 +292,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
         const sqlZonas = 'SELECT zona FROM zonas;'
         const zonas = await db.query(sqlZonas)
 
-        res.render('resume/desgloce-pendientes.hbs', { motivos, user, zona, zonas, cantidadPendientes })
+        res.render('resume/motivos.hbs', { motivos, user, zona, zonas, cantidadPendientes })
       }
 
       else {
@@ -298,7 +330,7 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
           pendientesMore60Days: pendientesMore60Days.length
         }
 
-        res.render('resume/desgloce-pendientes.hbs', { motivos, user, zona, cantidadPendientes })
+        res.render('resume/motivos.hbs', { motivos, user, zona, cantidadPendientes })
       }
 
       else {
@@ -312,10 +344,10 @@ router.get('/resume/:status', isLoggedIn, async (req, res) => {
       }
     }
   }
-});
+};
 
 //?========= renderiza list-customer (motivos)
-router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
+controller.getMotivo = async (req, res) => {
   const { motivo } = req.params
   const user = req.user
   const zona = req.query.zona
@@ -331,7 +363,7 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
       //helper que cambia el formato de fecha y moneda
       customer = helpers.formatterCustomers(customer)
 
-      res.render('customer/list-customer.hbs', { customer, motivo, zona })
+      res.render('customer/list-customer.hbs', { customer, motivo, zona, week })
     }
 
     //Si select zona NULL
@@ -369,10 +401,88 @@ router.get('/desgloce-pendientes/:motivo', isLoggedIn, async (req, res) => {
 
     res.render('customer/list-customer.hbs', { customer, motivo, zona })
   }
-});
+};
+
+//?========= renderiza list-customer (status week)
+controller.getStatusWeek = async (req, res) => {
+  const user = req.user
+  const { status } = req.params
+  const zona = req.query.zona
+
+  //si select zona
+  if (zona) {
+
+    //*Regional
+    if (user.permiso === "Regional") {
+      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND region = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;"
+      customer = await db.query(sqlStatus, [zona, status, user.region])
+
+      //helper que cambia el formato de fecha y moneda
+      customer = helpers.formatterCustomers(customer)
+
+      res.render('customer/list-customer.hbs', { customer, zona })
+    }
+
+    //*Administrador
+    else if (user.permiso === "Administrador") {
+
+      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;"
+      customer = await db.query(sqlStatus, [zona, status])
+
+      //helper que cambia el formato de fecha y moneda
+      customer = helpers.formatterCustomers(customer)
+
+      res.render('customer/list-customer.hbs', { customer, zona })
+    }
+
+    //*Encargado
+    else {
+      res.redirect('/profile')
+    }
+  }
+
+  //si select zona NULL
+  else {
+
+    if (user.permiso === "Regional") {
+
+      const sqlStatus = "SELECT * FROM tramites WHERE region = ? AND  status = ?  AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE());"
+
+      customer = await db.query(sqlStatus, [user.region, status])
+
+      //helper que cambia el formato de fecha y moneda
+      customer = helpers.formatterCustomers(customer)
+
+      res.render('customer/list-customer.hbs', { customer, zona })
+    }
+
+    else if (user.permiso === "Administrador") {
+
+      const sqlStatus = "SELECT * FROM tramites WHERE status = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE());"
+      customer = await db.query(sqlStatus, [status])
+
+      //helper que cambia el formato de fecha y moneda
+      customer = helpers.formatterCustomers(customer)
+
+      res.render('customer/list-customer.hbs', { customer, zona })
+    }
+
+    //* Encargado
+    else {
+
+      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE());"
+      customer = await db.query(sqlStatus, [user.zona, status])
+
+      //helper que cambia el formato de fecha y moneda
+      customer = helpers.formatterCustomers(customer)
+
+      res.render('customer/list-customer.hbs', { customer, zona })
+    }
+  }
+}
 
 //?========= renderiza list-customer (pendientes por semana, 30 & 60 days)
-router.get('/pendientes/:group', isLoggedIn, async (req, res) => {
+controller.getGroup = async (req, res) => {
   const user = req.user;
   const zona = req.query.zona;
   let sqlQuery = req.params.group;
@@ -607,6 +717,6 @@ router.get('/pendientes/:group', isLoggedIn, async (req, res) => {
         break;
     }
   }
-})
+};
 
-module.exports = router;
+module.exports = controller;

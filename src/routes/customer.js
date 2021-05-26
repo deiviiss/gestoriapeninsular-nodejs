@@ -104,7 +104,7 @@ router.get('/status/:id', isLoggedIn, async (req, res) => {
   const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
   customer = await db.query(sqlSelect, [id])
 
-  //obtener la propiedad status de la consulta
+  //obtener la propiedad status y fecha de tramite de la consulta
   const { status } = customer[0];
 
   //* Condición para proteger cambio de status
@@ -130,6 +130,8 @@ router.post('/status/:id', isLoggedIn, async (req, res) => {
   const { status, observaciones } = req.body; //objeto del formulario
   const user = req.user
   const fechaActual = new Date()
+  //! se crea el folio, pensando en como mostrarlo en las liquidaciones.
+  const folio = 'F-' + (fechaActual.getMonth() + 1) + helpers.numAleatorio(id, 1)
 
   if (status === 'Pendiente') {
     //coloca el motivo
