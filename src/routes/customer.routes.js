@@ -3,17 +3,16 @@
 //dependends
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
-const db = require('../database'); //conexión a la base de datos
+
 const { isLoggedIn } = require('../lib/auth');
 const helpers = require('../lib/handlebars')
+//controller customer
+const controller = require('../controllers/customer.controller.js')
 
 //routes
 
 //lista de clientes
-router.get('/', isLoggedIn, async (req, res) => {
-
-  res.render('customer/list-customer.hbs')
-});
+router.get('/', isLoggedIn, controller.getList);
 
 //busqueda de cliente
 router.post('/query', isLoggedIn, async (req, res) => {

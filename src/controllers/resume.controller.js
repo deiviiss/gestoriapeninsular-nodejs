@@ -63,7 +63,7 @@ controller.getResume = async (req, res) => {
     //consulta status de semana
     const sqlStatusWeek = 'SELECT status, COUNT(status) AS total FROM tramites WHERE zona = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;'
 
-    const statusWeek = await db.query(sqlStatusWeek)
+    const statusWeek = await db.query(sqlStatusWeek, user.zona)
 
     //?suma los totales de altas
     let totalStatus = statusWeek.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
