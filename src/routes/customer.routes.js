@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 
+const db = require('../database'); //conexión a la base de datos
 const { isLoggedIn } = require('../lib/auth');
 const helpers = require('../lib/handlebars')
 //controller customer
