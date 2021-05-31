@@ -48,6 +48,11 @@
               <h6 class="card-title m-1">Fecha solución:</h6>
               <p class="card-text m-1">{{customer.fecha_solucion}}</p>
 
+              {{#if_equal customer.status "Finalizado"}}
+              <h6 class="card-title m-1">Folio de cierre:</h6>
+              <p class="card-text m-1">{{customer.folio}}</p>
+              {{/if_equal}}
+
               <h6 class="card-title m-1">Observaciones:</h6>
               <p class="card-title m1">
                 <label for="observaciones">{{customer.observaciones}}</label>

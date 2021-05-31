@@ -1,34 +1,74 @@
-{{!-- Comprueba si existen mensajes --}}
+{{! Comprueba si existen mensajes }}
 
 {{#if success}}
 
-<div class="container p-2 text-center float">
-  <div class="row">
-    <div class="col-md-6 mx-auto">
-      {{!-- Estilos de boostrap --}}
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{success}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="container p-2 text-center float">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        {{! Estilos de boostrap }}
+        <div
+          class="alert alert-success alert-dismissible fade show"
+          role="alert"
+        >
+          {{success}}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 {{/if}}
 
 {{#if fail}}
-<div class="container p-2 text-center float">
-  <div class="row">
-    <div class="col-md-6 mx-auto">
-      {{!-- Estilos de boostrap --}}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{fail}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="container p-2 text-center float">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        {{! Estilos de boostrap }}
+        <div
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          {{fail}}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+{{/if}}
+
+{{#if warning}}
+  <div class="container p-2 text-center float">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        {{! Estilos de boostrap }}
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          {{warning}}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 {{/if}}

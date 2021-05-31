@@ -61,6 +61,7 @@ app.use(passport.session()); //indica donde guardar los datos de la sesión pass
 app.use((req, res, next) => {
   app.locals.success = req.flash('success'); //mensaje disponible en todas las vistas
   app.locals.fail = req.flash('fail'); //mensaje disponible en todas las vistas
+  app.locals.warning = req.flash('warning'); //mensaje disponible en todas las vistas
   app.locals.user = req.user; //usuario disponible en todas las vistas
   next();
 });
