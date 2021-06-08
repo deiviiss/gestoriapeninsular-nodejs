@@ -67,14 +67,16 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use(require('./routes/index.js')); //ruta inicial
-app.use(require('./routes/calculate.js')); //ruta calcular
-app.use(require('./routes/authentication.js')); //ruta de autenficación
+app.use(require('./routes/index.routes.js')); //ruta inicial
+app.use(require('./routes/calculate.routes.js')); //ruta calcular
+app.use(require('./routes/authentication.routes.js')); //ruta de autenficación
 app.use('/customer', require('./routes/customer.routes.js')); //ruta de customer con prefijo /customer/archivo
-app.use(require('./routes/directory.js')); //ruta directorio users
+app.use(require('./routes/directory.routes.js')); //ruta directorio users
 app.use(require('./routes/resume.routes.js')); //ruta resume
-app.use(require('./routes/altas.js')); //ruta altas
-app.use(require('./routes/404.js'))
+app.use(require('./routes/altas.routes')); //ruta altas
+app.use(require('./routes/404.routes'))
+app.use(require('./routes/liquidacion.routes.js')) //liquidaciones
+app.use(require('./routes/especiales.routes.js')) //altas especiales
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));//archivos estaticos

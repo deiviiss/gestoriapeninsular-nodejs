@@ -1,0 +1,71 @@
+<div class="container-box">
+
+  <div class="search">
+    <form action="/customer/query" method="post">
+      {{! <label for="cliente" class="form-label">Cliente</label> }}
+      <input
+        type="search"
+        placeholder="Buscar cliente"
+        name="busqueda"
+        class="form-control"
+        autocomplete="off"
+      />
+      <button
+        type="submit"
+        class="btn btn-primary fas fa-search"
+        style="height:2rem;"
+      ></button>
+    </form>
+  </div>
+
+  <section class="list-customers">
+    <div class="wrapper">
+
+      <h5>Liquidaciones</h5>
+
+      <div class="list-title">
+
+        {{!-- <h5>{{user.fullname}}</h5> --}}
+
+      </div>
+      {{#each liquidaciones}}
+        <div class="customer">
+          <div class="grid-liquidacion">
+
+            <h6>Cliente</h6>
+            <p>{{cliente}}</p>
+            <h6>Folio</h6>
+            <p>{{folio}}</p>
+
+            <h6>Zona</h6>
+            <p>{{zona}}</p>
+
+            <h6></h6>
+            <p></p>
+
+            <h6></h6>
+            <p></p>
+
+            <a
+              href="/liquidaciones/liquidar/{{id_liquidacion}}"
+              class="btn btn-danger"
+            >Liquidar</a>
+            <a
+              href="/liquidaciones/details/{{id_liquidacion}}"
+              class="btn btn-info"
+            >Detalles</a>
+
+          </div>
+        </div>
+
+      {{else}}
+        <div class="card card-body text-center mt-2">
+          <p class="text-center">Sin liquidaciones abiertas.</p>
+        </div>
+      {{/each}}
+
+    </div>
+
+  </section>
+
+</div>

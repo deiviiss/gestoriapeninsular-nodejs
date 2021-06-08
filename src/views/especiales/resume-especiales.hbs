@@ -1,0 +1,22 @@
+<div class="container-box">
+
+  <section class="tarjeta">
+    <h6 class="resume-status">Altas Especiales</h6>
+
+    <div class="list-title">
+
+    </div>
+    <div class="grid">
+      {{#each especiales}}
+        <div class="tarjeta-status">
+          <a href="/resume/{{status}}?zona={{zona}}">
+            <h6 class="tarjeta-title">{{Mes}}</h6>
+            <p class="tarjeta-text">{{total}}</p>
+          </a>
+        </div>
+      {{/each}}
+    </div>
+
+  </section>
+
+</div>

@@ -1,16 +1,14 @@
 //Ingresar clientes por tablas
 
 //dependends
-const express = require('express');
-const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas
-const helpers = require('../lib/handlebars');
-
+const helpers = require('../lib/handlebars.js');
 const db = require('../database');
-const { isLoggedIn } = require('../lib/auth');
 
-//* Lista altas
+const controller = {}
+
+//*============== Lista altas
 //envia lista
-router.get('/list-altas', isLoggedIn, async (req, res) => {
+controller.getListAltas = async (req, res) => {
   const user = req.user;
 
   if (user.permiso === "Administrador") {
@@ -63,10 +61,10 @@ router.get('/list-altas', isLoggedIn, async (req, res) => {
 
     res.render('altas/list-altas.hbs', { customer, user, totalResume })
   }
-});
+};
 
-//envia lista con select zona
-router.post('/list-altas', isLoggedIn, async (req, res) => {
+//recibe lista con select zona
+controller.postListAltas = async (req, res) => {
   const user = req.user;
   const { zona } = req.body;
 
@@ -100,11 +98,11 @@ router.post('/list-altas', isLoggedIn, async (req, res) => {
 
     res.render('altas/list-altas.hbs', { customer, user, zonas })
   }
-});
+};
 
-//* Agregar cliente
+//*============== Agregar cliente
 //envia formulario para captura
-router.get('/add-customer', isLoggedIn, async (req, res) => {
+controller.getAddCustomer = async (req, res) => {
   const { zona } = req.user
 
   // Consulta asesores
@@ -116,10 +114,10 @@ router.get('/add-customer', isLoggedIn, async (req, res) => {
   const afores = await db.query(sqlAfore)
 
   res.render('altas/add-customer.hbs', { asesoresZona, afores })
-});
+};
 
 //recibe formulario de captura
-router.post('/add-customer', isLoggedIn, async (req, res) => {
+controller.postAddCustomer = async (req, res) => {
   const user = req.user
   const fechaActual = new Date()
 
@@ -191,16 +189,16 @@ router.post('/add-customer', isLoggedIn, async (req, res) => {
     // status_id_status: status_id,
   };
 
-  const sqlAlta = "INSERT INTO pre_altas set ?"
+  const sqlAlta = "INSERT INTO pre_altas SET ?"
   await db.query(sqlAlta, [newCliente])
 
   req.flash('success', 'Cliente guardado')
   res.redirect('/add-customer')
-});
+};
 
-//* Edita altas
+//*============== Edita alta
 //envia formulario para editar
-router.get('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
+controller.getEditCustomer = async (req, res) => {
   const { id_pre_altas } = req.params
 
   const sqlAlta = 'SELECT p.id_pre_altas, p.nombre, p.apellidoPaterno, p.apellidoMaterno, p.curp, p.nss, p.rfc, p.umf, p.scotizadas, p.sdescontadas, a.asesor, p.fecha_ultimo_retiro, af.afore, p.monto, p.direccion, p.lugar, p.telefono, p.sexo, p.observaciones, z.zona, p.fecha_captura, p.capturado, p.infonavit FROM pre_altas AS p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN afores AS af ON af.id_afore = p.id_afore JOIN zonas AS z ON z.id_zona = p.id_zona WHERE p.id_pre_altas = ?; '
@@ -228,10 +226,10 @@ router.get('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
   }
 
   res.render('altas/edit-alta', { customer: customer[0], asesoresZona, afores, infonavit: customer[1] })
-});
+};
 
 //recibe formulario editado
-router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
+controller.postEditCustomer = async (req, res) => {
   const customer_id = req.params.id_pre_altas;
   const fechaActual = new Date()
   const user = req.user;
@@ -297,10 +295,10 @@ router.post('/altas/edit-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
 
   req.flash('success', 'Cliente actualizado')
   res.redirect('/list-altas')
-});
+};
 
-//*Borrar altas
-router.get('/altas/delete-altas/:id_pre_altas', isLoggedIn, async (req, res) => {
+//*============== Borrar altas
+controller.getDeleteCustomer = async (req, res) => {
   const { id_pre_altas } = req.params
   const user = req.user
 
@@ -308,10 +306,10 @@ router.get('/altas/delete-altas/:id_pre_altas', isLoggedIn, async (req, res) => 
   console.log('Elimino el usuario ' + user.fullname);
   req.flash('fail', 'Cliente borrado correctamente')
   res.redirect('/list-altas')
-});
+};
 
-//*Resume altas
-router.get('/resume-altas', isLoggedIn, async (req, res) => {
+//*============== Resume altas
+controller.getResumeAltas = async (req, res) => {
   const user = req.user;
 
   //*Resumen Administrador
@@ -359,21 +357,6 @@ router.get('/resume-altas', isLoggedIn, async (req, res) => {
   else {
     res.redirect('/list-altas')
   }
-});
+};
 
-// router.get('/dev', async (re, res) => {
-
-//   const sqlAltas = "SELECT a.asesor, CONCAT(p.nombre, ' ', apellidoPaterno, ' ', apellidoMaterno) AS cliente, p.curp, p.nss, af.afore, p.monto, (p.monto/30) AS sueldo, p.direccion, p.telefono, p.observaciones, z.zona, p.scotizadas, p.sdescontadas, p.fecha_ultimo_retiro, p.region FROM pre_altas as p JOIN asesores AS a ON p.id_asesor = a.id_asesor JOIN zonas as z ON p.id_zona = z.id_zona JOIN afores as af ON p.id_afore = af.id_afore;"
-
-//   const altas = await db.query(sqlAltas)
-
-//   console.log(sqlAltas);
-
-//   console.log(altas);
-
-//   res.send({ altas: json })
-
-
-// });
-
-module.exports = router;
+module.exports = controller;

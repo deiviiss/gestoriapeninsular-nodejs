@@ -1,20 +1,19 @@
-//Buscar, listar, cambiar status 
+//Buscar, listar, cambiar status
 
 //dependends
 const express = require('express');
-const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
+const router = express.Router();
 
+//módulo auth
 const { isLoggedIn } = require('../lib/auth');
 
 //controller customer
 const controller = require('../controllers/customer.controller.js')
 
-//routes
-
-//lista de clientes
+//*============== lista de clientes
 router.get('/', isLoggedIn, controller.getList);
 
-//busqueda de cliente
+//*============== busqueda de cliente
 router.post('/query', isLoggedIn, controller.postQuery);
 
 //?============= agregar observaciones clientes (ENCARGADO)

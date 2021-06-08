@@ -1,4 +1,4 @@
-
+//dependends
 const db = require('../database');
 const helpers = require('../lib/handlebars');
 
@@ -414,7 +414,7 @@ controller.getStatusWeek = async (req, res) => {
 
     //*Regional
     if (user.permiso === "Regional") {
-      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND region = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;"
+      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND region = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) ORDER BY status;"
       customer = await db.query(sqlStatus, [zona, status, user.region])
 
       //helper que cambia el formato de fecha y moneda
@@ -426,7 +426,7 @@ controller.getStatusWeek = async (req, res) => {
     //*Administrador
     else if (user.permiso === "Administrador") {
 
-      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) GROUP BY status ORDER BY status;"
+      const sqlStatus = "SELECT * FROM tramites WHERE zona = ? AND  status = ? AND WEEK(fecha_tramite) = WEEK(CURDATE()) AND YEAR(fecha_tramite) = YEAR(CURDATE()) ORDER BY status;"
       customer = await db.query(sqlStatus, [zona, status])
 
       //helper que cambia el formato de fecha y moneda

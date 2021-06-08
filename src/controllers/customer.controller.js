@@ -1,14 +1,17 @@
-const db = require('../database'); //conexión a la base de datos
-const helpers = require('../lib/handlebars')
+//Buscar, listar, cambiar status
 
-const controller = {}
+//dependends
+const db = require('../database');
+const helpers = require('../lib/handlebars');
 
-//lista clientes
+const controller = {};
+
+//*============== lista de clientes
 controller.getList = async (req, res) => {
   res.render('customer/list-customer.hbs')
 };
 
-//busqueda de clientes
+//*============== busqueda de cliente
 controller.postQuery = async (req, res) => {
   const user = req.user
   const { busqueda } = req.body
@@ -36,7 +39,7 @@ controller.postQuery = async (req, res) => {
   customers = helpers.formatterCustomers(customer)
 
   res.render('customer/list-customer.hbs', { customer })
-}
+};
 
 //?============= agregar observaciones clientes (ENCARGADO)
 //envia formulario para editar
@@ -79,10 +82,16 @@ controller.postEdit = async (req, res) => {
   const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
   customer = await db.query(sqlSelect, [id])
 
+  const sqlMotivos = 'SELECT motivo FROM motivos GROUP BY motivo ORDER BY motivo;'
+
+  const motivos = await db.query(sqlMotivos)
+
   //helper que cambia el formato de fecha y moneda
   helpers.formatterCustomers(customer)
 
-  res.render('customer/edit', { customer: customer[0], user: user });
+  // req.flash('success', 'Motivo actualizado correctamente')
+  // res.render('customer/edit', { customer: customer[0], user: user, motivos });
+  res.render('customer/edit', { customer: customer[0], motivos });
 };
 
 //?================= movimiento de status clientes (REGIONAL)
@@ -114,6 +123,7 @@ controller.getStatus = async (req, res) => {
     res.redirect('/resume')
   }
 };
+
 //recibe el formulario para cambiar status
 controller.postStatus = async (req, res) => {
   const { id } = req.params

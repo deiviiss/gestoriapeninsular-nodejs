@@ -247,6 +247,45 @@ input[type="number"] {
       justify-self: center;
 }
 
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 1px;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion h6 {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion p {
+  text-align: start;
+  margin-bottom: 0;
+  font-size: 12px;
+  justify-self: baseline;
+}
+
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion a {
+  padding: 0;
+  width: 75%;
+  margin: 5px;
+  font-size: 12px;
+}
+
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion a:nth-child(29) {
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.main .container-box .list-customers .wrapper .customer .grid-liquidacion a:nth-child(30) {
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
 .main .container-box .form__edit {
   width: 100%;
   margin: auto;
@@ -1069,6 +1108,12 @@ input[type="number"] {
     -ms-grid-columns: 130px 1fr 130px 1fr 130px 110px;
         grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
+  .grid-liquidacion {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 100px 1fr 1fr 1fr;
+        grid-template-columns: 100px 1fr 1fr 1fr;
+  }
   .grid__edit {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
@@ -1102,6 +1147,12 @@ input[type="number"] {
     display: grid;
     -ms-grid-columns: 1fr 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .grid-liquidacion {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
   }
   .grid-altas {
     -ms-grid-columns: 1fr 1fr 1fr 1fr;
@@ -1152,6 +1203,12 @@ input[type="number"] {
     right: 7%;
   }
   .grid-list {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+  .grid-liquidacion {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 1fr;

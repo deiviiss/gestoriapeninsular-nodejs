@@ -302,11 +302,180 @@ helpers.calculaCosto = (body, user) => {
   }
 }
 
+//genera número aleatorio para el folio de liquidación
 helpers.numAleatorio = (max, min) => {
   let numPosibilidaes = max * min;
   let aleatorio = Math.random() * (numPosibilidaes + 1);
   aleatorio = Math.floor(aleatorio);
   return min + aleatorio
 }
+
+//*funciones liquidaciones
+//elige tipo de liquidacion
+
+//Cancun, Cancun2, Carmen, Chetumal, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Tizimín, Valladolid, Villahermosa, Campeche3
+helpers.liquidacionSocio = (monto, abono) => {
+  let porcentaje;
+  let comision;
+  let aseguramiento;
+  let asesor;
+  let sucursal;
+  let sinAbono;
+  let liquidar;
+  const fechaActual = new Date()
+
+  if (monto > 30801) {
+    porcentaje = .30
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    sucursal = (comision - 2000) / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
+  }
+  else if (monto > 24999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
+  }
+
+  else if (monto > 14999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1700
+    asesor = monto * .05
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
+  }
+  else if (monto > 0) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1300
+    asesor = monto * .05
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
+  }
+
+  liquidacion = {
+    monto,
+    abono,
+    porcentaje,
+    comision,
+    aseguramiento,
+    asesor,
+    sucursal,
+    sin_abono: sinAbono,
+    liquidar,
+    fecha_liquidacion: fechaActual,
+    status: 'close'
+  }
+
+  return liquidacion
+};
+
+//Campeche, Carmen, Coatzacoalcos, Playa2, Campeche2, Carmen2, Cuernavaca, Mérida
+helpers.liquidacionSucursalLocal = (monto) => {
+  let porcentaje;
+  let comision;
+  let aseguramiento;
+  let asesor;
+  let liquidar;
+  const fechaActual = new Date()
+
+  if (monto > 30801) {
+    porcentaje = .30
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    liquidar = comision - asesor
+  }
+  else if (monto > 24999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+
+  else if (monto > 14999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1700
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+  else if (monto > 0) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1300
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+
+  liquidacion = {
+    monto,
+    porcentaje,
+    comision,
+    aseguramiento,
+    asesor,
+    liquidar,
+    fecha_liquidacion: fechaActual,
+    status: 'close'
+  }
+
+  return liquidacion
+};
+
+//Escarcega, Champotón, Candelaria
+helpers.liquidacionSucursalForanea2 = (monto) => {
+  let porcentaje;
+  let comision;
+  let asesor;
+  let liquidar;
+  const fechaActual = new Date()
+
+  porcentaje = .30
+  comision = monto * porcentaje
+  asesor = monto * .05
+  liquidar = comision - asesor
+
+  liquidacion = {
+    monto,
+    porcentaje,
+    comision,
+    asesor,
+    liquidar,
+    fecha_liquidacion: fechaActual,
+    status: 'close'
+  }
+
+  return liquidacion
+};
+
+helpers.liquidacion = (monto, tipo, abono) => {
+
+  switch (tipo) {
+    case "local":
+      helpers.liquidacionSucursalLocal(monto)
+      console.log('Local');
+      break;
+    case "socio":
+      helpers.liquidacionSocio(monto, abono)
+      console.log('socio');
+      break;
+    case "foraneo":
+      helpers.liquidacionSucursalForanea2(monto)
+      console.log('Foráneo');
+      break;
+  }
+
+  return liquidacion
+};
 
 module.exports = helpers;

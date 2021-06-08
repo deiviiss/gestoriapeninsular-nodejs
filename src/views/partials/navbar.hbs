@@ -48,6 +48,14 @@
                 <i class="far fa-list-alt mr-1"></i>Altas
               </a>
 
+              {{#if_equal user.permiso "Administrador"}}
+
+              <a class="dropdown-item" href="/altas-especiales/">
+               <i class="fab fa-elementor mr-1"></i>Altas Especiales
+              </a>
+
+              {{/if_equal}}
+
               <div class="dropdown-divider"></div>
             </div>
           </li>
@@ -88,7 +96,7 @@
                   class="fas fa-unlock-alt mr-1"></i>Restablecer
                 contraseña</a>
 
-              {{#if_equal user.puesto "Administrador"}}
+              {{#if_equal user.permiso "Administrador"}}
               <a class="dropdown-item" href="/register"><i class="fas fa-user-plus mr-1"></i>Registrar
                 Usuario</a>
               {{/if_equal}}

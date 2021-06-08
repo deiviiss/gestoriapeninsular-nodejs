@@ -238,6 +238,48 @@ input[type="number"] {
               justify-self: center;
             }
           }
+
+          //grid list-liquidaciones
+          .grid-liquidacion {
+            display: grid;
+            grid-gap: 1px;
+            width: 100%;
+            align-items: center;
+
+            // :nth-child(2) {
+            //   border: $test;
+            // }
+
+            h6 {
+              font-size: 12px;
+              margin-bottom: 0;
+            }
+
+            p {
+              text-align: start;
+              margin-bottom: 0;
+              font-size: 12px;
+              justify-self: baseline;
+            }
+
+            // p:nth-child(2) {
+            //   font-size: 10px;
+            // }
+
+            a {
+              padding: 0;
+              width: 75%;
+              margin: 5px;
+
+              font-size: 12px;
+            }
+            a:nth-child(29) {
+              justify-self: end;
+            }
+            a:nth-child(30) {
+              justify-self: center;
+            }
+          }
         }
       }
     }
@@ -992,6 +1034,11 @@ input[type="number"] {
     grid-template-columns: 130px 1fr 130px 1fr 130px 110px;
   }
 
+  .grid-liquidacion {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 1fr;
+  }
+
   .grid__edit {
     grid-template-columns: 1fr 1fr;
   }
@@ -1022,6 +1069,11 @@ input[type="number"] {
   .grid-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .grid-liquidacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .grid-altas {
@@ -1072,6 +1124,11 @@ input[type="number"] {
   }
 
   .grid-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-liquidacion {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }

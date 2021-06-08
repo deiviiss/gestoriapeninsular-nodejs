@@ -1,15 +1,13 @@
-//Server Routes
+//cotización customer
 
 //dependends
-const express = require('express');
-const router = express.Router(); //metodo de express que devuelve un objeto para listar rutas.
 const helpers = require('../lib/handlebars')
-const db = require('../database'); //conexión a la base de datos
+const db = require('../database');
 
-//routes
+const controller = {};
 
 //envía el formulario de cantidad
-router.get('/calcular', async (req, res) => {
+controller.getCalculate = async (req, res) => {
   const user = req.user
 
   if (user.permiso === 'Administrador') {
@@ -24,16 +22,16 @@ router.get('/calcular', async (req, res) => {
 
     res.render('calculate/calcular.hbs', { user, zonas })
   }
-})
+};
 
 //recibe la cantidad a calcular
-router.post('/calcular', async (req, res) => {
+controller.postCalculate = async (req, res) => {
   const user = req.user
   const body = req.body
 
   helpers.calculaCosto(body, user)
 
   res.render('calculate/result.hbs', { retiro, user })
-})
+};
 
-module.exports = router;
+module.exports = controller;
