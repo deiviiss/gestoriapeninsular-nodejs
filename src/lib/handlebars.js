@@ -129,6 +129,60 @@ helpers.formatterEditAlta = (customer) => {
   return customer
 };
 
+//Formato a liquidaciones
+helpers.formatterLiquidaciones = (liquidaciones) => {
+  //recorrer para acceder a propiedades
+  for (var i = 0; i < liquidaciones.length; i++) {
+
+    let montoPeso = liquidaciones[i].monto;
+    let comision = liquidaciones[i].comision;
+    let aseguramiento = liquidaciones[i].aseguramiento;
+    let asesor = liquidaciones[i].asesor;
+    let sucursal = liquidaciones[i].sucursal;
+    let sinAbono = liquidaciones[i].sinAbono;
+    let abono = liquidaciones[i].abono;
+    let liquidar = liquidaciones[i].liquidar;
+
+    //monto
+    liquidaciones[i].monto = helpers.formatterPeso.format(montoPeso)
+    liquidaciones[i].comision = helpers.formatterPeso.format(comision);
+    liquidaciones[i].aseguramiento = helpers.formatterPeso.format(aseguramiento);
+    liquidaciones[i].asesor = helpers.formatterPeso.format(asesor);
+    liquidaciones[i].liquidar = helpers.formatterPeso.format(liquidar);
+
+    if (abono !== null) {
+      liquidaciones[i].abono = helpers.formatterPeso.format(abono);
+    }
+    else {
+      liquidaciones[i].abono = 'No aplica'
+    }
+
+    if (sucursal !== null) {
+      liquidaciones[i].sucursal = helpers.formatterPeso.format(sucursal);
+    }
+    else {
+      liquidaciones[i].sucursal = 'No aplica'
+    }
+
+  }
+
+  return liquidaciones;
+}
+
+helpers.formatterLiquidacionTotal = (liquidacionTotal) => {
+
+  //total liquidacion
+  liquidacionTotal = helpers.formatterPeso.format(liquidacionTotal)
+
+  return liquidacionTotal;
+}
+
+helpers.formatterLiquidacionFecha = (fecha) => {
+  fecha = helpers.formatterFecha(fecha)
+
+  return fecha
+}
+
 //*funciones costos
 //Campeche, Campeche2 Campoeche3 
 helpers.costoLocal = (cantidad) => {
@@ -185,7 +239,7 @@ helpers.costoLocal = (cantidad) => {
   return (retiro)
 }
 
-//Cancun, Cancun2, Carmen, Carmen2, Chetumal, Coatzacoalcos, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Tizimín, Valladolid, Villahermosa
+//Cancun, Cancun2, Carmen, Carmen2, Chetumal, Coatzacoalcos, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Polanco, Tizimín, Valladolid, Villahermosa
 helpers.costoforaneo1 = (cantidad) => {
   let cobro
   let aseguramiento
@@ -276,7 +330,7 @@ helpers.cotizacion = (cantidad, sucursal) => {
   if (sucursal == "Campeche" || sucursal == "Campeche2" || sucursal == "Campeche3") {
     helpers.costoLocal(cantidad)
   }
-  else if (sucursal == "Cancun" || sucursal == "Cancun2" || sucursal == "Carmen" || sucursal == "Carmen2" || sucursal == "Chetumal" || sucursal == "Coatzacoalcos" || sucursal == "Cozumel" || sucursal == "Cuautitlán" || sucursal == "Cuernavaca" || sucursal == "Cuernavaca2" || sucursal == "Ixtapaluca" || sucursal == "Mérida" || sucursal == "Playa del Carmen" || sucursal == "Tizimín" || sucursal == "Valladolid" || sucursal == "Villahermosa") {
+  else if (sucursal == "Cancun" || sucursal == "Cancun2" || sucursal == "Carmen" || sucursal == "Carmen2" || sucursal == "Chetumal" || sucursal == "Coatzacoalcos" || sucursal == "Cozumel" || sucursal == "Cuautitlán" || sucursal == "Cuernavaca" || sucursal == "Cuernavaca2" || sucursal == "Ixtapaluca" || sucursal == "Mérida" || sucursal == "Playa del Carmen" || sucursal == "Playa del Carmen2" || sucursal == "Playa del Carmen3" || sucursal == "Polanco" || sucursal == "Tizimín" || sucursal == "Valladolid" || sucursal == "Villahermosa") {
 
     helpers.costoforaneo1(cantidad)
   }
@@ -313,7 +367,7 @@ helpers.numAleatorio = (max, min) => {
 //*funciones liquidaciones
 //elige tipo de liquidacion
 
-//Cancun, Cancun2, Carmen, Chetumal, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Tizimín, Valladolid, Villahermosa, Campeche3
+//Cancun, Cancun2, Carmen, Chetumal, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Polanco, Tizimín, Valladolid, Villahermosa, Campeche3
 helpers.liquidacionSocio = (monto, abono) => {
   let porcentaje;
   let comision;
@@ -322,7 +376,7 @@ helpers.liquidacionSocio = (monto, abono) => {
   let sucursal;
   let sinAbono;
   let liquidar;
-  const fechaActual = new Date()
+  // const fechaActual = new Date()
 
   if (monto > 30801) {
     porcentaje = .30
@@ -364,16 +418,15 @@ helpers.liquidacionSocio = (monto, abono) => {
 
   liquidacion = {
     monto,
-    abono,
-    porcentaje,
+    porcentaje: porcentaje * 100,
     comision,
     aseguramiento,
     asesor,
     sucursal,
+    abono,
     sin_abono: sinAbono,
-    liquidar,
-    fecha_liquidacion: fechaActual,
-    status: 'close'
+    liquidar
+    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
@@ -386,7 +439,7 @@ helpers.liquidacionSucursalLocal = (monto) => {
   let aseguramiento;
   let asesor;
   let liquidar;
-  const fechaActual = new Date()
+  // const fechaActual = new Date()
 
   if (monto > 30801) {
     porcentaje = .30
@@ -420,13 +473,12 @@ helpers.liquidacionSucursalLocal = (monto) => {
 
   liquidacion = {
     monto,
-    porcentaje,
+    porcentaje: porcentaje * 100,
     comision,
     aseguramiento,
     asesor,
-    liquidar,
-    fecha_liquidacion: fechaActual,
-    status: 'close'
+    liquidar
+    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
@@ -438,7 +490,7 @@ helpers.liquidacionSucursalForanea2 = (monto) => {
   let comision;
   let asesor;
   let liquidar;
-  const fechaActual = new Date()
+  // const fechaActual = new Date()
 
   porcentaje = .30
   comision = monto * porcentaje
@@ -447,12 +499,62 @@ helpers.liquidacionSucursalForanea2 = (monto) => {
 
   liquidacion = {
     monto,
-    porcentaje,
+    porcentaje: porcentaje * 100,
     comision,
     asesor,
-    liquidar,
-    fecha_liquidacion: fechaActual,
-    status: 'close'
+    liquidar
+    // fecha_liquidacion: fechaActual
+  }
+
+  return liquidacion
+};
+
+helpers.liquidacionSucursalEspecial = (monto) => {
+  let porcentaje;
+  let comision;
+  let aseguramiento;
+  let asesor;
+  let liquidar;
+  // const fechaActual = new Date()
+
+  if (monto > 30801) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    liquidar = comision - asesor
+  }
+  else if (monto > 24999) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+
+  else if (monto > 14999) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 1700
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+  else if (monto > 0) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 1300
+    asesor = monto * .05
+    liquidar = (comision + aseguramiento) - asesor
+  }
+
+  liquidacion = {
+    monto,
+    porcentaje: porcentaje * 100,
+    comision,
+    aseguramiento,
+    asesor,
+    liquidar
+    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
@@ -472,6 +574,10 @@ helpers.liquidacion = (monto, tipo, abono) => {
     case "foraneo":
       helpers.liquidacionSucursalForanea2(monto)
       console.log('Foráneo');
+      break;
+    case "especial":
+      helpers.liquidacionSucursalEspecial(monto)
+      console.log('Especial');
       break;
   }
 

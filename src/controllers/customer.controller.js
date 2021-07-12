@@ -16,29 +16,36 @@ controller.postQuery = async (req, res) => {
   const user = req.user
   const { busqueda } = req.body
 
-  // condición para elegir el método de busqueda
-  if (user.permiso === "Regional") {
-    const sqlBuscar = "SELECT * FROM tramites WHERE region = ? AND  cliente like '%" + [busqueda] + "%'"
+  //evita busqueda vacia
+  if (busqueda !== '') {
+    //condición para elegir el método de busqueda
+    if (user.permiso === "Regional") {
+      const sqlBuscar = "SELECT * FROM tramites WHERE region = ? AND  cliente like '%" + [busqueda] + "%'"
 
-    customer = await db.query(sqlBuscar, user.region)
+      customer = await db.query(sqlBuscar, user.region)
+    }
+
+    else if (user.permiso === 'Administrador') {
+      const sqlBuscar = "SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'";
+
+      customer = await db.query(sqlBuscar);
+    }
+
+    else {
+      const sqlBuscar = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
+
+      customer = await db.query(sqlBuscar, [user.zona])
+    }
+
+    //helper que cambia el formato de fecha y moneda
+    customers = helpers.formatterCustomers(customer)
+
+    res.render('customer/list-customer.hbs', { customer })
   }
-
-  else if (user.permiso === 'Administrador') {
-    const sqlBuscar = "SELECT * FROM tramites WHERE cliente like '%" + [busqueda] + "%'";
-
-    customer = await db.query(sqlBuscar);
-  }
-
   else {
-    const sqlBuscar = "SELECT * FROM tramites WHERE zona = ?  AND  cliente like '%" + [busqueda] + "%'"
-
-    customer = await db.query(sqlBuscar, [user.zona])
+    req.flash('fail', 'Escribe el nombre de un cliente')
+    res.redirect('/customer')
   }
-
-  //helper que cambia el formato de fecha y moneda
-  customers = helpers.formatterCustomers(customer)
-
-  res.render('customer/list-customer.hbs', { customer })
 };
 
 //?============= agregar observaciones clientes (ENCARGADO)
@@ -49,7 +56,7 @@ controller.getEdit = async (req, res) => {
 
   customer = await db.query(sqlSelect, [id])
 
-  const sqlMotivos = 'SELECT motivo FROM motivos GROUP BY motivo ORDER BY motivo;'
+  const sqlMotivos = "SELECT motivo FROM motivos where motivo != 'Trámite' ORDER BY motivo;"
 
   const motivos = await db.query(sqlMotivos)
 
@@ -82,7 +89,7 @@ controller.postEdit = async (req, res) => {
   const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
   customer = await db.query(sqlSelect, [id])
 
-  const sqlMotivos = 'SELECT motivo FROM motivos GROUP BY motivo ORDER BY motivo;'
+  const sqlMotivos = "SELECT motivo FROM motivos where motivo != 'Trámite' ORDER BY motivo;"
 
   const motivos = await db.query(sqlMotivos)
 
@@ -104,19 +111,37 @@ controller.getStatus = async (req, res) => {
   const sqlSelect = 'SELECT * FROM tramites WHERE id =?'
   customer = await db.query(sqlSelect, [id])
 
-  //obtener la propiedad status y fecha de tramite de la consulta
-  const { status } = customer[0];
+  //obtener la propiedad status
+  const statusCustomer = customer[0].status;
 
   //* Condición para proteger cambio de status
-  if (status !== 'Pendiente') {
+  if (statusCustomer !== 'Pendiente' && statusCustomer != 'Liquidar') {
     req.flash('fail', 'Cliente ya con status')
     res.redirect('/resume')
   }
-  else if (permiso === 'Administrador' || permiso === 'Regional' || permiso === 'Temporal') {
-    const sqlStatus = 'SELECT status FROM status;'
-    const status = await db.query(sqlStatus)
+  else if (permiso !== 'Encargado') {
 
-    res.render('customer/status.hbs', { customer: customer[0], status })
+    if (statusCustomer === 'Liquidar') {
+      //objeto que validad si se solicita el folio de cierre
+      folio = {
+        folio: "liquidar"
+      }
+
+      const sqlStatus = 'SELECT status FROM status WHERE status = "Finalizado";'
+      status = await db.query(sqlStatus)
+      res.render('customer/status.hbs', { customer: customer[0], status, folio })
+    }
+    else {
+      //objeto que validad si se solicita el folio de cierre
+      folio = {
+        folio: "noliquidar"
+      }
+
+      const sqlStatus = 'SELECT status FROM status WHERE status != "Pendiente" AND status != "Liquidar" AND status != "En espera" AND status != "Finalizado" ORDER BY statuS;'
+
+      status = await db.query(sqlStatus)
+      res.render('customer/status.hbs', { customer: customer[0], status, folio })
+    }
   }
   else {
     req.flash('fail', 'Permiso insuficiente')
@@ -127,50 +152,63 @@ controller.getStatus = async (req, res) => {
 //recibe el formulario para cambiar status
 controller.postStatus = async (req, res) => {
   const { id } = req.params
-  const { status, observaciones } = req.body; //objeto del formulario
+  const { status, observaciones, folio } = req.body; //objeto del formulario
   const user = req.user
   const fechaActual = new Date()
 
-  if (status === 'Finalizado') {
-    let folio = 'F-' + (fechaActual.getMonth() + 1) + helpers.numAleatorio(id, 1);
+  console.log(status);
 
-    //objeto con el folio y el id del cliente
-    const createFolio = {
-      id_cliente: id,
-      folio
-    }
-    //guardo folio
-    const sqlFolio = 'INSERT INTO liquidaciones SET ?'
-    await db.query(sqlFolio, [createFolio])
-    req.flash('warning', `Folio de cierre ${folio}`)
+  if (folio === undefined) {
+    //objeto con el status, observaciones con fecha y usuario
+    const updateCliente = {
+      status,
+      observaciones: observaciones + " (" + user.fullname + ").",
+      fecha_status: fechaActual
+    };
+
+    //actualizo el status de customer
+    const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
+    await db.query(sqlUpdate, [updateCliente, id])
+
+    req.flash('success', 'Status actualizado correctamente')
+    res.redirect('/resume')
   }
 
-  if (status === 'Pendiente') {
-    //coloca el motivo
-    motivo = "Trámite"
-  }
   else {
-    motivo = null
+
+    const sqlValidarCliente = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ? AND status = "closed";'
+    const validarCliente = await db.query(sqlValidarCliente, id);
+
+    if (validarCliente.length !== 0) {
+      const sqlValidarFolio = 'SELECT folio FROM liquidaciones WHERE folio = ?;'
+      const validarFolio = await db.query(sqlValidarFolio, folio);
+
+      if (validarFolio.length !== 0) {
+        //objeto con el status, observaciones con fecha y usuario
+        const updateCliente = {
+          status,
+          observaciones: observaciones + " (" + user.fullname + ").",
+          fecha_status: fechaActual
+        };
+
+        //actualizo el status de customer
+        const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
+        await db.query(sqlUpdate, [updateCliente, id])
+
+        req.flash('success', 'Finalizado correctamente')
+        res.redirect('/resume')
+      }
+      else {
+        req.flash('fail', 'Folio incorrecto')
+        res.redirect('/customer/edit/' + id)
+      }
+
+    }
+    else {
+      req.flash('fail', 'No se ha liquidado')
+      res.redirect('/customer/edit/' + id)
+    }
   }
-
-  //objeto con el status, observaciones con fecha y usuario
-  const updateCliente = {
-    status,
-    motivo,
-    observaciones: observaciones + " (" + user.fullname + ").",
-    fecha_status: fechaActual
-  };
-
-  //actualizo el status de customer
-  const sqlUpdate = 'UPDATE tramites set ? WHERE id = ?'
-  await db.query(sqlUpdate, [updateCliente, id])
-
-  // consulto el status que se acaba de actualizar
-  // const sqlSelect = 'SELECT status FROM tramites WHERE id =?'
-  // customerStatus = await db.query(sqlSelect, [id])
-
-  req.flash('success', 'Status actualizado correctamente')
-  res.redirect('/resume')
 };
 
 module.exports = controller;

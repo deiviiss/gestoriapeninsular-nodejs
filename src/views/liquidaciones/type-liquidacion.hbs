@@ -6,7 +6,7 @@
     <div class="col-md-6 mt-2 mx-auto">
 
       <form
-        action="/liquidaciones/liquidar/{{id}}"
+        action="/liquidaciones/liquidar/{{customer.id}}"
         method="post"
         class="form__edit"
         name="formulario_cliente"
@@ -15,7 +15,7 @@
         <div class="card border-info text-dark bg-light">
 
           <div class="card_title">
-            <h5 class="card-header text-muted">{{cliente}}</h5>
+            <h5 class="card-header text-muted">{{customer.cliente}}</h5>
           </div>
 
           <div class="card-body">
@@ -31,6 +31,7 @@
                     <option value="local">Local</option>
                     <option value="socio">Socio</option>
                     <option value="foraneo">Foráneo</option>
+                    <option value="especial">Especial</option>
                   </select>
                 </div>
               </div>

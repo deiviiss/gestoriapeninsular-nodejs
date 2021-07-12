@@ -11,13 +11,19 @@ const controller = require('../controllers/liquidacion.controller.js');
 //lista liquidaciones sin finalizar
 router.get('/liquidaciones', isLoggedIn, controller.getLiquidaciones);
 
-//abono para liquidación
+//lista resultado de busqueda de liquidaciones
+router.post('/liquidaciones', isLoggedIn, controller.postLiquidaciones);
+
+//valida si existe liquidacion render tipo liquidación
 router.get('/liquidaciones/liquidar/:id', isLoggedIn, controller.getLiquidar);
 
-//liquida los clientes
+//recibe liquidación a agregar
 router.post('/liquidaciones/liquidar/:id', isLoggedIn, controller.postLiquidar);
 
-//muestra los detalles de la liquidación
-router.get('/liquidaciones/details/:id', isLoggedIn, controller.getDetails);
+//liquidación por zona
+router.post('/liquidaciones/liquidar-zona', isLoggedIn, controller.postLiquidarZona);
+
+//cierra liquidación por zona
+router.get('/liquidaciones/close-liquidacion', isLoggedIn, controller.getClosed);
 
 module.exports = router;

@@ -48,13 +48,33 @@
 
               <textarea
                 required
-                class="border-"
+                class="form-control"
                 name="observaciones"
                 id="observaciones"
                 cols="30"
                 rows="2"
               ></textarea>
             </div>
+
+            {{#if_equal folio.folio "liquidar"}}
+              <h6 class="card-title m-1 text-center">Folio cierre:</h6>
+
+              <div class="text-center">
+                <label for="folio"></label>
+              </div>
+
+              <div class="text-center">
+
+                <textarea
+                  required
+                  class="form-control text-center"
+                  name="folio"
+                  id="folio"
+                  cols="10"
+                  rows="1"
+                ></textarea>
+              </div>
+            {{/if_equal}}
 
             <div class="buttons">
 

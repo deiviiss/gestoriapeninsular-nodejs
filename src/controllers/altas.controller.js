@@ -323,9 +323,9 @@ controller.getResumeAltas = async (req, res) => {
       //?suma los totales de altas
       let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
-      //? número de semana con base a la primera captura
-      const sqlWeek = "SELECT WEEK(?) AS total"
-      week = await db.query(sqlWeek, resume[0].fecha_captura)
+      //? número de semana con base a la fecha actual
+      const sqlWeek = "SELECT WEEK(CURDATE()) AS total"
+      week = await db.query(sqlWeek)
       res.render('altas/resume-altas.hbs', { resume, week, totalResume })
     }
     else {
@@ -344,9 +344,9 @@ controller.getResumeAltas = async (req, res) => {
       //?suma los totales de altas
       let totalResume = resume.reduce((sum, value) => (typeof value.total == "number" ? sum + value.total : sum), 0);
 
-      //? número de semana con base a la primera captura
-      const sqlWeek = "SELECT WEEK(?) AS total"
-      week = await db.query(sqlWeek, resume[0].fecha_captura)
+      //? número de semana con base a la fecha actual
+      const sqlWeek = "SELECT WEEK(CURDATE()) AS total"
+      week = await db.query(sqlWeek)
       res.render('altas/resume-altas.hbs', { resume, week, totalResume })
     }
     else {

@@ -1,59 +1,157 @@
+//liquidaciones
+
+//dependends
 const db = require('../database'); //conexión a la base de datos
 const helpers = require('../lib/handlebars')
 
 const controller = {}
 
+//lista y suma liquidaciones
 controller.getLiquidaciones = async (req, res) => {
   const user = req.user
   //trae todas las liquidaciones
-  const sqlLiquidaciones = "SELECT l.id_liquidacion, t.cliente, l.folio, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' "
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open'"
+
+  //get zonas
+  const sqlZonas = 'SELECT zona FROM zonas'
 
   switch (user.permiso) {
     case "Administrador":
 
       liquidaciones = await db.query(sqlLiquidaciones);
 
-      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones })
+      //?suma los totales de altas
+      liquidacionTotal = liquidaciones.reduce((sum, value) => (typeof value.liquidar == "number" ? sum + value.liquidar : sum), 0);
+      liquidacionTotal = liquidacionTotal.toFixed(2)
+
+      zonas = await db.query(sqlZonas + ' ORDER BY zona;')
+
+      liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
+      liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+
+      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones, liquidacionTotal, zonas })
       break;
 
     case "Regional":
 
-      liquidaciones = await db.query(sqlLiquidaciones + "AND t.region = ?;", user.region);
+      liquidaciones = await db.query(sqlLiquidaciones + " AND t.region = ?;", user.region);
 
-      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones })
+      //?suma los totales de las liquidaciones
+      liquidacionTotal = liquidaciones.reduce((sum, value) => (typeof value.liquidar == "number" ? sum + value.liquidar : sum), 0);
+      liquidacionTotal = liquidacionTotal.toFixed(2)
+
+      zonas = await db.query(sqlZonas + ' WHERE region = ? ORDER BY zona;', user.region)
+
+      liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
+      liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+
+      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones, liquidacionTotal, zonas })
       break;
 
     default:
 
       liquidaciones = await db.query(sqlLiquidaciones + "AND t.zona = ?;", user.zona);
 
-      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones })
+      //?suma los totales de altas
+      liquidacionTotal = liquidaciones.reduce((sum, value) => (typeof value.liquidar == "number" ? sum + value.liquidar : sum), 0);
+      liquidacionTotal = liquidacionTotal.toFixed(2)
+
+      liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
+      liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+
+      res.render('liquidaciones/list-liquidaciones.hbs', { liquidaciones, liquidacionTotal })
       break;
   }
 };
 
+//lista resulta de busqueda de liquidaciones
+controller.postLiquidaciones = async (req, res) => {
+  const { folio } = req.body;
+  const user = req.user;
+
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona, l.fecha_liquidacion FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.folio = ?"
+
+  if (folio !== '') {
+
+    //condición para elegir el método de busqueda
+    if (user.permiso === 'Regional') {
+      //regional
+      liquidaciones = await db.query(sqlLiquidaciones + " AND t.region = ?", [folio, user.region])
+
+    }
+    else if (user.permiso === 'Administrador') {
+      //admin
+      liquidaciones = await db.query(sqlLiquidaciones, folio)
+    }
+    else {
+      //encargado
+      liquidaciones = await db.query(sqlLiquidaciones + " AND t.zona = ?", [folio, user.zona])
+    }
+
+    if (liquidaciones.length !== 0) {
+      zona = liquidaciones[0].zona;
+
+      liquidaciones[0].fecha_liquidacion = helpers.formatterLiquidacionFecha(liquidaciones[0].fecha_liquidacion);
+
+      fechaLiquidacion = liquidaciones[0].fecha_liquidacion;
+
+      //?suma los totales de las liquidaciones
+      liquidacionTotal = liquidaciones.reduce((sum, value) => (typeof value.liquidar == "number" ? sum + value.liquidar : sum), 0);
+      liquidacionTotal = liquidacionTotal.toFixed(2)
+
+      liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
+      liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+
+      res.render('liquidaciones/liquidacion.hbs', { liquidaciones, liquidacionTotal, zona, fechaLiquidacion })
+    }
+    else {
+      req.flash('fail', 'Folio incorrecto');
+      res.redirect('/liquidaciones')
+    }
+
+  }
+  else {
+    req.flash('fail', 'Escribe el folio de la liquidación');
+    res.redirect('/liquidaciones')
+  }
+}
+
+//valida si existe liquidacion render tipo liquidación
 controller.getLiquidar = async (req, res) => {
   const { id } = req.params
 
-  const sqlLiquidacion = 'SELECT t.cliente, l.status FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.id_liquidacion = ?;'
+  const sqlValidarLiquidacion = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ?;'
+  const validarLiquidacion = await db.query(sqlValidarLiquidacion, id)
 
-  let liquidacion = await db.query(sqlLiquidacion, [id])
-
-  if (liquidacion[0].status === 'open') {
-
-    res.render('liquidaciones/type-liquidacion.hbs', { id, cliente: liquidacion[0].cliente })
-  }
-  else {
-    req.flash('fail', 'Liquidación cerrada')
+  if (validarLiquidacion.length !== 0) {
+    req.flash('fail', 'Cliente ya en liquidación')
     res.redirect('/liquidaciones')
+  }
+
+  else {
+    const sqlCustomer = 'SELECT id, cliente FROM tramites WHERE id = ?;'
+    customer = await db.query(sqlCustomer, id)
+
+    res.render('liquidaciones/type-liquidacion.hbs', { customer: customer[0] })
   }
 };
 
+//recibe liquidación a agregar
 controller.postLiquidar = async (req, res) => {
   const { id } = req.params;
   let { tipo, abono } = req.body;
-  const user = req.user;
 
+  //objeto con el status y el motivo para actualizar trámite
+  const updateStatus = {
+    status: 'Liquidar',
+    motivo: null
+  }
+
+  //actualizo el status
+  const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
+  await db.query(sqlUpdate, [updateStatus, id])
+
+  //parsea abono
   if (abono != '') {
     abono = parseInt(abono)
   }
@@ -61,26 +159,83 @@ controller.postLiquidar = async (req, res) => {
     abono = 0
   }
 
-  //trae la liquidación que se cerrara
-  const sqlLiquidacion = 'SELECT t.monto FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.id_liquidacion = ?;'
+  //monto a usar en liquidación
+  const sqlLiquidacion = 'SELECT monto FROM tramites WHERE id = ?;'
   let liquidacion = await db.query(sqlLiquidacion, [id])
 
-  //calcula la liquidación y crea el objeto que actualizara la bd
-  const createLiquidar = helpers.liquidacion(liquidacion[0].monto, tipo, abono)
+  // calcula la liquidación y crea el objeto que ira a la bd
+  let createLiquidar = helpers.liquidacion(liquidacion[0].monto, tipo, abono)
 
-  //actualiza la bd con la liquidacion creada
-  const sqlUpdateLiquidar = "UPDATE liquidaciones SET ? WHERE id_liquidacion = ?"
-  await db.query(sqlUpdateLiquidar, [createLiquidar, id])
+  //agrega el id_cliente al objeto con la liquidacion
+  createLiquidar.id_cliente = id
 
-  //consulta la liquidacion actualizada para mandar a la vista
-  const sqlLiquidar = 'SELECT t.cliente, l.monto AS monto_cobrado, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.sin_abono, l.liquidar, l.fecha_liquidacion, l.folio, l.status FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.id_liquidacion = ?;'
-  const liquidar = await db.query(sqlLiquidar, [id])
-  //! trabajando en la vista que mostrara la liquidación
-  res.render('liquidaciones/liquidacion.hbs', { liquidar: liquidar[0], user });
+  //guardo liquidación
+  const sqlSaveLiquidacion = 'INSERT INTO liquidaciones SET ?'
+  await db.query(sqlSaveLiquidacion, [createLiquidar])
+
+  req.flash('success', 'Cliente agregado a liquidación')
+  res.redirect('/liquidaciones')
+};
+
+//liquidación por zona
+controller.postLiquidarZona = async (req, res) => {
+  const { zona } = req.body;
+
+  //trae todas las liquidaciones por zona
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
+
+  let liquidaciones = await db.query(sqlLiquidaciones, zona)
+
+  //?suma los totales de las liquidaciones
+  liquidacionTotal = liquidaciones.reduce((sum, value) => (typeof value.liquidar == "number" ? sum + value.liquidar : sum), 0);
+  liquidacionTotal = liquidacionTotal.toFixed(2)
+
+  liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
+  liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+
+  res.render('liquidaciones/liquidacion.hbs', { liquidaciones, liquidacionTotal, zona })
 }
 
-controller.getDetails = async (req, res) => {
-  res.send('Mostrar los campos de liquidación');
+//cierra liquidación por zona
+controller.getClosed = async (req, res) => {
+  const zona = req.query.zona;
+  const fechaActual = new Date();
+
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
+
+  const liquidaciones = await db.query(sqlLiquidaciones, zona)
+
+  if (liquidaciones.length !== 0) {
+    //número para generar el folio aleatorio
+    numeroAleatorio = liquidaciones[0].id_cliente
+
+    // Creo folio
+    let folio = 'F-' + (fechaActual.getMonth() + 1) + helpers.numAleatorio(numeroAleatorio, 1);
+
+    //objeto con el folio para cerrar liquidación
+    const closeLiquidacion = {
+      status: 'closed',
+      fecha_liquidacion: fechaActual,
+      folio
+    }
+
+    //cierro liquidaciones
+    for (let i = 0; i < liquidaciones.length; i++) {
+      let idcliente = liquidaciones[i].id_cliente
+      const sqlCloseLiquidacion = 'UPDATE liquidaciones SET ? WHERE id_cliente = ?;';
+
+      await db.query(sqlCloseLiquidacion, [closeLiquidacion, idcliente])
+    }
+
+    req.flash('warning', `Folio de cierre ${folio}`)
+    res.redirect('/liquidaciones')
+  }
+  else {
+    req.flash('fail', 'Sin liquidaciones abiertas')
+    res.redirect('/liquidaciones')
+  }
+
+
 }
 
 module.exports = controller;

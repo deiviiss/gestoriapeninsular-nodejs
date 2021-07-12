@@ -16,9 +16,15 @@ controller.getDirectorio = async (req, res) => {
 controller.postSearch = async (req, res) => {
   const { busqueda } = req.body
 
-  directorio = directorio = await db.query("SELECT * FROM users WHERE fullname like '%" + [busqueda] + "%' OR zona like '%" + [busqueda] + "%'") // consulta a la base
+  if (busqueda !== '') {
+    directorio = directorio = await db.query("SELECT * FROM users WHERE fullname like '%" + [busqueda] + "%' OR zona like '%" + [busqueda] + "%'") // consulta a la base
 
-  res.render('directory/list.hbs', { directorio })
+    res.render('directory/list.hbs', { directorio })
+  }
+  else {
+    req.flash('fail', 'Escribe el nombre de la sucursal o encargado')
+    res.redirect('/directorio')
+  }
 }
 
 module.exports = controller;

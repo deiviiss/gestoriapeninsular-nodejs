@@ -3,39 +3,67 @@
   <section class="list-customers">
     <div class="wrapper">
 
-      <h3>{{user.zona}}</h3>
+      <h3>{{zona}}</h5>
 
-      <div class="list-title text-right">
+      <div class="list-title">
 
-        {{!-- <h6>{{liquidar.cliente}}</h6> --}}
+        {{! <h5></h5> }}
+        <h6>Total $ {{liquidacionTotal}}</h6>
+
+         {{#if fechaLiquidacion}}
+
+         <p>{{fechaLiquidacion}}</p>
+         {{else}}
+         <div class="buttons btn-list">
+          <a
+            href="/liquidaciones/close-liquidacion/?zona={{zona}}"
+            class="btn btn-danger btn-space"
+          >Liquidar</a>
+        </div>
+        {{/if}}
 
       </div>
+      {{#each liquidaciones}}
 
-      <div class="customer">
-        <div class="grid-list">
+        <div class="customer">
 
-          <h6>Cliente</h6>
-          <p>{{liquidar.cliente}}</p>
+          <div class="grid-list">
 
-          <h6>Monto</h6>
-          <p>{{liquidar.monto_cobrado}}</p>
-          <h6>Porcentaje</h6>
-          <p>{{liquidar.porcentaje}}%</p>
-          <h6>Comisión</h6>
-          <p>{{liquidar.comision}}</p>
-          <h6>Aseguramiento</h6>
-          <p>{{liquidar.aseguramiento}}</p>
+            <h6>Cliente</h6>
+            <p>{{cliente}}</p>
 
-          <h6>Asesor</h6>
-          <p>{{liquidar.asesor}}</p>
+            <h6>Monto</h6>
+            <p>{{monto}}</p>
+            <h6>Porcentaje</h6>
+            <p>{{porcentaje}}%</p>
+            <h6>Comisión</h6>
+            <p>{{comision}}</p>
+            <h6>Aseguramiento</h6>
+            <p>{{aseguramiento}}</p>
+            <h6>Abono</h6>
+            <p>{{abono}}</p>
 
-          <h6>Sucursal</h6>
-          <p>{{liquidar.sucursal}}</p>
-          <h6>Total a liquidar</h6>
-          <p>{{liquidar.liquidar}}</p>
+            <h6>Asesor</h6>
+            <p>{{asesor}}</p>
+
+            <h6>Sucursal</h6>
+            <p>{{sucursal}}</p>
+
+            <h6>Zona</h6>
+            <p>{{zona}}</p>
+
+            <h6>Total a liquidar</h6>
+            <p>{{liquidar}}</p>
+
+          </div>
 
         </div>
-      </div>
+
+      {{else}}
+        <div class="card card-body text-center mt-2">
+          <p class="text-center">Sin liquidaciones abiertas.</p>
+        </div>
+      {{/each}}
 
     </div>
 
