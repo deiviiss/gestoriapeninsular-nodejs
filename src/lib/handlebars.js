@@ -514,6 +514,8 @@ helpers.liquidacionSucursalEspecial = (monto) => {
   let comision;
   let aseguramiento;
   let asesor;
+  let sucursal;
+  let sinAbono;
   let liquidar;
   // const fechaActual = new Date()
 
@@ -522,14 +524,18 @@ helpers.liquidacionSucursalEspecial = (monto) => {
     comision = monto * porcentaje
     aseguramiento = 2000
     asesor = monto * .05
-    liquidar = comision - asesor
+    sucursal = (comision - 2000) / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
   }
   else if (monto > 24999) {
     porcentaje = .20
     comision = monto * porcentaje
     aseguramiento = 2000
     asesor = monto * .05
-    liquidar = (comision + aseguramiento) - asesor
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
   }
 
   else if (monto > 14999) {
@@ -537,14 +543,18 @@ helpers.liquidacionSucursalEspecial = (monto) => {
     comision = monto * porcentaje
     aseguramiento = 1700
     asesor = monto * .05
-    liquidar = (comision + aseguramiento) - asesor
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
   }
   else if (monto > 0) {
     porcentaje = .20
     comision = monto * porcentaje
     aseguramiento = 1300
     asesor = monto * .05
-    liquidar = (comision + aseguramiento) - asesor
+    sucursal = comision / 3
+    sinAbono = sucursal + aseguramiento
+    liquidar = sinAbono + abono
   }
 
   liquidacion = {
@@ -553,6 +563,9 @@ helpers.liquidacionSucursalEspecial = (monto) => {
     comision,
     aseguramiento,
     asesor,
+    sucursal,
+    abono,
+    sin_abono: sinAbono,
     liquidar
     // fecha_liquidacion: fechaActual
   }
@@ -563,19 +576,19 @@ helpers.liquidacionSucursalEspecial = (monto) => {
 helpers.liquidacion = (monto, tipo, abono) => {
 
   switch (tipo) {
-    case "local":
+    case "Local":
       helpers.liquidacionSucursalLocal(monto)
       console.log('Local');
       break;
-    case "socio":
+    case "Socio":
       helpers.liquidacionSocio(monto, abono)
-      console.log('socio');
+      console.log('Socio');
       break;
-    case "foraneo":
+    case "Foráneo":
       helpers.liquidacionSucursalForanea2(monto)
       console.log('Foráneo');
       break;
-    case "especial":
+    case "Especial":
       helpers.liquidacionSucursalEspecial(monto)
       console.log('Especial');
       break;

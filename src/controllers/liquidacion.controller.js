@@ -123,16 +123,47 @@ controller.getLiquidar = async (req, res) => {
   const sqlValidarLiquidacion = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ?;'
   const validarLiquidacion = await db.query(sqlValidarLiquidacion, id)
 
+  //creando el tipo de objeto segun usuario para la eleccion de la liquidacion
   if (validarLiquidacion.length !== 0) {
     req.flash('fail', 'Cliente ya en liquidación')
     res.redirect('/liquidaciones')
   }
 
   else {
+    const user = req.user
     const sqlCustomer = 'SELECT id, cliente FROM tramites WHERE id = ?;'
     customer = await db.query(sqlCustomer, id)
 
-    res.render('liquidaciones/type-liquidacion.hbs', { customer: customer[0] })
+    //liquidacion como socio cobrando el 25% y local
+    if (user.zona !== 'Campeche3' && user.zona !== 'Tizimin' && user.zona !== 'Escarcega' && user.zona !== 'Champoton' && user.zona !== 'Palenque') {
+      tipoLiquidacion = [
+        {
+          liquidacion: 'Local'
+        },
+        {
+          liquidacion: 'Socio'
+        }
+      ]
+
+    }
+    //liquidacion foraneo cobra 30%
+    else if (user.zona == 'Escarcega' || user.zona == 'Champoton' || user.zona == 'Palenque') {
+      tipoLiquidacion = [
+        {
+          liquidacion: 'Foráneo'
+        }
+      ]
+    }
+    //liquidacion como socio cobrando el 20% y local
+    else {
+      tipoLiquidacion = [
+        {
+          liquidacion: 'Especial'
+        }
+      ]
+    }
+
+    res.render('liquidaciones/type-liquidacion.hbs', { customer: customer[0], tipoLiquidacion })
   }
 };
 
@@ -234,8 +265,6 @@ controller.getClosed = async (req, res) => {
     req.flash('fail', 'Sin liquidaciones abiertas')
     res.redirect('/liquidaciones')
   }
-
-
 }
 
 module.exports = controller;

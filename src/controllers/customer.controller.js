@@ -51,19 +51,45 @@ controller.postQuery = async (req, res) => {
 //?============= agregar observaciones clientes (ENCARGADO)
 //envia formulario para editar
 controller.getEdit = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
+  const user = req.user;
   const sqlSelect = 'SELECT t.id, t.cliente, t.fecha_tramite, t.monto, t.curp, t.nss, t.scotizadas, t.sdescontadas, t.direccion, t.telefono, t.status, t.motivo, t.zona, t.fecha_status, l.folio, t.fecha_solucion, t.observaciones FROM tramites AS t LEFT JOIN liquidaciones as l ON t.id = l.id_cliente WHERE id = ?';
 
-  customer = await db.query(sqlSelect, [id])
+  switch (user.permiso) {
+    case 'Administrador':
 
-  const sqlMotivos = "SELECT motivo FROM motivos where motivo != 'Trámite' ORDER BY motivo;"
+      customer = await db.query(sqlSelect, [id])
 
-  const motivos = await db.query(sqlMotivos)
+      break;
 
-  //helper que cambia el formato de fecha y moneda
-  helpers.formatterCustomers(customer)
+    case 'Regional':
 
-  res.render('customer/edit', { customer: customer[0], motivos }) //cero indica que solo tome un objeto del arreglo
+      customer = await db.query(sqlSelect + ' AND region = ?', [id, user.region])
+
+      break;
+
+    default:
+
+      customer = await db.query(sqlSelect + ' AND zona = ?', [id, user.zona])
+
+      break;
+  }
+
+  //protegiendo la ruta del cliente en la edicion
+  if (customer.length !== 0) {
+    const sqlMotivos = "SELECT motivo FROM motivos where motivo != 'Trámite' ORDER BY motivo;"
+
+    const motivos = await db.query(sqlMotivos)
+
+    //helper que cambia el formato de fecha y moneda
+    helpers.formatterCustomers(customer)
+    console.log(motivos);
+    res.render('customer/edit', { customer: customer[0], motivos }) //cero indica que solo tome un objeto del arreglo
+  }
+  else {
+    req.flash('fail', 'Cliente no encontrado')
+    res.redirect('/customer')
+  }
 };
 
 //recibe el formulario para actualizar observaciones
@@ -156,14 +182,14 @@ controller.postStatus = async (req, res) => {
   const user = req.user
   const fechaActual = new Date()
 
-  console.log(status);
-
+  //si no se recibe folio solo cambia status
   if (folio === undefined) {
     //objeto con el status, observaciones con fecha y usuario
     const updateCliente = {
       status,
       observaciones: observaciones + " (" + user.fullname + ").",
-      fecha_status: fechaActual
+      fecha_status: fechaActual,
+      motivo: null
     };
 
     //actualizo el status de customer
@@ -174,6 +200,7 @@ controller.postStatus = async (req, res) => {
     res.redirect('/resume')
   }
 
+  //valida si la liquidacion fue cerrada y si el folio coincide
   else {
 
     const sqlValidarCliente = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ? AND status = "closed";'

@@ -28,10 +28,9 @@
                 <div class="form__input-item">
                   <select required name="tipo">
                     <option value=""></option>
-                    <option value="local">Local</option>
-                    <option value="socio">Socio</option>
-                    <option value="foraneo">Foráneo</option>
-                    <option value="especial">Especial</option>
+                    {{#each tipoLiquidacion}}
+                      <option value="{{liquidacion}}">{{liquidacion}}</option>
+                    {{/each}}
                   </select>
                 </div>
               </div>
