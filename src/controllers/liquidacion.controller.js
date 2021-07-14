@@ -94,7 +94,7 @@ controller.postLiquidaciones = async (req, res) => {
 
     if (liquidaciones.length !== 0 && liquidaciones[0].liquidar !== null) {
       zona = liquidaciones[0].zona;
-      console.log(liquidaciones);
+
       liquidaciones[0].fecha_liquidacion = helpers.formatterFecha(liquidaciones[0].fecha_liquidacion);
 
       fechaLiquidacion = liquidaciones[0].fecha_liquidacion;
@@ -105,8 +105,9 @@ controller.postLiquidaciones = async (req, res) => {
 
       liquidaciones = helpers.formatterLiquidaciones(liquidaciones)
       liquidacionTotal = helpers.formatterLiquidacionTotal(liquidacionTotal)
+      liquidacionFolio = liquidaciones[0].folio
 
-      res.render('liquidaciones/liquidacion.hbs', { liquidaciones, liquidacionTotal, zona, fechaLiquidacion })
+      res.render('liquidaciones/liquidacion.hbs', { liquidaciones, liquidacionTotal, zona, fechaLiquidacion, liquidacionFolio })
     }
     else {
       req.flash('fail', 'Folio incorrecto');
@@ -120,7 +121,7 @@ controller.postLiquidaciones = async (req, res) => {
   }
 }
 
-//valida si existe liquidacion render tipo liquidación
+//valida si existe liquidacion render tipo liquidación (botón liquidar)
 controller.getLiquidar = async (req, res) => {
   const { id } = req.params
 
@@ -171,7 +172,7 @@ controller.getLiquidar = async (req, res) => {
   }
 };
 
-//recibe liquidación a agregar
+//recibe liquidación a agregar (tipo de liquidación)
 controller.postLiquidar = async (req, res) => {
   const { id } = req.params;
   let { tipo, abono } = req.body;
@@ -236,7 +237,7 @@ controller.getClosed = async (req, res) => {
   const zona = req.query.zona;
   const fechaActual = new Date();
 
-  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.liquidar, t.zona, t.fecha_tramite FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
+  const sqlLiquidaciones = "SELECT l.id_cliente FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
 
   const liquidaciones = await db.query(sqlLiquidaciones, zona)
 
