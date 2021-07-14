@@ -142,6 +142,7 @@ helpers.formatterLiquidaciones = (liquidaciones) => {
     let sinAbono = liquidaciones[i].sinAbono;
     let abono = liquidaciones[i].abono;
     let liquidar = liquidaciones[i].liquidar;
+    let fechaTramite = liquidaciones[i].fecha_tramite;
 
     //monto
     liquidaciones[i].monto = helpers.formatterPeso.format(montoPeso)
@@ -149,6 +150,7 @@ helpers.formatterLiquidaciones = (liquidaciones) => {
     liquidaciones[i].aseguramiento = helpers.formatterPeso.format(aseguramiento);
     liquidaciones[i].asesor = helpers.formatterPeso.format(asesor);
     liquidaciones[i].liquidar = helpers.formatterPeso.format(liquidar);
+    liquidaciones[i].fecha_tramite = helpers.formatterFecha(fechaTramite);
 
     if (abono !== null) {
       liquidaciones[i].abono = helpers.formatterPeso.format(abono);
@@ -163,7 +165,6 @@ helpers.formatterLiquidaciones = (liquidaciones) => {
     else {
       liquidaciones[i].sucursal = 'No aplica'
     }
-
   }
 
   return liquidaciones;
@@ -175,12 +176,6 @@ helpers.formatterLiquidacionTotal = (liquidacionTotal) => {
   liquidacionTotal = helpers.formatterPeso.format(liquidacionTotal)
 
   return liquidacionTotal;
-}
-
-helpers.formatterLiquidacionFecha = (fecha) => {
-  fecha = helpers.formatterFecha(fecha)
-
-  return fecha
 }
 
 //*funciones costos

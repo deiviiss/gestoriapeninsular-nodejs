@@ -3,10 +3,14 @@
   <section class="list-customers">
     <div class="wrapper">
 
-      <h3>{{zona}}</h5>
+      <div class="d-flex justify-content-between">
+        <h3>{{zona}}</h5>
+      {{#each liquidaciones}}
+        <p>{{folio}}</p>
+      {{/each}}
+      </div>
 
       <div class="list-title">
-
         {{! <h5></h5> }}
         <h6>Total $ {{liquidacionTotal}}</h6>
 
@@ -21,8 +25,8 @@
           >Liquidar</a>
         </div>
         {{/if}}
-
       </div>
+
       {{#each liquidaciones}}
 
         <div class="customer">
@@ -54,6 +58,9 @@
 
             <h6>Total a liquidar</h6>
             <p>{{liquidar}}</p>
+
+            <h6>Fecha trámite</h6>
+            <p>{{fecha_tramite}}</p>
 
           </div>
 

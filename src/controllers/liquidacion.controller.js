@@ -10,7 +10,7 @@ const controller = {}
 controller.getLiquidaciones = async (req, res) => {
   const user = req.user
   //trae todas las liquidaciones
-  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open'"
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona, t.fecha_tramite FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open'"
 
   //get zonas
   const sqlZonas = 'SELECT zona FROM zonas'
@@ -69,29 +69,33 @@ controller.postLiquidaciones = async (req, res) => {
   const { folio } = req.body;
   const user = req.user;
 
-  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona, l.fecha_liquidacion FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.folio = ?"
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona, l.fecha_liquidacion, l.folio, t.fecha_tramite FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.folio = ?"
 
   if (folio !== '') {
 
-    //condición para elegir el método de busqueda
-    if (user.permiso === 'Regional') {
-      //regional
-      liquidaciones = await db.query(sqlLiquidaciones + " AND t.region = ?", [folio, user.region])
+    //Elegir el método de busqueda
 
-    }
-    else if (user.permiso === 'Administrador') {
-      //admin
-      liquidaciones = await db.query(sqlLiquidaciones, folio)
-    }
-    else {
-      //encargado
-      liquidaciones = await db.query(sqlLiquidaciones + " AND t.zona = ?", [folio, user.zona])
+    switch (user.permiso) {
+      case 'Regional':
+        //regional
+        liquidaciones = await db.query(sqlLiquidaciones + " AND t.region = ?", [folio, user.region])
+        break;
+
+      case 'Administrador':
+        //admin
+        liquidaciones = await db.query(sqlLiquidaciones, folio)
+        break;
+
+      default:
+        //encargado
+        liquidaciones = await db.query(sqlLiquidaciones + " AND t.zona = ?", [folio, user.zona])
+        break;
     }
 
-    if (liquidaciones.length !== 0) {
+    if (liquidaciones.length !== 0 && liquidaciones[0].liquidar !== null) {
       zona = liquidaciones[0].zona;
-
-      liquidaciones[0].fecha_liquidacion = helpers.formatterLiquidacionFecha(liquidaciones[0].fecha_liquidacion);
+      console.log(liquidaciones);
+      liquidaciones[0].fecha_liquidacion = helpers.formatterFecha(liquidaciones[0].fecha_liquidacion);
 
       fechaLiquidacion = liquidaciones[0].fecha_liquidacion;
 
@@ -213,7 +217,7 @@ controller.postLiquidarZona = async (req, res) => {
   const { zona } = req.body;
 
   //trae todas las liquidaciones por zona
-  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.abono, l.liquidar, t.zona, t.fecha_tramite FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
 
   let liquidaciones = await db.query(sqlLiquidaciones, zona)
 
@@ -232,7 +236,7 @@ controller.getClosed = async (req, res) => {
   const zona = req.query.zona;
   const fechaActual = new Date();
 
-  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.liquidar, t.zona FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
+  const sqlLiquidaciones = "SELECT l.id_cliente, t.cliente, t.monto, l.porcentaje, l.comision, l.aseguramiento, l.asesor, l.sucursal, l.liquidar, t.zona, t.fecha_tramite FROM liquidaciones AS l JOIN tramites AS t ON t.id = l.id_cliente WHERE l.status = 'open' AND t.zona = ?"
 
   const liquidaciones = await db.query(sqlLiquidaciones, zona)
 

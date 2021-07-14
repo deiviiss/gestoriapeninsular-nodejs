@@ -83,7 +83,6 @@ controller.getEdit = async (req, res) => {
 
     //helper que cambia el formato de fecha y moneda
     helpers.formatterCustomers(customer)
-    console.log(motivos);
     res.render('customer/edit', { customer: customer[0], motivos }) //cero indica que solo tome un objeto del arreglo
   }
   else {
