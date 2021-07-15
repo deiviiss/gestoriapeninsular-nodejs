@@ -48,7 +48,7 @@ controller.postQuery = async (req, res) => {
   }
 };
 
-//?============= agregar observaciones clientes (ENCARGADO)
+//*============= agregar observaciones clientes (ENCARGADO)
 //envia formulario para editar
 controller.getEdit = async (req, res) => {
   const { id } = req.params;
@@ -126,7 +126,7 @@ controller.postEdit = async (req, res) => {
   res.render('customer/edit', { customer: customer[0], motivos });
 };
 
-//?================= movimiento de status clientes (REGIONAL)
+//*================= movimiento de status clientes (REGIONAL)
 //envia el formulario para cambiar status
 controller.getStatus = async (req, res) => {
   const { id } = req.params
@@ -139,11 +139,12 @@ controller.getStatus = async (req, res) => {
   //obtener la propiedad status
   const statusCustomer = customer[0].status;
 
-  //* Condición para proteger cambio de status
+  //? Condición para proteger cambio de status
   if (statusCustomer !== 'Pendiente' && statusCustomer != 'Liquidar') {
     req.flash('fail', 'Cliente ya con status')
     res.redirect('/resume')
   }
+
   else if (permiso !== 'Encargado') {
 
     if (statusCustomer === 'Liquidar') {
@@ -159,7 +160,7 @@ controller.getStatus = async (req, res) => {
     else {
       //objeto que validad si se solicita el folio de cierre
       folio = {
-        folio: "noliquidar"
+        folio: "no-liquidar"
       }
 
       const sqlStatus = 'SELECT status FROM status WHERE status != "Pendiente" AND status != "Liquidar" AND status != "En espera" AND status != "Finalizado" ORDER BY statuS;'
@@ -168,6 +169,7 @@ controller.getStatus = async (req, res) => {
       res.render('customer/status.hbs', { customer: customer[0], status, folio })
     }
   }
+
   else {
     req.flash('fail', 'Permiso insuficiente')
     res.redirect('/resume')
@@ -183,20 +185,62 @@ controller.postStatus = async (req, res) => {
 
   //si no se recibe folio solo cambia status
   if (folio === undefined) {
-    //objeto con el status, observaciones con fecha y usuario
-    const updateCliente = {
-      status,
-      observaciones: observaciones + " (" + user.fullname + ").",
-      fecha_status: fechaActual,
-      motivo: null
-    };
 
-    //actualizo el status de customer
-    const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
-    await db.query(sqlUpdate, [updateCliente, id])
+    if (status != 'Asegurado') {
+      //objeto con el status, observaciones con fecha y usuario
+      const updateCliente = {
+        status,
+        observaciones: observaciones + " (" + user.fullname + ").",
+        fecha_status: fechaActual,
+        motivo: null
+      };
 
-    req.flash('success', 'Status actualizado correctamente')
-    res.redirect('/resume')
+      //actualizo el status de customer
+      const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
+      await db.query(sqlUpdate, [updateCliente, id])
+
+      req.flash('success', 'Status actualizado correctamente')
+      res.redirect('/resume')
+    }
+
+    else {
+      const sqlValidarLiquidacion = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ?;'
+      const validarLiquidacion = await db.query(sqlValidarLiquidacion, id)
+
+      if (validarLiquidacion.length !== 0) {
+        req.flash('fail', 'Cliente ya en liquidación')
+        res.redirect('/liquidaciones')
+      }
+
+      else {
+        //objeto con el status y el motivo para actualizar trámite
+        const updateStatus = {
+          status: 'Asegurado',
+          motivo: null
+        }
+
+        //actualizo el status
+        const sqlUpdate = 'UPDATE tramites SET ? WHERE id = ?'
+        await db.query(sqlUpdate, [updateStatus, id])
+
+        //monto a usar en liquidación
+        const sqlLiquidacion = 'SELECT monto FROM tramites WHERE id = ?;'
+        let liquidacion = await db.query(sqlLiquidacion, [id])
+
+        let createLiquidar = helpers.liquidacionAseguramiento(liquidacion[0].monto)
+
+        //agrega el id_cliente al objeto con la liquidacion
+        createLiquidar.id_cliente = id
+
+        //guardo liquidación
+        const sqlSaveLiquidacion = 'INSERT INTO liquidaciones SET ?'
+        await db.query(sqlSaveLiquidacion, [createLiquidar])
+
+        req.flash('success', 'Cliente agregado a liquidación')
+        res.redirect('/liquidaciones')
+      }
+    }
+
   }
 
   //valida si la liquidacion fue cerrada y si el folio coincide

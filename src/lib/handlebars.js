@@ -4,6 +4,7 @@ const helpers = {} //objeto a utilizar desde las vistas
 
 //métodos del objeto
 
+//*funciones formato
 //convierte la moneda en numero
 // helpers.formatterNumber = (monto) => {
 
@@ -360,9 +361,8 @@ helpers.numAleatorio = (max, min) => {
 }
 
 //*funciones liquidaciones
-//elige tipo de liquidacion
 
-//Cancun, Cancun2, Carmen, Chetumal, Cozumel, Cuautitlán, Cuernavaca2, Ixtapaluca, Playa, Polanco, Tizimín, Valladolid, Villahermosa, Campeche3
+//Se divide entre 3
 helpers.liquidacionSocio = (monto, abono) => {
   let porcentaje;
   let comision;
@@ -371,7 +371,6 @@ helpers.liquidacionSocio = (monto, abono) => {
   let sucursal;
   let sinAbono;
   let liquidar;
-  // const fechaActual = new Date()
 
   if (monto > 30801) {
     porcentaje = .30
@@ -421,20 +420,18 @@ helpers.liquidacionSocio = (monto, abono) => {
     abono,
     sin_abono: sinAbono,
     liquidar
-    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
 };
 
-//Campeche, Carmen, Coatzacoalcos, Playa2, Campeche2, Carmen2, Cuernavaca, Mérida
-helpers.liquidacionSucursalLocal = (monto) => {
+//Se descuenta lo del asesor
+helpers.liquidacionLocal = (monto) => {
   let porcentaje;
   let comision;
   let aseguramiento;
   let asesor;
   let liquidar;
-  // const fechaActual = new Date()
 
   if (monto > 30801) {
     porcentaje = .30
@@ -473,19 +470,17 @@ helpers.liquidacionSucursalLocal = (monto) => {
     aseguramiento,
     asesor,
     liquidar
-    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
 };
 
-//Escarcega, Champotón, Candelaria
-helpers.liquidacionSucursalForanea2 = (monto) => {
+//Se cobra el 30%
+helpers.liquidacionForanea = (monto) => {
   let porcentaje;
   let comision;
   let asesor;
   let liquidar;
-  // const fechaActual = new Date()
 
   porcentaje = .30
   comision = monto * porcentaje
@@ -498,13 +493,13 @@ helpers.liquidacionSucursalForanea2 = (monto) => {
     comision,
     asesor,
     liquidar
-    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
 };
 
-helpers.liquidacionSucursalEspecial = (monto) => {
+//Se cobra el 20%
+helpers.liquidacionEspecial = (monto, abono) => {
   let porcentaje;
   let comision;
   let aseguramiento;
@@ -512,7 +507,6 @@ helpers.liquidacionSucursalEspecial = (monto) => {
   let sucursal;
   let sinAbono;
   let liquidar;
-  // const fechaActual = new Date()
 
   if (monto > 30801) {
     porcentaje = .25
@@ -562,34 +556,198 @@ helpers.liquidacionSucursalEspecial = (monto) => {
     abono,
     sin_abono: sinAbono,
     liquidar
-    // fecha_liquidacion: fechaActual
   }
 
   return liquidacion
 };
 
+//?Otras sucursales
+
+//Clientes de otra sucursal 25%
+helpers.liquidacionSucursalLocal = (monto) => {
+  let porcentaje;
+  let comision;
+  let aseguramiento;
+  let asesor;
+  let liquidar;
+
+  if (monto > 30801) {
+    porcentaje = .30
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+  else if (monto > 24999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+
+  else if (monto > 14999) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1700
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+  else if (monto > 0) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 1300
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+
+  liquidacion = {
+    monto,
+    porcentaje: porcentaje * 100,
+    comision,
+    aseguramiento,
+    asesor,
+    liquidar
+  }
+
+  return liquidacion
+};
+
+//Clientes de otra sucursal 20%
+helpers.liquidacionSucursalEspecial = (monto) => {
+  let porcentaje;
+  let comision;
+  let aseguramiento;
+  let asesor;
+  let liquidar;
+
+  if (monto > 30801) {
+    porcentaje = .25
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+  else if (monto > 24999) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 2000
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+
+  else if (monto > 14999) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 1700
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+  else if (monto > 0) {
+    porcentaje = .20
+    comision = monto * porcentaje
+    aseguramiento = 1300
+    asesor = 0
+    liquidar = comision + aseguramiento
+  }
+
+  liquidacion = {
+    monto,
+    porcentaje: porcentaje * 100,
+    comision,
+    aseguramiento,
+    asesor,
+    liquidar
+  }
+
+  return liquidacion
+};
+
+//Clientes de otra sucursal 30%
+helpers.liquidacionSucursalForanea = (monto) => {
+  let porcentaje;
+  let comision;
+  let asesor;
+  let liquidar;
+
+  porcentaje = .30
+  comision = monto * porcentaje
+  asesor = 0
+  aseguramiento = 0
+  liquidar = comision
+
+
+  liquidacion = {
+    monto,
+    porcentaje: porcentaje * 100,
+    comision,
+    aseguramiento,
+    asesor,
+    liquidar
+  }
+
+  return liquidacion
+};
+
+//Agrega clientes asegurados a la liquidación
+helpers.liquidacionAseguramiento = (monto) => {
+  if (monto > 30801) {
+    aseguramiento = 2000
+  }
+  else if (monto > 24999) {
+    aseguramiento = 2000
+  }
+
+  else if (monto > 14999) {
+    aseguramiento = 1700
+  }
+  else if (monto > 0) {
+    aseguramiento = 1300
+  }
+
+  liquidacion = {
+    monto,
+    porcentaje: 0,
+    comision: 0,
+    aseguramiento,
+    asesor: 0,
+    sucursal: 0,
+    abono: 0,
+    sin_abono: 0,
+    liquidar: aseguramiento
+  }
+
+  return liquidacion
+}
+
+//elige tipo de liquidacion
 helpers.liquidacion = (monto, tipo, abono) => {
 
   switch (tipo) {
     case "Local":
-      helpers.liquidacionSucursalLocal(monto)
-      console.log('Local');
+      helpers.liquidacionLocal(monto)
       break;
     case "Socio":
       helpers.liquidacionSocio(monto, abono)
-      console.log('Socio');
       break;
-    case "Foráneo":
-      helpers.liquidacionSucursalForanea2(monto)
-      console.log('Foráneo');
+    case "Foránea":
+      helpers.liquidacionForanea(monto)
       break;
     case "Especial":
+      helpers.liquidacionEspecial(monto, abono)
+      break;
+    case "Sucursal Local":
+      helpers.liquidacionSucursalLocal(monto)
+      break;
+    case "Sucursal Foránea":
+      helpers.liquidacionSucursalForanea(monto)
+      break;
+    case "Sucursal Especial":
       helpers.liquidacionSucursalEspecial(monto)
-      console.log('Especial');
       break;
   }
 
-  return liquidacion
+  return liquidacion;
 };
 
 module.exports = helpers;

@@ -121,49 +121,66 @@ controller.postLiquidaciones = async (req, res) => {
   }
 }
 
-//valida si existe liquidacion render tipo liquidación (botón liquidar)
+//valida si existe liquidacion render tipo liquidación (from botón liquidar)
 controller.getLiquidar = async (req, res) => {
   const { id } = req.params
 
   const sqlValidarLiquidacion = 'SELECT id_cliente FROM liquidaciones WHERE id_cliente = ?;'
   const validarLiquidacion = await db.query(sqlValidarLiquidacion, id)
 
-  //creando el tipo de objeto segun usuario para la eleccion de la liquidacion
   if (validarLiquidacion.length !== 0) {
     req.flash('fail', 'Cliente ya en liquidación')
     res.redirect('/liquidaciones')
   }
 
+  //creando el tipo de objeto segun usuario para la eleccion de la liquidacion
   else {
     const user = req.user
     const sqlCustomer = 'SELECT id, cliente FROM tramites WHERE id = ?;'
     customer = await db.query(sqlCustomer, id)
 
-    //liquidacion como socio cobrando el 25% y local
-    if (user.zona !== 'Campeche3' && user.zona !== 'Tizimin' && user.zona !== 'Escarcega' && user.zona !== 'Champoton' && user.zona !== 'Palenque') {
+    //liquidacion como socio cobrando el 25% y sucursal (liquidacion integra)
+    if (user.zona !== 'Campeche3' && user.zona !== 'Tizimin' && user.zona !== 'Escarcega' && user.zona !== 'Champoton' && user.zona !== 'Palenque' && user.zona !== 'Campeche') {
+      tipoLiquidacion = [
+        {
+          liquidacion: 'Socio'
+        },
+        {
+          liquidacion: 'Sucursal Local'
+        }
+      ]
+
+    }
+    //liquidacion fornea cobra 30%
+    else if (user.zona == 'Escarcega' || user.zona == 'Champoton' || user.zona == 'Palenque') {
+      tipoLiquidacion = [
+        {
+          liquidacion: 'Foránea'
+        },
+        {
+          liquidacion: 'Sucursal Foránea'
+        }
+      ]
+    }
+    //liquidacion local descuenta lo del asesor
+    else if (user.zona == 'Campeche') {
       tipoLiquidacion = [
         {
           liquidacion: 'Local'
         },
         {
-          liquidacion: 'Socio'
-        }
-      ]
-
-    }
-    //liquidacion foraneo cobra 30%
-    else if (user.zona == 'Escarcega' || user.zona == 'Champoton' || user.zona == 'Palenque') {
-      tipoLiquidacion = [
-        {
-          liquidacion: 'Foráneo'
+          liquidacion: 'Sucursal Local'
         }
       ]
     }
-    //liquidacion como socio cobrando el 20% y local
+    //liquidacion como socio cobrando el 20% y local (Campeche3 & Tizimin)
     else {
       tipoLiquidacion = [
         {
           liquidacion: 'Especial'
+        },
+        {
+          liquidacion: 'Sucursal Especial'
         }
       ]
     }
@@ -172,7 +189,7 @@ controller.getLiquidar = async (req, res) => {
   }
 };
 
-//recibe liquidación a agregar (tipo de liquidación)
+//recibe liquidación a agregar (from tipo de liquidación)
 controller.postLiquidar = async (req, res) => {
   const { id } = req.params;
   let { tipo, abono } = req.body;
