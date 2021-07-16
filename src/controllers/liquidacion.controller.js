@@ -146,7 +146,10 @@ controller.getLiquidar = async (req, res) => {
           liquidacion: 'Socio'
         },
         {
-          liquidacion: 'Sucursal Local'
+          liquidacion: 'Local'
+        },
+        {
+          liquidacion: 'Sucursal'
         }
       ]
 
@@ -169,7 +172,7 @@ controller.getLiquidar = async (req, res) => {
           liquidacion: 'Local'
         },
         {
-          liquidacion: 'Sucursal Local'
+          liquidacion: 'Sucursal'
         }
       ]
     }
