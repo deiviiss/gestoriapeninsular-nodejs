@@ -736,7 +736,7 @@ helpers.liquidacion = (monto, tipo, abono) => {
     case "Especial":
       helpers.liquidacionEspecial(monto, abono)
       break;
-    case "Sucursal Local":
+    case "Sucursal":
       helpers.liquidacionSucursalLocal(monto)
       break;
     case "Sucursal Foránea":
